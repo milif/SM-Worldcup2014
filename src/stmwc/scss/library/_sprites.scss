@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+@import "compass/utilities/sprites/base";
+
+
+//$default-sprite-separator: '_';
+
+$packFirst: sprite-map("sprite/*.png", $spacing: 10px, $layout: smart);
+
+//$packSecond: sprite-map("flag/*.png", $spacing: 2px, $layout: smart);
+
+
+@function sprite-position-x($map, $sprite, $offset-x: 0) {
+    @return nth(sprite-position($map, $sprite, $offset-x, 0), 1);
+}
+
+@function sprite-position-y($map, $sprite, $offset-y: 0) {
+    @return nth(sprite-position($map, $sprite, 0, $offset-y), 2);
+}
+
+
+//shortcut
+@mixin s($sprite, $map: $packFirst){
+    background: sprite($map, $sprite) no-repeat;
+    //background-image: inline-image('icons/'+$sprite+'.png','image/png'); to switches sprites to base64, elegant
+    @include sprite-dimensions($map, $sprite);
+}
+
+//shortcut zoom
+@mixin szoom($sprite, $zoom: 1 , $map: $packFirst){
+    background-image: $map;
+    background-repeat: no-repeat;
+    background-position: sprite-position-x($map, $sprite, $offset-x: 0)*$zoom  sprite-position-y($map, $sprite, $offset-y: 0)*$zoom;
+    //background-image: inline-image('icons/'+$sprite+'.png','image/png'); to switches sprites to base64, elegant
+    width: image-width(sprite-file($map, $sprite))*$zoom +2;
+    height: image-height(sprite-file($map, $sprite))*$zoom +2;
+    background-size: image-width(sprite-path($map))*$zoom image-height(sprite-path($map))*$zoom;
+}
+
+// Size sprite item  WIDTH HEIGHT
+@mixin sz($sprite, $map: $packFirst ) {
+    @include sprite-dimensions($map, $sprite);
+}
+
+
+//shortcut BACKGROUND
+@mixin sbg($map: $packFirst){
+    background-image: $map;
+}
+
+// BACKGROUND POSITION
+@mixin sp($sprite, $map: $packFirst, $offset-x: 0, $offset-y: 0){
+    background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
+}
+
+
+// Size sprite item  WIDTH HEIGHT + BG POSITION
+@mixin szp($sprite, $map: $packFirst,  $offset-x: 0, $offset-y: 0 ) {
+    @include sprite-dimensions($map, $sprite);
+    background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
+}
+
+// Size sprite item  WIDTH HEIGHT BG POSITION + margin-top 50%
+@mixin szpt($sprite, $map: $packFirst,  $offset-x: 0, $offset-y: 0 ) {
+
+    @include sprite-dimensions($map, $sprite);
+    background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
+
+    margin-top: - round(image-height(sprite-file($map, $sprite))/2);
+}
+
+
+
+
+// Size sprite item  WIDTH HEIGHT BG POSITION + margin-left 50%
+@mixin szpl($sprite, $map: $packFirst,  $offset-x: 0, $offset-y: 0 ) {
+
+    @include sprite-dimensions($map, $sprite);
+    background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
+
+    margin-left: - round(image-width(sprite-file($map, $sprite))/2);
+}
+
+
+
+
+// +ss(имя-картинки) - на выходе 
+// .Базовый-класс_имя-картинки {размеры, bg-position} + 
+// состояния на HOVER ACTIVE (у картинок должны быть префиксы в конце  _hover _active)
+@mixin ss($sprite, $map: $packFirst, $offset-x: 0, $offset-y: 0){
+    @include sprites($map, $sprite, $dimensions: true);
+}
+
+
+
+// +sml(имя-картинки) - на выходе 
+// .Базовый-класс_имя-картинки {размеры, bg-position, margin-left: -50%ширины}
+// состояния на HOVER ACTIVE (у картинок должны быть префиксы в конце  _hover _active)
+// @mixin sml($sprite-names, $map: $icons, $base-class: false, $dimensions: true, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0) {
+//     @each $sprite-name in $sprite-names {
+//         @if sprite_does_not_have_parent($map, $sprite-name) {
+//             $full-sprite-name: "#{$prefix}_#{$sprite-name}";
+//             .#{$full-sprite-name}
+//                 @if $base-class {
+//                     @extend #{$base-class};
+//                 }
+//                 @include sprite($map, $sprite-name, $dimensions, $offset-x, $offset-y);
+//                 margin-left: - image-width(sprite-file($map, $sprite-name))/2;
+//         }
+//     }
+// }
+

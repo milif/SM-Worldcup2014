@@ -1,0 +1,60 @@
+/* Toolbar */
+/*==========================================================*/
+.toolbar {
+    @extend %clearfix;
+    @extend %bg-clip;
+    position: relative;
+    height: 37px;
+    border-radius: 7px;
+    background-color: #008a1b;
+    margin: 20px 0;
+    &__logo {
+        position: absolute;
+        left: 50%;
+        top: 12px;
+        text-indent: -9999px;
+        @extend %inline;
+        @extend %sprite;
+        @include sz(toolbar__logo);
+        @include szpl(toolbar__logo);
+    }
+}
+
+
+/* toolbar-buttons */
+.toolbar-buttons {
+    font-size: 0;
+    &--left {
+        float: left;
+    }
+    &--right {
+        float: right;
+    }
+    &__item {
+        @extend %inline;
+        font-size: 16px;
+        padding: 0 14px;
+        height: 37px;
+        line-height: 37px;
+        color: #fff;
+        text-shadow: 0 -1px 0 #004f0f;
+        text-decoration: none;
+        @extend %bg-clip;
+        &:first-child {
+            .toolbar-buttons--left & {
+                border-radius: 6px 0 0 6px;
+            }
+        }
+        &:last-child {
+            .toolbar-buttons--right & {
+                border-radius: 0 6px 6px 0;
+            }
+        }
+        &:hover {
+            @extend %button-hover-yellow;
+        }
+        &:active {
+            @extend %button-hover-yellow-active;
+        }
+    }
+}

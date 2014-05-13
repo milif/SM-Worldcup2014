@@ -1,0 +1,16 @@
+/build/
+.DS_Store
+*~
+.swp
+/.bundle
+/.gems
+/.sass-cache
+/compass
+/Gemfile.lock
+/node_modules/
+/bower_components/
+/tmp/
+/pulls/
+/validate-commit-msg.js
+src/codekit-config.json
+plunk/

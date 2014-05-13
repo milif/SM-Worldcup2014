@@ -1,0 +1,36 @@
+.l-content {
+    @extend %clearfix;
+}
+
+.l-main-content {
+    width: 740px;
+    float: left;
+}
+
+.l-sidebar {
+    margin-left: 20px;
+    width: 240px;
+    float: right;
+}
+
+.sidebar-section {
+    background-color: #fff;
+    @extend %common-border-radius;
+    @extend %common-shadow;
+    padding: 20px 20px 0 20px;
+    margin-bottom: 20px;
+    &__logo {
+        margin-bottom: 14px;
+        display: block;
+        text-align: center;
+    }
+    &__title {
+        font-size: 13px;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+
+}

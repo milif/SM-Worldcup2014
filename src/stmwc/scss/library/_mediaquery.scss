@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+@import "breakpoint";
+
+// MOBILE FIRST
+// @include media(phone){...};
+
+// Phone  0 .. 640px
+$phone: max-width 40em;
+$phone-up: 'only screen';
+
+// Tablets   641px .. 991px
+$tablet: 40.063em 61.938em;
+$tablet-up: min-width 40.063em;
+
+// Mobile   ...  991px
+$mobile: max-width 61.938em;
+
+// Desktop  992px ... 1200
+$desktop: 62em 75em;
+$desktop-up: min-width 62em;
+
+// Extra LARGE  1201 ...
+$large: min-width 75.063em;
+
+// HEIGHT
+$tall: min-height 780px;
+$low: max-height 779px;
+
+
+
+@mixin media($step: phone) {
+
+    // Height
+    @if $step == tall {
+        @include breakpoint($tall) {
+            @content
+        }
+    };
+
+    @if $step == low {
+        @include breakpoint($low) {
+            @content
+        }
+    };
+    
+
+    @if $step == phone {
+        @include breakpoint($phone) {
+            @content
+        }
+    };
+    @if $step == phone-up {
+        @include breakpoint($phone-up) {
+            @content
+            }
+        };
+
+    @if $step == tablet {
+        @include breakpoint($tablet) {
+            @content
+        }
+    };
+
+    @if $step == tablet-up {
+        @include breakpoint($tablet-up) {
+            @content
+        }
+    };
+
+    @if $step == mobile {
+        @include breakpoint($mobile) {
+            @content
+        }
+    };
+
+    @if $step == desktop {
+        @include breakpoint($desktop) {
+            @content
+        }
+    };
+
+    @if $step == desktop-up {
+        @include breakpoint($desktop-up) {
+            @content
+        }
+    };
+
+    @if $step == large {
+        @include breakpoint($large) {
+            @content
+        }
+    };
+
+
+
+
+
+}

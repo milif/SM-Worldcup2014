@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+/* normalize */
+/*==========================================================*/
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary {
+    display: block;
+    }
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline;
+    }
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+    }
+
+a {
+    background: transparent;
+    text-decoration: underline;
+    }
+a:hover {
+    text-decoration: none;
+}
+a:active,
+a:hover,
+a:focus {
+    outline: 0;
+    }
+
+abbr[title] {
+    border-bottom: 1px dotted;
+    }
+
+b,
+strong {
+    font-weight: bold;
+    }
+
+dfn {
+    font-style: italic;
+    }
+
+mark {
+    background: #ff0;
+    color: #000;
+    }
+
+small {
+    font-size: 80%;
+    }
+
+sub,
+sup {
+    position: relative;
+    vertical-align: baseline;
+    font-size: 75%;
+    line-height: 0;
+    }
+
+sup {
+    top: -0.5em;
+    }
+
+sub {
+    bottom: -0.25em;
+    }
+
+svg:not(:root) {
+    overflow: hidden;
+    }
+
+figure {
+    margin: 1em 40px;
+    }
+
+hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+    }
+
+pre {
+    overflow: auto;
+    }
+
+code,
+kbd,
+pre,
+samp {
+    font-size: 1em;
+    font-family: monospace, monospace;
+    }
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    }
+
+button {
+    overflow: visible;
+    }
+
+button,
+select {
+    text-transform: none;
+    }
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+    }
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+    }
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+    }
+
+input[type="search"] {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-appearance: textfield;
+    }
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    }
+
+textarea {
+    overflow: auto;
+    }
+
+textarea:active,
+textarea:focus {
+    outline: none;
+    cursor: text;
+    }
+
+optgroup {
+    font-weight: bold;
+    }
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    }
+
+td,
+th {
+    padding: 0;
+    }
+
+abbr[title], dfn[title] {
+    cursor: help;
+    }
+
+u, ins {
+    text-decoration: none;
+    }
+
+ins {
+    border-bottom: 1px solid;
+    }
+
+// Убираем крестик на инпутах в ie 10
+input::-ms-clear{
+    display: none;
+}
+input[type=password]::-ms-reveal{
+    display: none;
+}
+
+//Правильная расстановка переносов в .text p
+.text p {
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+    // Non standard for webkit
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}

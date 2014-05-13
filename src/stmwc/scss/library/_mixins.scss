@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+
+@mixin placeholder-color($color){
+    &::-webkit-input-placeholder {
+        color: $color !important;
+        }
+    &:-moz-placeholder {
+        color: $color !important;
+        opacity: 1;
+        }
+    &::-moz-placeholder {
+        color: $color !important;
+        opacity: 1;
+        }
+    &:-ms-input-placeholder {
+        color: $color !important;
+        }
+    &.placeholder {
+        color: $color !important;
+        }
+}

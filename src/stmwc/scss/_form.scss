@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+/* Button */
+/*==========================================================*/
+%btn {
+    @extend %inline;
+    @extend %bg-clip;
+    cursor: pointer;
+    border: 1px solid;
+    @extend %noselect;
+    @extend %border-box;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+//Size button
+%btn--size-normal {
+    height: 38px;
+    font-size: 16px;
+    padding: 0 10px;
+    line-height: 36px;
+}
+%btn--size-small {
+    height: 30px;
+    font-size: 13px;
+    padding: 0 9px;
+    line-height: 28px;
+}
+
+
+//Button color cheme
+%btn--gray {
+    text-shadow: 0 1px 0 rgba(255,255,255,.75);
+    color: #000;
+    border-color: #c3c3c3;
+    box-shadow: 0 1px 0 rgba(255,255,255,.25), inset 0 1px 0 rgba(255,255,255,.45);
+    @include background-image(linear-gradient(bottom, #d9d9d9 0%, #f1f1f1 100%));
+    &:hover {
+        @include background-image(linear-gradient(bottom, lighten(#d9d9d9,3%) 0%, lighten(#f1f1f1, 3%) 100%));
+    }
+    &:active {
+        @include background-image(linear-gradient( #d9d9d9 0%, #f1f1f1 100%));
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 6px darken(#d9d9d9, 10%);
+    }
+}
+
+%btn--green {
+    text-shadow: 0 -1px 0 #004f0f;
+    color: #fff;
+    border-color: #006f16;
+    @include background-image(linear-gradient(bottom, #008f1d 0%, #00891b 19.75%, #009d07 100%));
+    &:hover {
+        @include background-image(linear-gradient(bottom, lighten(#008f1d,3%) 0%, lighten(#00891b,3%) 19.75%,  lighten(#009d07, 3%) 100%));
+    }
+    &:active {
+        @include background-image(linear-gradient(lighten(#008f1d,3%) 0%, lighten(#00891b,3%) 19.75%,  lighten(#009d07, 3%) 100%));
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 4px rgba(0, 255, 52, 0.88);
+    }
+}
+
+
+
+.btn {
+    @extend %btn;
+    &--subscribe {
+        @extend %btn--gray;
+        @extend %btn--size-normal;
+        border-radius: 3px;
+    }
+}
+
+
+
+
+/* input text */
+/*==========================================================*/
+%input-text {
+    @extend %inline;
+    @extend %border-box;
+    outline: none;
+    margin: 0;
+    width: 100%;
+    transition: box-shadow 0.1s, border-color 0.1s ease-in-out;
+    -webkit-appearance: none;
+    border-radius: 0;
+    border: 1px solid #c3c3c3;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    &:focus {
+        transition: box-shadow 0.1s, border-color 0.1s ease-in-out;
+    }
+    @include placeholder-color(#e4e4e4);
+    &:hover {
+        box-shadow: 0 0 6px rgba(#4f5152, .2);
+    }
+    &:focus {
+        border: 1px solid #009909;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0,138,28,.8), inset 0 1px 2px rgba(0,0,0,.1);
+    }
+}
+%input-text-size-normal {
+    border-radius: 4px;
+    $height_input: 38px;
+    $padding_left: 5px;
+    $padding_right: 5px;
+    $font-size: 16px;
+    $pp: round(($height_input - $font-size*1.4 - 1px )/2);
+    line-height: 1.4;
+    font-size: $font-size;
+    padding: $pp $padding_right $pp $padding_left;
+    height: $height_input;
+}
+
+%input-text-size-medium {
+    border-radius: 6px;
+    $height_input: 42px;
+    $padding_left: 0px;
+    $padding_right: 0px;
+    $font-size: 30px;
+    $pp: round(($height_input - $font-size*1.4 - 1px )/2);
+    @if ($pp<0) {
+        $pp: 0;
+    }
+    line-height: 1.4;
+    font-size: $font-size;
+    padding: $pp $padding_right $pp $padding_left;
+    height: $height_input;
+}
+
+
+.input-text {
+    @extend %input-text;
+    &--size-normal {
+        @extend %input-text;
+        @extend %input-text-size-normal;
+    }
+}
+
+
+/* form row */
+/*==========================================================*/
+.form-row {
+    margin-top: 20px;
+    @extend %first-top;
+    &--small {
+        @extend %inline;
+        font-size: 0;
+    }
+}
+
+.form-row-table {
+    display: table;
+    width: 100%;
+    %form-row-table-td {
+        vertical-align: top;
+        display: table-cell;
+    }
+    &__left {
+        @extend %form-row-table-td;
+        padding-right: 4px;
+    }
+    &__right {
+        @extend %form-row-table-td;
+        width: 1%;
+    }
+}

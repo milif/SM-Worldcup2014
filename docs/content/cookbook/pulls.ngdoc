@@ -1,0 +1,36 @@
+@ngdoc overview
+@name Pull requests
+@description
+
+<style>
+    .b-pull {
+        position: relative;
+        }
+        .b-pull .mask{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: white url(img/loader-small.gif) 50% 50% no-repeat;
+            opacity: 0.5;
+            }
+        .b-pull.state_loading .mask{
+            display: block;
+            }
+</style>
+# Pull requests 
+<div ng-controller="pullsCtrl">
+    <br/>
+    <div class="btn" ng-click="load()"><i class="icon-refresh"></i> Refresh</div>
+    <br/>
+    <br/>
+    <p ng-repeat="pull in pulls | orderBy:'updatedAt':true" ng-switch="!!pull.url" ng-class="pull.loading ? 'state_loading' : ''" class="b-pull">
+        <a href="{{pull.url}}" ng-switch-when="true" target="_blank"><strong>{{pull.title}}</strong></a> <strong ng-switch-when="false">{{pull.title}}</strong>&nbsp;<a href="{{pull.pullUrl}}" target="_blank">#{{pull.id}}</a> <small>({{pull.updatedAt | date:'dd.MM.yyyy HH:mm:ss'}})</small> <span ng-switch-when="false" ng-click="build(pull.id)" class="btn btn-small">Build patch</span>
+        <br/>
+        <small>{{pull.description}}</small>
+        <span class="mask"></span>
+    </p>
+    <p ng-show="loading">Loading...</p>
+</div>

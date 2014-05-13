@@ -1,0 +1,15 @@
+.l-popup {
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    right: 0;
+    top: 0;
+    min-height: 100%;
+}
+.l-popup.ng-leave {
+    @include single-transition();
+    opacity: 1;
+}
+.l-popup.ng-leave-active {
+    opacity: 0;
+}

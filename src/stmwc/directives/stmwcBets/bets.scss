@@ -1,0 +1,276 @@
+/* Bet */
+/*==========================================================*/
+.bet {
+    @extend %common-shadow;
+    @extend %common-border-radius;
+    padding: 20px 20px 0 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.bet-table-top {
+    display: table;
+    width: 100%;
+    margin-bottom: 20px;
+    &__item {
+        display: table-cell;
+        vertical-align: top;
+        text-align: center;
+        &:first-child,
+        &:last-child {
+            padding-top: 6px;
+            width: 160px;
+        }
+    }
+}
+
+.button-bet-top {
+    min-width: 160px;
+    @extend %btn;
+    @extend %btn--green;
+    @extend %btn--size-normal;
+    border-radius: 3px;
+}
+
+/* bet-data-select */
+.bet-data-select {
+    margin-bottom: 8px;
+    font-size: 25px;
+}
+.bet-data-select-button {
+    position: relative;
+    margin-right: 20px;
+    color: #008a1c;
+    @extend %inline;
+    text-decoration: none;
+    &:before {
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        left: 0;
+        border-bottom: 1px dotted;
+        content: '';
+    }
+    &:after {
+        position: absolute;
+        @extend %sprite;
+        top: 16px;
+        right: -20px;
+        content: '';
+        @include szp(arrow-down-green);
+    }
+}
+
+.bet-data-note {
+    color: #999;
+    font-size: 13px;
+}
+
+.labelst {
+    @extend %inline;
+    position: relative;
+    z-index: 10;
+    margin: 0 8px;
+    color: #7d6e2c;
+    font-weight: bold;
+    &:before {
+        position: absolute;
+        top: -1px;
+        right: -5px;
+        bottom: -1px;
+        left: -5px;
+        z-index: -1;
+        @extend %common-border-radius;
+        background-color: #ffde50;
+        content: '';
+    }
+}
+
+
+/* bets */
+.bets {
+    &__item {
+        margin-top: 20px;
+        @extend %common-shadow;
+        @extend %common-border-radius;
+        @extend %first-top;
+        padding: 10px;
+        border: 2px solid transparent;
+        &--true {
+            border-color: #ffd938;
+        }
+        &--wine {
+            border-color: #008a1c;
+        }
+        &--false {
+            border-color: #ed1c24;
+        }
+    }
+
+    &__item-table {
+        display: table;
+        width: 100%;
+    }
+    &__item-table-td {
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        &:first-child,
+        &:last-child {
+            width: 150px;
+            text-align: left;
+        }
+    }
+
+    &__item-country {
+        padding-top: 2px;
+        line-height: 100%;
+        width: 130px;
+        @extend %inline;
+        font-size: 18px;
+        &--left {
+            text-align: right;
+        }
+        &--right {
+            text-align: left;
+        }
+    }
+
+    &__item-country-flag {
+        @extend %inline;
+        padding-top: 9px;
+    }
+    
+    &__item-note {
+        font-size: 13px;
+        color: #000;
+        &--alert {
+            color: #cc0000;
+        }
+        &--fade {
+            color: #999;
+        }
+    }
+    
+}
+
+.input-scoring {
+    width: 44px;
+    @extend %input-text;
+    @extend %input-text-size-medium;
+    text-align: center;
+    margin: 0 3px;
+    &:focus {
+        text-align: left;
+        padding-left: 8px;
+    }
+}
+
+.form-scoring {
+    @extend %inline;
+}
+
+.input-separator {
+    @extend %inline;
+    margin: 0 -2px;
+    line-height: 42px;
+    font-size: 30px;
+    font-weight: bold;
+    .bets__item--true &,
+    .bets__item--wine &,
+    .bets__item--false & {
+        color: transparent;
+    }
+}
+
+/* bets-active */
+.bets-active {
+    padding-left: 24px;
+    font-size: 13px;
+    @extend %inline;
+    position: relative;
+    line-height: 18px;
+    &--fade {
+        color: #999;
+    }
+    &:before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        left: 0;
+        top: -2px;
+    }
+
+    .bets__item--wine & {
+        color: #008a1c;
+    }
+    .bets__item--false & {
+        color: #ed1c24;
+    }
+}
+
+/* bet-data */
+.bet-data {
+    margin-bottom: 20px;
+    &__item {
+        margin-top: 40px;
+        @extend %first-top;
+    }
+    &__item-data {
+        font-size: 23px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    &__item-data-position {
+        font-size: 13px;
+        color: #a2a2a2;
+    }
+}
+
+.true-score {
+    padding-top: 6px;
+    font-size: 13px;
+    line-height: 100%;
+    .bets__item--true & {
+        color: #d2aa00;
+    }
+    .bets__item--wine & {
+        color: #008a1c;
+    }
+    .bets__item--false & {
+        color: #ed1c24;
+    }
+}
+
+/* button-bet */
+.button-bet {
+    font-size: 13px;
+    border-radius: 5px;
+    @extend %btn;
+    @extend %btn--green;
+    @extend %btn--size-normal;
+    width: 100%;
+}
+
+/* aside-bottom-btn */
+.aside-bottom-btn {
+    text-align: center;
+    padding: 14px;
+    margin: 0 -20px 0 -20px;
+    background-color: #f3f3f3;
+    @extend %common-border-radius-bottom;
+    &__link {
+        @extend %inline;
+        text-decoration: none !important;
+        border-bottom: 1px dotted ;
+        color: #000;
+        @extend %link-active;
+    }
+    &__link-h {
+        font-size: 11px;
+        color: #a2a2a2;
+    }
+}

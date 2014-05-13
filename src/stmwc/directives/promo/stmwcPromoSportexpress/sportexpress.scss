@@ -1,0 +1,25 @@
+/* news */
+.sidebar-news {
+    &__list {
+        font-size: 13px;
+        line-height: 20px;
+        margin-bottom: 20px;
+    }
+    &__item {
+        margin-top: 20px;
+        @extend %first-top;
+    }
+    &__item-link {
+        text-decoration: none !important;
+        color: #000;
+        border-bottom: 1px solid #ccc;
+        @extend %link-active;
+        &:hover {
+            border-color: #f66b0e;
+        }
+    }
+    &__item-date {
+        font-size: 11px;
+        color: #999;
+    }
+}

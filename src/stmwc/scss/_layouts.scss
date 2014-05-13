@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.l-content {
+    @extend %clearfix;
+}
+
+.l-main-content {
+    width: 740px;
+    float: left;
+}
+
+.l-sidebar {
+    margin-left: 20px;
+    width: 240px;
+    float: right;
+}

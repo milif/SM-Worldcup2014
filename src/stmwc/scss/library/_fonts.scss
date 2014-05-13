@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+@mixin font($folder, $name){
+     @font-face {
+        font-family: ""+$name+"";
+        src: local ""+$name+"";
+        src: url("../fonts/" + $folder + "/"+$name+".eot");
+        src: url("../fonts/" + $folder + "/"+$name+".eot?#iefix") format("embedded-opentype"), 
+             url("../fonts/" + $folder + "/"+$name+".woff") format("woff"), 
+             url("../fonts/" + $folder + "/"+$name+".ttf") format("truetype"),
+             url("../fonts/" + $folder + "/"+$name+".svg#"+$name+"") format('svg');
+    }
+}

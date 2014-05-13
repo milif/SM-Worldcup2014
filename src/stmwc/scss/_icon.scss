@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/* ico */
+/*==========================================================*/
+.ico {
+    @extend %inline-middle;
+    @extend %sprite;
+    position: relative;
+    &--star {
+        top: -2px;
+        @include szp(star);
+    }
+}

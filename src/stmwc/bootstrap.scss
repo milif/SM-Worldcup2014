@@ -1,0 +1,31 @@
+@charset "UTF-8";
+@import "compass";
+
+
+@import "scss/library/_fonts.scss";
+@import "scss/library/_mediaquery.scss";
+@import "scss/library/_mixins.scss";
+@import "scss/library/_sprites.scss";
+
+$supported-browsers: reject(browsers(), ie('9'));
+$svg-gradient-shim-threshold: 0.1;
+
+$default-transition-duration: 0.2s;
+$default-transition-function: ease;
+$default-transition-delay: 0;
+
+@import "scss/_reset.scss";
+@import "scss/_normalize.scss";
+
+@import "scss/_global.scss";
+
+@import "scss/_common.scss";
+
+// Подключаем для теста
+//@import "_debug.scss";
+
+//@import "scss/_layouts.scss";
+
+@import "scss/_form.scss";
+@import "scss/_icon.scss";
+@import "scss/_flag.scss";

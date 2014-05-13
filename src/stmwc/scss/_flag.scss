@@ -1,0 +1,34 @@
+/* Flag */
+/*==========================================================*/
+
+@import "compass/utilities/sprites/base";
+
+$default-sprite-separator: '--';
+
+$mysprite-layout: smart;
+
+@import "flags/*.png";
+
+@include all-flags-sprites;
+
+.flags {
+    width: 16px;
+    height: 11px;
+    @extend %inline;
+}
+
+
+
+///* Flag */
+///*==========================================================*/
+//.flags {
+//    @include sbg($packSecond);
+//    @include sz(uruguay, $packSecond);
+//    @extend %inline;
+//    @each $flagCountry in uruguay, flag2 {
+//        &--#{$flagCountry} {
+//            @include sp(#{$flagCountry}, $packSecond);
+//        }
+//    }
+//}
+//

@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+// Extentd background-image
+%sprite {
+    @include sbg();
+}
+
+
+///* Clearfix */
+%clearfix {
+    &:after {
+        display: table;
+        clear: both;
+        content: "";
+    }
+}
+
+///* HIDE */
+.hide {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    border: 0;
+}
+
+///* BORDER-BOX */
+%border-box {
+    box-sizing: border-box;
+}
+
+///* BG-CLIP */
+%bg-clip {
+    background-clip: padding-box;
+}
+
+///* no-select */
+%noselect {
+    user-select: none;
+}
+
+///* inline block */
+%inline {
+    display: inline-block;
+    vertical-align: top;
+}
+
+///* inline block  middle */
+%inline-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+%first-left {
+    &:first-child {
+        margin-left: 0;
+    }
+}
+
+%first-top {
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+//Hover button style
+%button-hover-yellow {
+    color: #000;
+    text-shadow: 0 1px 0 #ffd700;
+    @include background-image(linear-gradient(bottom, #ffde00 0%, #e3a500 6.18%, #ffce00 90.89%, #ffe400 98.66%, #ffe400 100%));
+}
+%button-hover-yellow-active {
+    @include background-image(linear-gradient(#ffde00 0%, #e3a500 6.18%, #ffce00 90.89%, #ffe400 98.66%, #ffe400 100%));
+}
+
+
+//Common-shadow
+%common-shadow {
+    box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+
+//Common-border-radius
+%common-border-radius {
+    border-radius: 6px;
+}
+//Common-border-radius-top
+%common-border-radius-top {
+    border-radius: 6px 6px 0 0;
+}
+
+//Common-border-radius-bottom
+%common-border-radius-bottom {
+    border-radius: 0 0 6px 6px;
+}
+
+
+//Common-link-style-active
+%link-active {
+    &:hover {
+        color: #f66b0e;
+        text-decoration: underline;
+    }
+    &:active {
+        color: darken(#f66b0e, 10%);
+        text-decoration: none;
+    }
+}
+
+///* VIEW MEDIAQ */
+///*==========================================================*/
+//.view-phone,
+//.view-mobile,
+//.view-tablet,
+//.view-desktop,
+//.view-desktop-up,
+//.view-large {
+//    display: none;
+//}
+//@include media(phone){.view-phone {display: block}};
+//@include media(tablet){.view-tablet {display: block}};
+//@include media(mobile){.view-mobile {display: block}};
+//@include media(desktop){.view-desktop {display: block}};
+//@include media(desktop-up){.view-desktop-up {display: block}};
+//@include media(large){.view-large {display: block}};

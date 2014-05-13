@@ -1,0 +1,69 @@
+<div class="bet">
+    <div class="bet-table-top">
+        <div class="bet-table-top__item">
+            <a class="button-bet-top" href="#109">Прошедшие матчи</a>
+        </div>
+        <div class="bet-table-top__item">
+            <div class="bet-data-select">
+                Ставки на матчи <a class="bet-data-select-button" href="#113">13 июня</a>
+            </div>
+            <div class="bet-data-note">
+                <span class="labelst">200 Б</span>   за угаданный счет,   <span class="labelst">100 Б</span>   за победиетеля
+            </div>
+        </div>
+        <div class="bet-table-top__item">
+            <a class="button-bet-top" href="#109">Ставки на удачу</a>
+        </div>
+    </div>
+
+    <!-- bet-data-list -->
+    <div class="bet-data">
+        <div ng-repeat="section in sections">
+            <div ng-repeat="dateBets in section" class="bet-data__item">
+                <div class="bet-data__item-data">{{dateBets.date}}  <span class="bet-data__item-data-position">{{dateBets.descr}}</span></div>
+                <div class="bets">
+                    <div ng-repeat="bet in dateBets.bets" class="bets__item">
+                        <div class="bets__item-table">
+                            <div class="bets__item-table-td">
+                                <div class="bets__item-note">До матча осталось</div>
+                                <div class="bets__item-note bets__item-note--alert">2 дня 8 часов 44 минуты</div>
+                            </div>
+                            <div class="bets__item-table-td">
+                                <div class="bets__item-country bets__item-country--left">
+                                    <div>Уругвай</div>
+                                    <span class="bets__item-country-flag">
+                                        <span class="flags flags--uruguay"></span>
+                                    </span>
+                                </div>
+                                <form action="#3" class="form-scoring">
+                                    <fieldset>
+                                        <div class="form-row form-row--small">
+                                            <input type="text" class="input-scoring" placeholder="?" maxlength="2">
+                                            <div class="input-separator">:</div>
+                                            <input type="text" class="input-scoring" placeholder="?" maxlength="2">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <div class="bets__item-country bets__item-country--right">
+                                    <div>Канада</div>
+                                    <span class="bets__item-country-flag">
+                                        <span class="flags flags--flag2"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="bets__item-table-td">
+                                <div class="bets-active bets-active--fade">Сделайте вашу ставку</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // bet-data-list -->
+
+    <div class="aside-bottom-btn">
+        <a href="#356" class="aside-bottom-btn__link">Все доступные матчи <span class="aside-bottom-btn__link-h">598</span></a>
+    </div>
+</div>

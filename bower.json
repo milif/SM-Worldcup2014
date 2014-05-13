@@ -1,0 +1,7 @@
+{
+  "name": "Sotmarket-Worldcup2014",
+  "devDependencies": {
+    "angularjs": "git://github.com/angular/angular.js.git#v1.2.16",
+    "jquery": "git://github.com/components/jquery.git#v2.1.0"
+  }
+}
