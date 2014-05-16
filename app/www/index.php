@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__.'/../lib/init.php';
+    
 ?><!doctype html>
 <html ng-app="stmwc" lang="ru">
 <head>
@@ -10,6 +11,7 @@
 </head>
 <body stmwc-layout-page>
     <div stmwc-toolbar></div>
+    <div stmwc-userinfo></div>
     <div stmwc-layout-sidebar>
         <content>
             <div stmwc-bets></div>

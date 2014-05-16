@@ -3,7 +3,7 @@
 require_once __DIR__.'/../config.php';
 //require_once __DIR__.'/Socials.class.php';
 //require_once __DIR__.'/Auth.class.php';
-//require_once __DIR__.'/User.class.php';
+require_once __DIR__.'/User.class.php';
 
 if(!isset($GAME_DATA)) $GAME_DATA = array();
 if(!isset($SHARE_URI)) $SHARE_URI = '/';
@@ -17,7 +17,7 @@ $API = array_merge(array(
 ), isset($API) ? $API : array());
 
 $ENV = array_merge(array(
-    'auth' => null,//User::getData(),
+    'auth' => User::getData(),
     'api' => $API,
     'isProduction' => IS_PRODUCTION
 ), isset($ENV) ? $ENV : array());

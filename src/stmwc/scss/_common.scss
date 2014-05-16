@@ -109,6 +109,20 @@
     }
 }
 
+%link-pseudo {
+    cursor: pointer;
+    text-decoration: none !important;
+    border-bottom: 1px dotted ;
+    @extend %link-active;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 ///* VIEW MEDIAQ */
 ///*==========================================================*/
 //.view-phone,

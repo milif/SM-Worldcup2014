@@ -4,10 +4,15 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.4;
     -webkit-font-smoothing: antialiased;
-    background-color: #fff9e5;
-    }
-    
+    background: #fff9e5 url('../../assets/i/head.png') repeat-x 0 0;
+}  
 .l-page {
     width: 1000px;
     margin: 0 auto;
+} 
+.l-page > * {
+  margin: 20px 0;
+} 
+.ll-page {
+    width: 100%;
 }    

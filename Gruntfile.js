@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     init: {
         bower: {
             'angular': 'angularjs/build',
-            'jquery': 'jquery'
+            'jquery': 'jquery',
+            'angularui': 'angular-ui-utils'
         }
     },    
     buildapp: {
@@ -31,7 +32,9 @@ module.exports = function(grunt) {
                     'directive:stmwcToolbar',
                     'directive:stmwcPreload',
                     'directive:stmwcBets',
-                    'directive:stmwcPromoSportexpress'
+                    'directive:stmwcUserinfo',
+                    'directive:stmwcPromoSportexpress',
+                    '$stmwcAuth'
                 ],
                 includeAsset: true,
                 includeTemplates: [
@@ -71,7 +74,7 @@ module.exports = function(grunt) {
   });
 
   //alias tasks
-  grunt.registerTask('package', ['shell', 'init', 'docs', 'app']);
+  grunt.registerTask('package', ['shell', 'init', /*'docs',*/ 'app']);
   grunt.registerTask('app', ['buildapp']);
   grunt.registerTask('docs', ['builddocs']);
   grunt.registerTask('default', ['package']);
