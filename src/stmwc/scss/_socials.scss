@@ -1,0 +1,97 @@
+/* Socials */
+/*==========================================================*/
+.socials {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 0;
+    &__button {
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        margin-left: 3px;
+        padding-left: 24px;
+        height: 26px;
+        @extend %inline;
+        border: 1px solid  #006f16;
+        border-radius: 4px;
+        @extend %border-box;
+        background-color: #009a0b;
+        color: #fff;
+        @extend %bg-clip;
+        text-decoration: none;
+        text-shadow: 0 -1px 0 #00841a;
+        white-space: normal;
+        font-size: 11px;
+        @extend %first-left;
+        &:hover {
+            border-color: #00d02a;
+            box-shadow: 0 0 8px rgba(0,255,52,.88);
+        }
+        &:active {
+            border-color:  #006314;
+            box-shadow: none;
+            .socials__button-h {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                display: block;
+                border-radius: 3px;
+                box-shadow: inset 0 2px 4px #004f0f;
+            }
+        }
+        &:before {
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            display: block;
+            content: '';
+            @extend %sprite;
+        }
+        &--sm:before {
+            margin-left: -3px;
+        }
+        &--tw:before {
+            margin-left: -1px;
+        }
+        @each $icons in vk, fb, g, tw, ok, sm {
+            &--#{$icons} {
+                &:before {
+                    @include szpt(social-#{$icons});
+                }
+            }
+        }
+
+    }
+
+    &__button-count {
+        @extend %inline;
+        padding: 0 7px;
+        @extend %bg-clip;
+        height: 24px;
+        border-radius: 0 3px 3px 0;
+        background-color: #007b0d;
+        line-height: 24px;
+        text-shadow: 0 -1px 0 #00841a;
+    }
+    /* Toolbar */
+    &--toolbar {
+        float: right;
+        margin-top: 10px;
+        margin-right: 20px;
+    }
+
+
+}
+
+/* style */
+.socials--style {
+    .socials__button {
+        @include background-image(linear-gradient(bottom, #008f1d 0%, #00891b 19.75%, #009d07 100%));
+    }
+    .socials__button-count {
+        background: none;
+        border-left: 1px solid #006f16;
+    }
+}

@@ -82,14 +82,17 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         for(var iii=0;iii<sections[i][ii].bets.length;iii++){
                             bet = sections[i][ii].bets[iii];
                             if(bet.time < $scope.time || bet.value[0] >= 0 || bet.value[1] >= 0) continue;
-                            bet.value[0] = Math.round(Math.random() * 9);
-                            bet.value[1] = Math.round(Math.random() * 9);
-                            $scope.onBet(bet);
+                            doBet(bet, [Math.round(Math.random() * 9), Math.round(Math.random() * 9)]);
                         }
                     }
                 }
             }
-            
+            function doBet(bet, value){
+                Bets.bet(bet.id, value[0], value[1], function(canBet, success){
+                    if(success) bet.value = value;
+                    $scope.canBet = canBet;
+                });
+            }
             function updateBets(){
                 bets = Bets.update(onUpdateBets);
             }

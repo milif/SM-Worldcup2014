@@ -28,12 +28,19 @@ class DB {
         if(!$PDO) return array();
         $sth = $PDO->prepare($sql);
         $ok = $sth->execute($params);
-        if(!$ok) var_dump($sth->errorInfo());
+        //if(!$ok) var_dump($sth->errorInfo());
         return $ok;
     }
     static public function lastInsertId(){
         $PDO = self::getInstance();
         if(!$PDO) return 0;
         return $PDO->lastInsertId();        
+    }
+    static public function getSetPart($data){
+        $res = array();
+        foreach($data as $k=>$v){
+            $res[] = "`$k` = :$k";
+        }
+        return implode(',', $res);
     }
 }

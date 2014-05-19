@@ -10,8 +10,8 @@
  <meta name="viewport" content="width=1024">
  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
  <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
- <meta property="og:title" content="Сочные игры 2014"/>
- <meta property="og:description" content="Не пропусти начало сочных викторин и розыгрыша сочных призов от Сотмаркета."/> 
+ <meta property="og:title" content="ЧМ по футболу 2014 от Сотмаркет"/>
+ <meta property="og:description" content=""/> 
  <?php require_once __DIR__.'/../lib/env.php'; ?>
  <meta property="og:image" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>social.jpg"/>
  <meta property="og:url" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>"/> <?php 

@@ -1,0 +1,48 @@
+<div class="user-progress">
+    <div class="user-info">
+        <div class="user-info__image">
+            <div class="user-info__image-h">
+                <img ng-if="auth.isAuth && user.avatar" ng-src="{{user.avatar}}" alt="{{user.name}}">
+            </div>
+            <a ng-if="auth.isAuth" ng-href="." class="user-info__link" ng-click="auth.logout()">Выйти</a>
+            <span ng-if="!auth.isAuth" class="user-info__button" ng-click="auth.auth()">Войти</span>
+        </div>
+
+        <div class="user-info-note">
+            <div class="user-info__name">{{auth.isAuth ? user.name : name}}</div>
+            <div class="user-info__score">{{score | number:0}} Б</div>
+            <div class="user-info-note__rait">
+                <div class="user-info-note__rait-set">{{place.user | number:0}} место из {{place.total | number:0}}</div>
+                <span class="user-info-note__rait-user">Топ-20 игроков</span>
+            </div>
+        </div>
+        <div class="user-progress-info">
+            <div class="user-progress-info__line">
+                <div ng-style="progressCss" class="user-progress-info__line-run"></div>
+            </div>
+            <div class="user-progress-info-table">
+                <div class="user-progress-info-table-h">
+                    <div class="user-progress-info-table__item">
+                        <div ng-class="score > 0 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--flag"></div>
+                        <div class="user-progress-info__title">Старт</div>
+                    </div>
+                    <div class="user-progress-info-table__item" style="left: 25%;">
+                        <div ng-class="score >= 500 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--percentage"></div>
+                        <div class="user-progress-info__title">Доступ к скидкам</div>
+                        <div class="user-progress-info__hint">Набрать <b>500 Б</b></div>
+                    </div>
+                    <div class="user-progress-info-table__item" style="left: 50%;">
+                        <div ng-class="score >= 1000 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--iphone"></div>
+                        <div class="user-progress-info__title">iPhone</div>
+                        <div class="user-progress-info__hint">Набрать <b>1000 Б</b></div>
+                    </div>
+                    <div class="user-progress-info-table__item">
+                        <div ng-class="score >= 2000 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--ipad"></div>
+                        <div class="user-progress-info__title">iPad</div>
+                        <div class="user-progress-info__hint">Набрать <b>2000 Б</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

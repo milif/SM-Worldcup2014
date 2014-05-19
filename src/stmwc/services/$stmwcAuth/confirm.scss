@@ -1,0 +1,10 @@
+.b-confirm-email--send {
+    margin-top: 20px;
+    position: relative;
+    &-back {
+        line-height: 38px;
+        float: left;
+        position: absolute;
+        left: 0;
+    }
+}

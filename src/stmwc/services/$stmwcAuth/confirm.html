@@ -1,0 +1,31 @@
+<div stmwc-popup="confirm" width="500">
+    <content class="b-confirm-email">
+        <div class="popup__title">Подтвердите E-mail</div>
+        <div ng-if="state == 'start'">
+            Электронная почта <b>{{model.email}}</b>,<br>указанная вами при регистрации, все еще не подтверждена.<br>
+            <div class="popup__note">Возможно, вы не получили письмо с информацией<br>для подтверждения. Мы готовы выслать его ещё раз.</div>
+            <div class="popup__actions">
+                <span ng-click="send()" class="a-pseudo">Прислать письмо</span><br>
+                <span ng-click="changeEmail()" class="a-pseudo">Указать другой адрес электронной почты</span>
+            </div>
+        </div>
+        <form ng-if="state == 'email'" ng-class="isSubmited ? 'state_submited' : ''" name="model.form" ng-submit="submit()" class="form g-form" novalidate>
+            <fieldset>
+                <div class="form-row">
+                    <label for="user-mail" class="form-label">Введите новый адрес электронной почты</label> <br>
+                    <input ng-model="model.email" required type="email" id="user-mail" class="input-text input-text--size-normal">
+                </div>
+            </fieldset>
+            <div class="b-confirm-email--send">
+                <span class="b-confirm-email--send-back">← <span ng-click="start()" class="a-pseudo">Назад</span></span>
+                <button type="submit" ng-class="isSend ? 'state_loading' : ''" class="btn btn--subscribe">Подтвердить</button>
+            </div>
+        </form>
+        <div ng-if="state == 'send'">
+            На адрес <b>{{model.email}}</b><br>отправлена информация для подтверждения. Обычно наше<br>письмо приходит не позже, чем через 5 минут.
+            <div class="popup__actions">
+                <span ng-click="start()" class="a-pseudo">Прислать письмо повторно или указать другой адрес</span>
+            </div>
+        </div>
+    </content>
+</div>

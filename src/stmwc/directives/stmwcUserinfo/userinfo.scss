@@ -1,0 +1,232 @@
+/* user-progress */
+/*==========================================================*/
+.user-progress {
+    @extend %common-shadow;
+    @extend %common-border-radius;
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+}
+
+/* user-info */
+.user-info {
+    @extend %clearfix;
+}
+.user-info__button {
+    @extend %btn;
+    @extend %btn--green;
+    @extend %btn--size-small;
+}
+.user-info__image {
+    position: relative;
+    float: left;
+    text-align: center;
+    &:after {
+        @extend %sprite;
+        @include sp(mask-user);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 62px;
+        height: 62px;
+        display: block;
+        content: '';
+    }
+}
+.user-info__image-h {
+    overflow: hidden;
+    width: 62px;
+    height: 62px;
+    display: block;
+    margin-bottom: 10px;
+    @extend %sprite;
+    @include sp(userpic);
+}
+.user-info__image-h img{
+    width: 100%;
+    height: 100%;
+}
+.user-info__link {
+    color: #999;
+    font-size: 13px;
+    @extend %link-active;
+}
+
+.user-info-note {
+    float: left;
+    width: 224px;
+    margin-left: 8px;
+    height: 94px;
+    position: relative;
+    @extend %border-box;
+    padding-top: 4px;
+}
+
+.user-info__name {
+    font-size: 16px;
+    line-height: 18px;
+    max-height: 36px;
+    overflow: hidden;
+}
+.user-info__score {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+}
+
+.user-info-note__rait {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 13px;
+}
+.user-info-note__rait-set {
+    color: #999;
+}
+.user-info-note__rait-user {
+    color: #008800;
+    @extend %link-pseudo;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+
+/* user-progress-info */
+/*==========================================================*/
+.user-progress-info {
+    float: right;
+    width: 650px;
+    position: relative;
+}
+
+/* user-progress-info__line */
+.user-progress-info__line {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 30px;
+    height: 2px;
+    background-color: #ddd;
+}
+.user-progress-info__line-run {
+    position: absolute;
+    left: 0;
+    top: -13px;
+    bottom: -13px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAcCAIAAAAvP0KbAAAAFklEQVQY02O8/vEqI6mYYZY8GJOhFwA1f0WB1uDaHwAAAABJRU5ErkJggg==') repeat-x 0 0;
+//    &:before {
+//        content: '';
+//        position: absolute;
+//        right: -12px;
+//        top: -10px;
+//        @extend %sprite;
+//        @include szp(progress-run);
+//    }
+}
+
+/* user-progress-info-table */
+.user-progress-info-table {
+    width: 100%;
+    &-h {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+    }
+    &__item {
+        position: absolute;
+        font-size: 13px;
+        vertical-align: top;
+        padding:16px  0 0 0;
+        text-align: center;
+        width: 100px;
+        margin-left: -50px;
+        &:first-child {
+            padding-left: 0;
+            text-align: left;
+            margin-left: 0;
+            left: -14px;
+        }
+        &:last-child {
+            text-align-last: right;
+            padding-right: 0;
+            text-align: right;
+            margin-left: 0;
+            right: -14px;
+        }
+    }
+}
+
+/* "user-progress-info__icon */
+.user-progress-info__icon {
+    @extend %inline;
+    height: 36px;
+    width: 28px;
+    position: relative;
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 1px;
+        @extend %sprite;
+    }
+    &--flag {
+        &:before {
+            @include szp(flag-disable);
+        }
+        &.state_active {
+            &:before {
+                @include sp(flag-active);
+            }
+        }
+    }
+    &--percentage {
+        &:before {
+            @include szp(discont-disable);
+        }
+        &.state_active {
+            &:before {
+                @include sp(discont-active);
+            }
+        }
+    }
+    &--iphone {
+        &:before {
+            @include szp(iphone-disable);
+        }
+        &.state_active {
+            &:before {
+                @include sp(iphone-active);
+            }
+        }
+    }
+    &--ipad {
+        &:before {
+            @include szp(ipad-disable);
+        }
+        &.state_active {
+            &:before {
+                @include sp(ipad-active);
+            }
+        }
+    }
+}
+
+.user-progress-info__title {
+    font-weight: bold;
+    white-space: nowrap;
+}
+.user-progress-info__hint {
+    color: #999;
+    white-space: nowrap;
+    a {
+        color: #999;
+        text-decoration: none;
+        border-bottom: 1px dotted;
+        @extend %link-active;
+        &:hover {
+            text-decoration: none;
+        }
+
+    }
+}

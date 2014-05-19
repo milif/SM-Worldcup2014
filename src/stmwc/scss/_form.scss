@@ -12,6 +12,7 @@
     text-align: center;
     white-space: nowrap;
     text-decoration: none;
+    border-radius: 3px;
 }
 
 //Size button
@@ -22,10 +23,10 @@
     line-height: 36px;
 }
 %btn--size-small {
-    height: 30px;
+    height: 26px;
     font-size: 13px;
     padding: 0 9px;
-    line-height: 28px;
+    line-height: 24px;
 }
 
 
@@ -87,7 +88,6 @@
     outline: none;
     margin: 0;
     width: 100%;
-    transition: box-shadow 0.1s, border-color 0.1s ease-in-out;
     -webkit-appearance: none;
     border-radius: 0;
     border: 1px solid #c3c3c3;
@@ -150,6 +150,7 @@
 /* form row */
 /*==========================================================*/
 .form-row {
+    text-align: left;
     margin-top: 20px;
     position: relative;
     @extend %first-top;
@@ -205,13 +206,16 @@
     @include single-transition();
 }
 
-.g-form .input-scoring.ng-invalid.ng-invalid-required,
+.g-form .input-scoring.ng-pristine.ng-invalid.ng-invalid-required,
 .g-form .input-scoring.ng-dirty.ng-invalid.ng-invalid-required,
-.g-form .ng-dirty.ng-valid.ng-valid-required,
+.g-form .ng-pristine.ng-invalid-required,
 .g-form .ng-invalid:focus,
 .g-form .ng-dirty.ng-invalid:focus {
     border: 1px solid #c3c3c3;
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    &:hover {
+        box-shadow: 0 0 6px rgba(#4f5152, .2);
+    }
 }
 .g-form .input-scoring.ng-valid:focus,
 .g-form .ng-valid:focus {
@@ -219,6 +223,7 @@
     box-shadow: 0 0 5px rgba(0,138,28,.8), inset 0 1px 2px rgba(0,0,0,.1);
 }
 .g-form .ng-invalid,
+.g-form.state_submited .ng-pristine.ng-invalid-required,
 .g-form .input-scoring.ng-invalid:focus,
 .g-form .ng-dirty.ng-invalid {
     border: 1px solid red;

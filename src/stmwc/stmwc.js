@@ -5,6 +5,7 @@
  * @requires angular/angular.js
  * @requires angular/angular-animate.js
  * @requires angular/angular-resource.js
+ * @requires angular/angular-cookies.js
  *
  * @requires angular/i18n/angular-locale_ru.js
  * @requires angularui/ui-utils.js
@@ -22,25 +23,14 @@ if (!window.requestAnimationFrame) {
             setTimeout(callback, 10);
         };
 }
-angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ui.utils'])
+angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui.utils'])
     .config(['$sceProvider', '$locationProvider', function($sceProvider, $locationProvider){
         $sceProvider.enabled(false);
         $locationProvider.html5Mode(true);
     }])
-    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', function($stmwcAuth, $timeout, $location, $rootScope){
+    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv){
         
-        if($location.hash().indexOf('!') === 0 || $location.url().indexOf('/!') === 0){
-            $stmwcAuth.session = $location.hash().substr(1);
-            if($location.hash().indexOf('!') === 0) {
-                $stmwcAuth.session = $location.hash().substr(1);
-                $location.hash('');
-            } else {
-                $stmwcAuth.session = $location.url().substr(2);
-                $location.url('/');
-            }
-            $location.replace();
-            $rootScope.$on('loaded', $stmwcAuth.registrate);
-        }
-
+        $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm);
+        
      }]);
 

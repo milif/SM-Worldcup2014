@@ -22,6 +22,7 @@
         
         Bets.update = update;
         Bets.bet = bet;
+        Bets.getScore = getScore;
         
         return Bets;
         
@@ -31,9 +32,12 @@
                 id: id,
                 value: [left, right]
             }, function(){
-                clbFn(res.canBet);
+                clbFn(res.canBet, res.success);
             });
             return res;
+        }
+        function getScore(){
+            return __bets.score;
         }
         function update(clbFn){
             var bets
@@ -41,11 +45,13 @@
                 action: 'update'
             }, function(){
                 __bets.canBet = data.canBet;
+                __bets.score = 0;
                 bets = data.bets;
                 var bet;
                 var ids = [];
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
+                    __bets.score += bet.score || 0;
                     bet.value = bet.value || {};
                     ids.push(bet.id);
                     if(bet.id in __betsKeys) {

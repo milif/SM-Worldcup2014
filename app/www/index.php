@@ -1,6 +1,14 @@
 <?php
+    require_once __DIR__.'/../lib/User.class.php';
+
+    $ENV = array(
+        'place' => array(
+            'user' => User::getPlace(),
+            'total' => User::getTotal()
+        )
+    );
+
     require_once __DIR__.'/../lib/init.php';
-    
 ?><!doctype html>
 <html ng-app="stmwc" lang="ru">
 <head>

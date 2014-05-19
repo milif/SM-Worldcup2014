@@ -1,0 +1,21 @@
+<div stmwc-popup="sotmarket">
+    <content>
+        <div class="popup__title">Вход через Сотмаркет</div>
+        <form ng-class="isSubmited ? 'state_submited' : ''" name="modelData.form" ng-submit="submit()" ui-keypress="{13:'submit()'}" class="form g-form" novalidate>
+            <fieldset>
+                <div class="form-row">
+                    <input ng-model="model.email" required type="email" name="email" placeholder="электронная почта" id="user-mail" class="input-text input-text--size-normal">
+                </div>
+                <div class="form-row">
+                    <input placeholder="пароль" type="password" name="password" ng-model="model.name" required id="user-name" class="input-text input-text--size-normal">
+                </div>
+            </fieldset>
+        </form>
+    </content>
+    <footer>
+        <button ng-class="isSend ? 'state_loading' : ''" ng-click="submit()" class="btn btn--subscribe">Войти</button>
+        <div class="popup__footer--link-reg-h">
+            <span class="popup__footer--link-reg">Зарегистрироваться</span>
+        </div>
+    </footer>
+</div>

@@ -7,7 +7,7 @@ require_once __DIR__.'/Log.class.php';
 
 class User {
     const CONFIRM_ERROR = 1;
-    const CONFIRM_ERROR_HAS = 'Данный аккаунт уже зарегистрирован.';
+    const CONFIRM_ERROR_HAS = 2;
     const UNSUBSCRIBE_ERROR = 'Ошибка при отписке.';
     const UNSUBSCRIBE_ERROR_HAS = 'Адрес <b>%s</b> уже отписан от всех рассылок.';
     static private $userId = null;
@@ -43,7 +43,7 @@ class User {
         if($isReg !== false) return !!$isReg;
         
         $rs = DB::query("SELECT COUNT(*) as count FROM `user` WHERE `registrated` > 0 AND id = ".$userId);
-        $isReg = $rs[0]['count'];
+        $isReg = (int)$rs[0]['count'];
         Cache::set($key, $isReg, 1200);
         return !!$isReg;
     }    
@@ -87,7 +87,7 @@ class User {
             ));        
             return self::CONFIRM_ERROR_HAS;
         }
-        DB::query("UPDATE `user` SET `is_confirmed` = 1 WHERE `id` = ".$rs[0]['id']);
+        DB::query("UPDATE `user` SET `is_confirmed` = 1, `openid_verified_email` = {$rs[0]['email']} WHERE `id` = ".$rs[0]['id']);
         Log::add('confirm_email', array(
             'user' => $rs[0]
         ));        
@@ -114,14 +114,18 @@ class User {
         $rs = DB::query("SELECT email FROM `user` WHERE registrated > 0 AND id = ".User::getKey());
         $isRegistrated = count($rs) > 0;
         $isResetConfirmation = $isRegistrated && $rs[0]['email'] != $data['email'];
-        DB::update("UPDATE `user` SET `avatar` = :avatar, `email` = :email, `dob` = :dob, `name` = :name, `phone` = :phone, ".($isRegistrated ? '' : 'registrated = NOW(),').($isResetConfirmation ? 'is_confirmed = 0,' : '')." `gender` = :gender WHERE id = ".User::getKey(), array(
-            ':email'=>$data['email'],
-            ':dob'=>$data['dob'],
-            ':name' => $data['name'],
-            ':phone' => $data['phone'],
-            ':gender'=> $data['gender'],
-            ':avatar'=> $data['avatar'] ? $data['avatar'] : null
+
+        $data = array_intersect_key($data, array(
+            'avatar' => true,
+            'name' => true,
+            'email' => true,
+            'phone' => true,
+            'gender' => true,
+            'dob' => true,
         ));
+
+        DB::update("UPDATE `user` SET ".DB::getSetPart($data).($isRegistrated ? '' : ', registrated = NOW()').($isResetConfirmation ? ', is_confirmed = 0' : '')."  WHERE id = ".User::getKey(), $data);
+        
         Cache::remove('userdata.'.User::getKey());
         Cache::remove('isreg.'.User::getKey());
         
@@ -142,16 +146,18 @@ class User {
         $rs = DB::query("SELECT COUNT(*) cc FROM `user` WHERE id = ".User::getKey()." AND price_access = 1;");
         return $rs[0]['cc'] > 0;
     }
-    static public function login($data){
-        
+    static public function login($loginData){
+
         self::logout();
+
+        $data = $loginData['data'];
         
         if(!$data) return false;
         $cookie = md5(uniqid());
         $uri = $data['uri'];
         if(!$uri) return false;
 
-        $rs = DB::query("SELECT id, registrated FROM user WHERE uri = :uri OR (is_confirmed > 0 AND email = :email)", array(
+        $rs = DB::query("SELECT id, registrated FROM user WHERE uri = :uri OR (openid_verified_email = :email AND openid_verified_email IS NOT NULL)", array(
             ':uri' => $uri,
             ':email' => $data['email']
         ));
@@ -173,17 +179,18 @@ class User {
             }
         
             $refKey = uniqid();
-            DB::query("INSERT INTO user (uri, data, ref_key, ref_id, partner_ref, partner_subref, name, avatar, email, phone, gender, dob) VALUES (:uri, :data, '$refKey', $refId, :partnerRef, :partnerSubref, :name, :avatar, :email, :phone, :gender, :dob)", array(
+            DB::query("INSERT INTO user (uri, data, ref_key, ref_id, partner_ref, partner_subref, name, avatar, email, phone, gender, dob, openid_verified_email) VALUES (:uri, :data, '$refKey', $refId, :partnerRef, :partnerSubref, :name, :avatar, :email, :phone, :gender, :dob, :verifiedEmail)", array(
                 ':uri'=>$uri,
                 ':data'=>json_encode($data), 
                 ':partnerRef'=>isset($_COOKIE['partner']) ? $_COOKIE['partner'] : '', 
                 ':partnerSubref'=>isset($_COOKIE['subref']) ? $_COOKIE['subref'] : '',
                 ':name' => $data['name'],
                 ':avatar' => $data['avatar'], 
-                ':email' => $data['email'], 
+                ':email' => $data['email'],
                 ':phone' => isset($data['phone']) ? $data['phone'] : NULL,
                 ':gender' => $data['gender'], 
-                ':dob' => $data['dob']
+                ':dob' => $data['dob'],
+                ':verifiedEmail' => $data['email']
             ));
             $id = DB::lastInsertId();           
             
@@ -202,7 +209,7 @@ class User {
         
         $loginData = array(
             'session' => $cookie,
-            'redirect' => $_GET['redirect']."#".($isReg ? '' : '!'.$cookie)
+            'redirect' => $loginData['redirect']."#".($isReg ? '' : '!'.$cookie)
         );
         
         return $loginData;
@@ -254,6 +261,29 @@ class User {
             setcookie(SESSION_COOKIE.'_stmuid', self::$userKey, 0, APP_ROOT_URL."/");
         }
     } 
+    static public function getPlace(){
+        $key = 'userPlace'.User::getKey();
+        $place = Cache::get($key);
+        if($place !== false) return $place;
+        
+        $rs = DB::query('SELECT SUM(score) score FROM user_bets WHERE user_key = :userKey;', array(
+            ':userKey' => User::getKey()
+        ));
+        $rs = DB::query("SELECT COUNT(*) cc FROM user WHERE score < ".(int)$rs[0]['score']);
+        $place = User::getTotal() - (int)$rs[0]['cc'];
+        Cache::set($key, $place, 1200);
+        return $place;
+    }
+    static public function getTotal(){
+        $key = 'usersTotal';
+        $total = Cache::get($key);
+        if($total !== false) return $total;
+        
+        $rs = DB::query('SELECT COUNT(*) cc FROM user;');
+        $total = (int)$rs[0]['cc'];
+        Cache::set($key, $total, 1200);
+        return $total;
+    }
 }
 
 User::init();

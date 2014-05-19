@@ -99,6 +99,7 @@
 
 //Common-link-style-active
 %link-active {
+    cursor: pointer;
     &:hover {
         color: #f66b0e;
         text-decoration: underline;
@@ -110,10 +111,13 @@
 }
 
 %link-pseudo {
-    cursor: pointer;
     text-decoration: none !important;
     border-bottom: 1px dotted ;
     @extend %link-active;
+}
+
+.a-pseudo {
+    @extend %link-pseudo;
 }
 
 input::-webkit-outer-spin-button,
