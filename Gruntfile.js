@@ -36,10 +36,7 @@ module.exports = function(grunt) {
                     'directive:stmwcPromoSportexpress',
                     '$stmwcAuth'
                 ],
-                includeAsset: true,
-                includeTemplates: [
-                    '*'
-                ]
+                includeAsset: true
             }
         ],
         lib: ['src/**/*.+(js|html)'],
@@ -47,6 +44,10 @@ module.exports = function(grunt) {
         buildDir: 'build/app',
         modulesDir: 'www/modules',
         partialsDir: 'partials',
+        includeTemplates: [
+            '*',
+            '!*stmwcAuth*'
+        ],
         separateCss: true
     },
     
