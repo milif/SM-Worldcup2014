@@ -9,7 +9,7 @@ if(isset($_GET['stm'])){
     echo json_encode(array(
         'success' => !!$loginData,
         'redirect' => $loginData ? $loginData['redirect'] : null
-    ));
+    )); 
 } else if(isset($_GET['twurl'])){
     header('Content-Type: application/json');
     echo OpenID::getTWUrl($_GET['twurl']);
