@@ -10,6 +10,8 @@ class Stm {
                 ))
             );
             
+        } else if($_GET['stm'] == "2"){
+            
         }
     }
     static private function __userData($data){
