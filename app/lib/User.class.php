@@ -147,12 +147,13 @@ class User {
         return $rs[0]['cc'] > 0;
     }
     static public function login($loginData){
-
-        self::logout();
+        
+        if(!$loginData) return false;
 
         $data = $loginData['data'];
         
-        if(!$data) return false;
+        self::logout();
+        
         $cookie = md5(uniqid());
         $uri = $data['uri'];
         if(!$uri) return false;

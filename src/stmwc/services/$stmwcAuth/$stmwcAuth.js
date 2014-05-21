@@ -126,19 +126,25 @@
             });
         }
         function authSM(){
-            var $scope = $rootScope.$new();
-            $scope.$on('closedPopup-sotmarket', function(){
-                setTimeout(function(){
-                    $scope.$destroy();
-                }, 0);    
-            });
+            $http.post(openidURL + '?stm=1').success(function(data){
+                if(data.success) {
+                    window.location.href = data.url;
+                } else {
+                    var $scope = $rootScope.$new();
+                    $scope.$on('closedPopup-sotmarket', function(){
+                        setTimeout(function(){
+                            $scope.$destroy();
+                        }, 0);    
+                    });
             
-            $scope.submit = function(){
-                $scope.isSubmited = true;
-            }
+                    $scope.submit = function(){
+                        $scope.isSubmited = true;
+                    }
             
-            $http.get('partials/stmwc.$stmwcAuth:sotmarket.html', {cache: $templateCache}).success(function(data){
-               $compile(data)($scope); 
+                    $http.get('partials/stmwc.$stmwcAuth:sotmarket.html', {cache: $templateCache}).success(function(data){
+                       $compile(data)($scope); 
+                    });
+                }
             });
         }
         

@@ -22,10 +22,10 @@ class OpenID {
         else if($state[0] == 'fb') $data = self::__authFB();
         else if($state[0] == 'g') $data = self::__authG();
         else if($state[0] == 'tw') $data = self::__authTW();
-        return array(
+        return $data ? array(
             'data' => $data,
             'redirect' => $state[1]
-        );
+        ) : false;
     }
     static private function __authVK(){
         $url = 'https://oauth.vk.com/access_token?client_id='.self::VK_CLIENT_ID.'&client_secret='.self::VK_CLIENT_SECRET.'&code='.$_GET['code'].'&redirect_uri='.urlencode(self::getRedirectUrl());
