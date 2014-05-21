@@ -17,7 +17,7 @@ class Stm {
                     'password' => $_POST['password']
                 ))
             );
-        }
+        } 
     }
     static private function __userData($data){
         if($data['errcode'] !== 0) return false;

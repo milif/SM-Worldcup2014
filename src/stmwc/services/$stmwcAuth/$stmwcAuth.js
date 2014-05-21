@@ -132,6 +132,7 @@
                     window.location.reload();
                 } else {
                     var $scope = $rootScope.$new();
+                    var model = $scope.modelData = {};
                     $scope.$on('closedPopup-sotmarket', function(){
                         setTimeout(function(){
                             $scope.$destroy();
