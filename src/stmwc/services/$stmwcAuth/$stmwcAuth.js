@@ -128,7 +128,8 @@
         function authSM(){
             $http.post(openidURL + '?stm=1').success(function(data){
                 if(data.success) {
-                    window.location.href = data.url;
+                    window.location.href = data.redirect;
+                    window.location.reload();
                 } else {
                     var $scope = $rootScope.$new();
                     $scope.$on('closedPopup-sotmarket', function(){
@@ -139,6 +140,25 @@
             
                     $scope.submit = function(){
                         $scope.isSubmited = true;
+                        var form = model.form;
+                        if(!$scope.isSend && form.$valid) {
+                            $scope.isSend = true;
+                            var res = $http.post(apiUser, {
+                                login: model.email,
+                                password: model.password
+                            });
+                            res.success(function(data){
+                                if(data.success){
+                                    window.location.href = data.redirect;
+                                    window.location.reload();
+                                } else {
+                                    // TODO: не вошел пометка полей
+                                }
+                            });
+                            res.finally(function(){
+                                $scope.isSend = false;
+                            });
+                        }
                     }
             
                     $http.get('partials/stmwc.$stmwcAuth:sotmarket.html', {cache: $templateCache}).success(function(data){

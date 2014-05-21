@@ -1,7 +1,7 @@
 <?php
 
 class Stm {
-    const API_URL = 'http://www.sotmarket.ru';
+    const API_URL = 'http://www.sotmarket.ru/ajx/userInfo.php';
     static public function auth(){
         if($_GET['stm'] == "1") {
             return self::__userData(
@@ -11,7 +11,12 @@ class Stm {
             );
             
         } else if($_GET['stm'] == "2"){
-            
+            return self::__userData(
+                self::__post(self::API_URL, array(
+                    'login' => $_POST['login'],
+                    'password' => $_POST['password']
+                ))
+            );
         }
     }
     static private function __userData($data){
