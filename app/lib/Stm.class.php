@@ -25,7 +25,7 @@ class Stm {
             'uri' => "stm:".$data['id'],
             'email' => $data['email'],
             'avatar' => NULL,
-            'dob' => isset($data['birthday']) ? $data['birthday'] : NULL,
+            'dob' => isset($data['birthday']) && $data['birthday'] ? $data['birthday'] : NULL,
             'name' => $data['full_name'],
             'gender' => NULL
         );

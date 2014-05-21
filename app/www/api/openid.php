@@ -4,6 +4,7 @@ require_once __DIR__.'/../../lib/OpenID.class.php';
 require_once __DIR__.'/../../lib/User.class.php';
 
 if(isset($_GET['stm'])){
+    require_once __DIR__.'/../../lib/Stm.class.php';
     header('Content-Type: application/json');
     $loginData = User::login(Stm::auth());
     echo json_encode(array(
