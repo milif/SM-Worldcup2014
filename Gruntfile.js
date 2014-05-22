@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
   //config
   grunt.initConfig({
-  
+   
     VERSION: VERSION,
     
     init: {
