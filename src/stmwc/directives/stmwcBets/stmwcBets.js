@@ -131,9 +131,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
                             break;
                     }
                     bet.date = $filter('date')(bet.time, 'd MMMM');
-                    var dateKey = bet.date + bet.descr;
-                    if(!dates.keys[dateKey] && time < bet.time && dates.length < 10){
-                        dates.keys[dateKey] = true;
+                    if(!dates.keys[bet.date] && time < bet.time && dates.length < 10){
+                        dates.keys[bet.date] = true;
                         dates.push(bet);
                     }
                     if(bet.time < time) {

@@ -5,14 +5,14 @@
         </div>
         <div class="bet-table-top__item">
             <div class="bet-data-select">
-                Ставки на матчи <div ng-if="dates.length > 1" class="bet-data-select-button">{{currentSection[0].date}}<div stmwc-tooltip="selectdate">
+                Ставки на матчи <span ng-if="dates.length > 1" class="bet-data-select-button">{{currentSection[0].date}}<span stmwc-tooltip="selectdate">
                     <div class="tooltip-bet-list">
-                        <span ng-click="selectDate(date)" ng-repeat="date in dates" class="tooltip-bet-item">
+                        <span ng-click="selectDate(date)" ng-repeat="date in dates" ng-class="date.date == currentSection[0].date ? 'state_active' : '' " class="tooltip-bet-item">
                             <span class="tooltip-bet-item-data">{{date.date}}</span>
                             <span class="tooltip-bet-item-note">— {{date.descr}}</span>
                         </span>
                     </div>
-                </div></div>
+                </span></span>
             </div>
             <div class="bet-data-note">
                 <span class="labelst">500 Б</span> за угаданный счет, <span class="labelst">100 Б</span> за победителя

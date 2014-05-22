@@ -342,6 +342,7 @@
     height: 34px;
     line-height: 34px;
     white-space: nowrap;
+    cursor: pointer;
     &:hover {
         background-color: lighten(#009a1f, 5%);
         .tooltip-bet-item-data {

@@ -17,6 +17,9 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcTooltip:tooltip.html',
         transclude: true,
+        link: function(scope, element, attrs) {
+            element.closest('[tooltips]').append(element);
+        },
         controller: ['$scope', '$attrs', '$timeout', '$element', function($scope, $attrs, $timeout, $element){         
             
             var windowEl = $(window);
@@ -54,7 +57,7 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
                 var isTop = boundingClient.top > windowEl.height() - boundingClient.top - el.outerHeight();
                 $scope.direction = isTop ? 'top' : 'bottom';
                 if(isTop){
-                    position = [-cntOffset.left + offset.left + el.outerWidth() / 2, -cntOffset.top + offsetParentEl.outerHeight() + offset.top];
+                    position = [-cntOffset.left + offset.left + el.outerWidth() / 2, -cntOffset.top + offsetParentEl.outerHeight() - offset.top];
                 } else {
                     position = [-cntOffset.left + offset.left + el.outerWidth() / 2, -cntOffset.top + offset.top + el.outerHeight()];
                 }
