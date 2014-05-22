@@ -5,7 +5,14 @@
         </div>
         <div class="bet-table-top__item">
             <div class="bet-data-select">
-                Ставки на матчи <a class="bet-data-select-button" href="#113">13 июня</a>
+                Ставки на матчи <div ng-if="dates.length > 1" class="bet-data-select-button">{{currentSection[0].date}}<div stmwc-tooltip="selectdate">
+                    <div class="tooltip-bet-list">
+                        <span ng-click="selectDate(date)" ng-repeat="date in dates" class="tooltip-bet-item">
+                            <span class="tooltip-bet-item-data">{{date.date}}</span>
+                            <span class="tooltip-bet-item-note">— {{date.descr}}</span>
+                        </span>
+                    </div>
+                </div></div>
             </div>
             <div class="bet-data-note">
                 <span class="labelst">500 Б</span> за угаданный счет, <span class="labelst">100 Б</span> за победителя
@@ -74,6 +81,6 @@
 
     <div ng-if="nextSection.length > 0" class="aside-bottom-btn">
         <span ng-if="sections.indexOf(nextSection) < 0" ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи <span class="aside-bottom-btn__link-h">{{countMore}}</span></span>
-        <span ng-if="sections.indexOf(nextSection) >= 0" ng-click="hideMore()" class="aside-bottom-btn__link">Текущие матчи <span class="aside-bottom-btn__link-h">{{countCurrent}}</span></span>
+        <span ng-if="sections.indexOf(nextSection) >= 0" ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}} <span class="aside-bottom-btn__link-h">{{countCurrent}}</span></span>
     </div>
 </div>

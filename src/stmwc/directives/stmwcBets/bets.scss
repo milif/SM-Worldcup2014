@@ -39,10 +39,12 @@
 }
 .bet-data-select-button {
     position: relative;
+    display: inline-block;
     margin-right: 20px;
     color: #008a1c;
     @extend %inline;
     text-decoration: none;
+    cursor: pointer;
     &:before {
         position: absolute;
         right: 0;
@@ -331,4 +333,41 @@
 .a-error-flash {
     color: #cc0000;
     text-shadow: 0px 0px 10px rgba(255, 25, 71, 0.3);
+}
+
+.tooltip-bet-item {
+    border-radius: 3px;
+    padding: 0 10px;
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    white-space: nowrap;
+    &:hover {
+        background-color: lighten(#009a1f, 5%);
+        .tooltip-bet-item-data {
+            color: #fff;
+            border-color: transparent;
+        }
+        .tooltip-bet-item-note {
+            color: #fff;
+        }
+    }
+    &.state_active {
+        background-color: #009a1f;
+        .tooltip-bet-item-data {
+            color: #fff;
+            border-color: transparent;
+        }
+        .tooltip-bet-item-note {
+            color: #fff;
+        }
+    }
+}
+.tooltip-bet-item-data {
+    color: #009a1f;
+    border-bottom: 1px dotted;
+}
+.tooltip-bet-item-note {
+    font-size: 13px;
+    color: #a2a2a2;
 }

@@ -132,7 +132,14 @@
                     window.location.reload();
                 } else {
                     var $scope = $rootScope.$new();
-                    var model = $scope.modelData = {};
+                    var model = $scope.model = {};
+                    var modelData = model.data = {};
+                    $scope.again = function(){
+                        $timeout(function(){
+                            model.data = {};
+                            $scope.isError = false;
+                        }, 0);
+                    }
                     $scope.$on('closedPopup-sotmarket', function(){
                         setTimeout(function(){
                             $scope.$destroy();
@@ -144,16 +151,16 @@
                         var form = model.form;
                         if(!$scope.isSend && form.$valid) {
                             $scope.isSend = true;
-                            var res = $http.post(apiUser, {
-                                login: model.email,
-                                password: model.password
+                            var res = $http.post(openidURL + '?stm=2', {
+                                login: model.data.email,
+                                password: model.data.password
                             });
                             res.success(function(data){
                                 if(data.success){
                                     window.location.href = data.redirect;
                                     window.location.reload();
                                 } else {
-                                    // TODO: не вошел пометка полей
+                                    $scope.isError = true;
                                 }
                             });
                             res.finally(function(){

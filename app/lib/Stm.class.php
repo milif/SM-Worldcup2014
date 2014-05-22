@@ -4,17 +4,19 @@ class Stm {
     const API_URL = 'http://www.sotmarket.ru/ajx/userInfo.php';
     static public function auth(){
         if($_GET['stm'] == "1") {
-            return self::__userData(
+            return isset($_COOKIE['sotmarketid']) ? self::__userData(
                 self::__post(self::API_URL, array(
                     'cookie' => $_COOKIE['sotmarketid']
                 ))
-            );
+            ) : false;
             
         } else if($_GET['stm'] == "2"){
+            $dataJson = file_get_contents("php://input");
+            $data = json_decode($dataJson, true);
             return self::__userData(
                 self::__post(self::API_URL, array(
-                    'login' => $_POST['login'],
-                    'password' => $_POST['password']
+                    'login' => $data['login'],
+                    'password' => $data['password']
                 ))
             );
         } 

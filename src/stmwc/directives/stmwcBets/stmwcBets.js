@@ -8,6 +8,7 @@
  * @requires stmwc.directive:stmwcBets:bets.html
  *
  * @requires stmwc.Bets
+ * @requires stmwc.directive:stmwcTooltip
  * @requires stmwc.filter:howmany
  *
  * @description
@@ -29,6 +30,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var nextSection = $scope.nextSection = [];
             var sections = $scope.sections = [currentSection];
             var betsForAuth = 0;
+            var dates = $scope.dates = [];
+            var menuTime = getDayTime(new Date().getTime());
             
             updateBets();
             
@@ -87,6 +90,13 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     }
                 }
             }
+            $scope.selectDate = function(date){
+                menuTime = getDayTime(date.time);
+                sections.length = 0;
+                sections.push(currentSection);
+                onUpdateBets();
+                $scope.$broadcast('hideTooltip-selectdate');
+            }
             function doBet(bet, value){
                 Bets.bet(bet.id, value[0], value[1], function(canBet, success){
                     if(success) bet.value = value;
@@ -105,6 +115,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 $scope.countMore = 0;
                 $scope.countCurrent = 0;
                 $scope.canBet = bets.canBet;
+                dates.keys = {};
+                dates.length = 0;
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
                     switch(bet.userResult) {
@@ -119,14 +131,17 @@ angular.module('stmwc').directive('stmwcBets', function(){
                             break;
                     }
                     bet.date = $filter('date')(bet.time, 'd MMMM');
-                    if(bet.time < time - 86400000) {
+                    var dateKey = bet.date + bet.descr;
+                    if(!dates.keys[dateKey] && time < bet.time && dates.length < 10){
+                        dates.keys[dateKey] = true;
+                        dates.push(bet);
+                    }
+                    if(bet.time < time) {
                         addToSection(prevSection, bet);
-                    } else if(bet.time > time + 86400000){
-                        addToSection(nextSection, bet);
-                        $scope.countMore++;
-                    } else {
+                    } else if(bet.time < menuTime + 86400000 && bet.time >= menuTime){
                         addToSection(currentSection, bet);
-                        $scope.countCurrent++;
+                    } else {
+                        addToSection(nextSection, bet);
                     }
                 }
                 if(currentSection.length == 0){
@@ -136,9 +151,20 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         currentSection.push(prevSection.pop());
                     }
                 }
+                
+                $scope.countCurrent = countSection(currentSection);
+                $scope.countMore = countSection(nextSection);
             }
             
             var dateBetsSet = {};
+            
+            function countSection(section){
+                var count = 0;
+                for(var i=0;i<section.length;i++){
+                    count += section[i].bets.length;
+                }
+                return count;
+            }
             function addToSection(section, bet){
                 var dateBets = section[section.length - 1];
                 if(!dateBets || dateBets.date != bet.date || dateBets.descr != bet.descr) {
@@ -156,6 +182,10 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     dateBets.bets.length = 0;
                 } 
                 dateBets.bets.push(bet);
+            }
+            function getDayTime(time){
+                var d = new Date(time);
+                return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); 
             }
         }]
     };

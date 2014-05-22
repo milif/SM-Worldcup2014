@@ -46,7 +46,7 @@
         padding: 20px;
         &--link-reg {
             color: #008800;
-            @extend %link-pseudo;
+            @extend %link-active;
             &-h {
                 line-height: 38px;
                 height: 38px;

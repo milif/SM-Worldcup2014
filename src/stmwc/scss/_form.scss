@@ -6,6 +6,7 @@
     @extend %inline;
     @extend %bg-clip;
     cursor: pointer;
+    position: relative;
     border: 1px solid;
     @extend %noselect;
     @extend %border-box;
@@ -47,6 +48,22 @@
         outline: none;
         box-shadow: 0 0 6px darken(#d9d9d9, 10%);
     }
+    &.state_loading {
+        cursor: default;
+        overflow: hidden;
+        line-height: 100em;
+        border-color: #c3c3c3;
+        @include background-image(linear-gradient(bottom, #d9d9d9 0%, #f1f1f1 100%));
+        &:before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url(../../assets/i/button-loading.gif) 50% 50% no-repeat;
+            content: '';
+        }
+    }
 }
 
 %btn--green {
@@ -63,6 +80,22 @@
     &:focus {
         outline: none;
         box-shadow: 0 0 4px rgba(0, 255, 52, 0.88);
+    }
+    &.state_loading {
+        cursor: default;
+        overflow: hidden;
+        line-height: 100em;
+        border-color: #006f16;
+        @include background-image(linear-gradient(bottom, #008f1d 0%, #00891b 19.75%, #009d07 100%));
+        &:before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url(../../assets/i/button-loading.gif) 50% 50% no-repeat;
+            content: '';
+        }
     }
 }
 
