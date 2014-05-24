@@ -27,9 +27,9 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
                         '<div class="popup--l" ng-click="onMaskClick($event)">' +
                             '<div class="popup--h">' +
                                 '<div class="popup--hh">' +
-                                    '<div ng-style="css" class="popup popup--medium">' +
+                                    '<div ng-style="css" class="popup">' +
                                         '<span ng-click="hide()" class="popup__close">Закрыть</span>' +
-                                        '<div class="popup__content '+content.attr('class')+'">' + content.html() + '</div>' +
+                                        '<div class="popup__content '+(content.attr('class') || '')+'">' + content.html() + '</div>' +
                                         (footer.length > 0 ? '<div class="popup__footer '+footer.attr('class')+'">' + footer.html() + '</div>' : '') +
                                     '</div>' +
                                 '</div>' +
@@ -37,7 +37,6 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
                         '</div>' +
                     '</div>';
         },
-        replace: true,
         controller: ['$scope', '$attrs', '$element', function($scope, $attrs, $element) {
             var id = $attrs.stmwcPopup;
             var globalKeyEvents = {

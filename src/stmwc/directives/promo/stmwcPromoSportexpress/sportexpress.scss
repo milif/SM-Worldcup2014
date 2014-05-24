@@ -4,6 +4,10 @@
         font-size: 13px;
         line-height: 20px;
         margin-bottom: 20px;
+        min-height: 150px;
+        &.state_loading {
+            background: url(../../assets/i/button-loading.gif) 50% 50% no-repeat;
+        }
     }
     &__item {
         margin-top: 20px;
@@ -21,5 +25,10 @@
     &__item-date {
         font-size: 11px;
         color: #999;
+    }
+    &__subscribe-link {
+        @extend %link-active;
+        font-size: 16px;
+        color: #000;
     }
 }

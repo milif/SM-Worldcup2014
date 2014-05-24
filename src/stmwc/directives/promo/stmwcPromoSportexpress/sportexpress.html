@@ -1,30 +1,13 @@
 <div class="sidebar-section">
-    <a class="sidebar-section__logo" href="#447"><img src="img/logos/sport.png" alt="img"></a>
+    <a class="sidebar-section__logo" href="http://www.sport-express.ru/" target="_blank"><img src="assets/i/logos/sport.png" alt="img"></a>
     <div class="sidebar-section__title">ФУТБОЛ • ЧМ 2014</div>
-
-    <div class="sidebar-news__list">
-        <div class="sidebar-news__item">
-            <a class="sidebar-news__item-link" href="#452">Питер Одемвингие: "Уверен, что усилю сборную Нигерии"</a>
-            <div class="sidebar-news__item-date">28 апреля 2014</div>
-        </div>
-        <div class="sidebar-news__item">
-            <a class="sidebar-news__item-link" href="#452">Питер Одемвингие: "Уверен, что усилю сборную Нигерии"</a>
-            <div class="sidebar-news__item-date">28 апреля 2014</div>
-        </div>
-        <div class="sidebar-news__item">
-            <a class="sidebar-news__item-link" href="#452">Питер Одемвингие: "Уверен, что усилю сборную Нигерии"</a>
-            <div class="sidebar-news__item-date">28 апреля 2014</div>
-        </div>
-        <div class="sidebar-news__item">
-            <a class="sidebar-news__item-link" href="#452">Питер Одемвингие: "Уверен, что усилю сборную Нигерии"</a>
-            <div class="sidebar-news__item-date">28 апреля 2014</div>
-        </div>
-        <div class="sidebar-news__item">
-            <a class="sidebar-news__item-link" href="#452">Питер Одемвингие: "Уверен, что усилю сборную Нигерии"</a>
-            <div class="sidebar-news__item-date">28 апреля 2014</div>
+    <div ng-class="isLoad ? 'state_loading' : ''" class="sidebar-news__list">
+        <div ng-repeat="item in items" class="sidebar-news__item">
+            <a class="sidebar-news__item-link" target="_blank" ng-href="{{item.link}}">{{item.title}}</a>
+            <div class="sidebar-news__item-date">{{item.time | date:'d MMMM yyyy'}}</div>
         </div>
     </div>
     <div class="aside-bottom-btn">
-        <a href="#356" class="aside-bottom-btn__link">Подписаться на новости</a>
+        <a href="http://subscribe.sport-express.ru/" target="_blank" class="sidebar-news__subscribe-link">Подписаться на новости</a>
     </div>
 </div>

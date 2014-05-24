@@ -46,7 +46,8 @@ module.exports = function(grunt) {
         partialsDir: 'partials',
         includeTemplates: [
             '*',
-            '!*stmwcAuth*'
+            '!*stmwcAuth*',
+            '!*userscore.html'
         ],
         separateCss: true
     },

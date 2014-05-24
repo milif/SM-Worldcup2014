@@ -127,6 +127,9 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+body {
+    overflow-y: scroll;   
+}
 ///* VIEW MEDIAQ */
 ///*==========================================================*/
 //.view-phone,

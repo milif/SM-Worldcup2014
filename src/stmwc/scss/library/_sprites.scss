@@ -7,9 +7,6 @@
 
 $packFirst: sprite-map("sprite/*.png", $spacing: 10px, $layout: smart);
 
-//$packSecond: sprite-map("flag/*.png", $spacing: 2px, $layout: smart);
-
-
 @function sprite-position-x($map, $sprite, $offset-x: 0) {
     @return nth(sprite-position($map, $sprite, $offset-x, 0), 1);
 }

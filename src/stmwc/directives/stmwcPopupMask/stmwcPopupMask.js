@@ -27,6 +27,8 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                     if(bodyEl.find('>.l-popup').length > 0) return;
                     bodyEl
                         .removeClass('m_masked')
+                        .find('>:first')
+                            .css('top', 0).end()
                         .scrollTop(scrollTop);
                 });
             });
