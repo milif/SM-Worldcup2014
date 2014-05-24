@@ -28,7 +28,7 @@ angular.module('stmwc').directive('stmwcPromoSportexpress', function(){
                 })
                 .finally(function(){
                     $scope.isLoad = false;
-                })
+                });
         }]
     };
 });

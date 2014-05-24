@@ -3,7 +3,7 @@
     <div class="sidebar-section__title">ФУТБОЛ • ЧМ 2014</div>
     <div ng-class="isLoad ? 'state_loading' : ''" class="sidebar-news__list">
         <div ng-repeat="item in items" class="sidebar-news__item">
-            <a class="sidebar-news__item-link" target="_blank" ng-href="{{item.link}}">{{item.title}}</a>
+            <a class="sidebar-news__item-link" target="_blank" ng-href="{{item.link}}"><span>{{item.title}}</span></a>
             <div class="sidebar-news__item-date">{{item.time | date:'d MMMM yyyy'}}</div>
         </div>
     </div>
