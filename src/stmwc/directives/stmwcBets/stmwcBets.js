@@ -35,7 +35,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             
             updateBets();
             
-            var cancelUpdate = $interval(updateBets, 60000);
+            var cancelUpdate = $interval(updateBets, 6000);
             
             $scope.$on('$destroy', function(){
                 $interval.cancel(cancelUpdate);
@@ -165,21 +165,20 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 return count;
             }
             function addToSection(section, bet){
-                var dateBets = section[section.length - 1];
-                if(!dateBets || dateBets.date != bet.date || dateBets.descr != bet.descr) {
-                    var key = bet.date + bet.descr;
-                    dateBets = dateBetsSet[key];
-                    if(!dateBets) {
-                        dateBets = {
-                            date: bet.date,
-                            descr: bet.descr,
-                            bets: []
-                        };
-                        dateBetsSet[key] = dateBets; 
-                    }
-                    section.push(dateBets);
+                var key = bet.date + bet.descr;
+                var dateBets = dateBetsSet[key];
+                if(!dateBets) {
+                    dateBets = {
+                        date: bet.date,
+                        descr: bet.descr,
+                        bets: []
+                    };
+                    dateBetsSet[key] = dateBets; 
+                }
+                if(section.indexOf(dateBets) < 0){
                     dateBets.bets.length = 0;
-                } 
+                    section.push(dateBets);
+                }
                 dateBets.bets.push(bet);
             }
             function getDayTime(time){

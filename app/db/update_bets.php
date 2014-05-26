@@ -19,7 +19,7 @@ while (($line = fgetcsv($handle, 0)) !== FALSE) {
         ':time' => date('Y-m-d H:i:s', strtotime($line[1].' Europe/Moscow')),
         ':descr' => $line[8],
         ':result' => $line[4] !== '' && $line[5] !== '' ? '['.$line[4].','.$line[5].']' : null,
-        ':data' => '[["'.trim($line[2]).'","'.trim($line[3]).'"],["'.trim($line[7]).'","'.trim($line[6]).'"]]'
+        ':data' => '[["'.trim(mb_strtolower($line[2], "UTF-8")).'","'.trim($line[3]).'"],["'.trim(mb_strtolower($line[7], "UTF-8")).'","'.trim($line[6]).'"]]'
     );
     
     if(in_array($line[0], $ids)) {
