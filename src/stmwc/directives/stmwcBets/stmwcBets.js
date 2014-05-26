@@ -23,7 +23,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcBets:bets.html',
         replace: true,
-        controller: ['$scope', 'Bets', '$interval', '$filter', '$animate', '$stmwcAuth', function($scope, Bets, $interval, $filter, $animate, $stmwcAuth){
+        controller: ['$scope', 'Bets', '$interval', '$filter', '$animate', '$stmwcAuth', '$debounce', function($scope, Bets, $interval, $filter, $animate, $stmwcAuth, $debounce){
             var bets;
             var currentSection = $scope.currentSection = [];
             var prevSection = $scope.prevSection = [];
@@ -55,7 +55,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 sections.splice(0, 0, prevSection);
             }
 
-            $scope.onBet = function(bet){
+            $scope.onBet = $debounce(500, function(bet){
                 var value = bet.value;
                 if(!value[0] || !value[1]) return;
                 Bets.bet(bet.id, parseInt(value[0]), parseInt(value[1]), function(canBet){
@@ -67,7 +67,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     betsForAuth = 0;
                     $stmwcAuth.auth();
                 }
-            }
+            });
             $scope.onFocusInput = function(e){
                 if(!$scope.canBet) {
                     $stmwcAuth.auth();

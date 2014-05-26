@@ -49,9 +49,9 @@
                                 <form class="form-scoring g-form">
                                     <fieldset>
                                         <div class="form-row form-row--small">
-                                            <input ng-readonly="bet.time <= time || !canBet" ng-focus="onFocusInput($event)" ng-model="bet.value[0]" type="text" required ng-pattern="/^\d$/" ng-change="onBet(bet, $event)" class="input-scoring" placeholder="?" maxlength="1" >
+                                            <input ng-readonly="bet.time <= time || !canBet" ng-focus="onFocusInput($event)" ng-model="bet.value[0]" type="text" required ng-pattern="/^\d{1,2}$/" ng-change="onBet(bet, $event)" class="input-scoring" placeholder="?" maxlength="2" >
                                             <div class="input-separator">:</div>
-                                            <input ng-readonly="bet.time <= time || !canBet" ng-focus="onFocusInput($event)" ng-model="bet.value[1]" required ng-pattern="/^\d$/" ng-change="onBet(bet, $event)" type="text" class="input-scoring" placeholder="?" maxlength="1">
+                                            <input ng-readonly="bet.time <= time || !canBet" ng-focus="onFocusInput($event)" ng-model="bet.value[1]" required ng-pattern="/^\d{1,2}$/" ng-change="onBet(bet, $event)" type="text" class="input-scoring" placeholder="?" maxlength="2">
                                         </div>
                                     </fieldset>
                                 </form>

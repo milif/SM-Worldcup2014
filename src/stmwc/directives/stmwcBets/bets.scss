@@ -126,7 +126,7 @@
         vertical-align: middle;
         &:first-child,
         &:last-child {
-            width: 22.1%;
+            width: 20.7%;
             text-align: left;
         }
     }
@@ -167,7 +167,7 @@
 }
 
 .input-scoring {
-    width: 44px;
+    width: 54px;
     @extend %input-text;
     @extend %input-text-size-medium;
     text-align: center;
