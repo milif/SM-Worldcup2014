@@ -26,6 +26,7 @@ angular.module('stmwc').directive('stmwcPreload', [function(){
             init();
             
             function init(){
+                $scope.isLoad = false;
                 assets = window._assets;
                 if(!assets) return;
                 
