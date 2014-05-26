@@ -35,7 +35,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             
             updateBets();
             
-            var cancelUpdate = $interval(updateBets, 6000);
+            var cancelUpdate = $interval(updateBets, 60000);
             
             $scope.$on('$destroy', function(){
                 $interval.cancel(cancelUpdate);
