@@ -29,7 +29,7 @@ while (($line = fgetcsv($handle, 0)) !== FALSE) {
     }
 }
 fclose($handle);
-exit;
+
 //  Обновляем результаты игроков
 
 $bets = DB::query("SELECT id, result FROM bets WHERE result IS NOT NULL;");
