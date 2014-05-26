@@ -80,7 +80,7 @@
     <!-- // bet-data-list -->
 
     <div ng-if="nextSection.length > 0" class="aside-bottom-btn">
-        <span ng-if="sections.indexOf(nextSection) < 0" ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи <span class="aside-bottom-btn__link-h">{{countMore}}</span></span>
-        <span ng-if="sections.indexOf(nextSection) >= 0" ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}} <span class="aside-bottom-btn__link-h">{{countCurrent}}</span></span>
+        <span ng-if="sections.indexOf(nextSection) < 0"><span ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи</span> <span class="aside-bottom-btn__count">{{countMore}}</span></span>
+        <span ng-if="sections.indexOf(nextSection) >= 0"><span ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}}</span> <span class="aside-bottom-btn__count">{{countCurrent}}</span></span>
     </div>
 </div>

@@ -316,18 +316,17 @@
         border-bottom: 1px dotted ;
         color: #000;
         cursor: pointer;
-        @extend %link-active;
-        .aside-bottom-btn__link-h {
-            font-size: 11px;
-            color: #a2a2a2;
-        }
+        @extend %link-active; 
         &:hover {
             .aside-bottom-btn__link-h {
                 color: #f66b0e;
             }
         }
     }
-
+    &__count {
+        font-size: 11px;
+        color: #a2a2a2;
+    }
 }
 
 .a-error-flash {

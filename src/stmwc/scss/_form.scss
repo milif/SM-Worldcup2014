@@ -246,9 +246,12 @@
 .g-form .ng-dirty.ng-invalid:focus {
     border: 1px solid #c3c3c3;
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-    &:hover {
+    &:hover, &:focus {
         box-shadow: 0 0 6px rgba(#4f5152, .2);
     }
+}
+.g-form .input-scoring:focus {
+    @include placeholder-color(#fff);
 }
 .g-form .input-scoring.ng-valid:focus,
 .g-form .ng-valid:focus {
