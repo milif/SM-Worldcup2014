@@ -23,7 +23,7 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
         template: function(tEl){
             var footer = tEl.find('footer');
             var content = tEl.find('content');
-            return '<div ng-if="isShow" stmwc-popup-mask>' +
+            return '<div ng-if="isShow" stmwc-popup-mask ng-cloak>' +
                         '<div class="popup--l" ng-click="onMaskClick($event)">' +
                             '<div class="popup--h">' +
                                 '<div class="popup--hh">' +
