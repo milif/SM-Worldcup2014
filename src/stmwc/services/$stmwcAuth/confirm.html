@@ -19,6 +19,7 @@
             <div class="b-confirm-email--send">
                 <span class="b-confirm-email--send-back">← <span ng-click="start()" class="a-pseudo">Назад</span></span>
                 <button type="submit" ng-class="isSend ? 'state_loading' : ''" class="btn btn--subscribe">Подтвердить</button>
+                <span ng-if="error" class="form-error">{{error}}</span>
             </div>
         </form>
         <div ng-if="state == 'send'">

@@ -5,13 +5,50 @@ require_once __DIR__.'/../lib/Bets.class.php';
 
 // Обновляем список матчей
 
-$handle = fopen(__DIR__.'/bets.csv', "r");
-$i = 0;
+$handle = fopen(__DIR__.'/country.csv', "r");
+$country = array();
+while (($line = fgetcsv($handle, 0)) !== FALSE) { 
+    $country[getCountryKey($line[0])] = mb_strtolower($line[1], "UTF-8");
+}
+fclose($handle);
+
 $rs = DB::query("SELECT id FROM bets");
 $ids = array();
 foreach($rs as $row){
-    $ids[] = $row['id'];
+    $ids[] = (int)$row['id'];
 }
+
+$doc = new DOMDocument();
+$doc->load('http://football.sport-express.ru/export/nandu.ru/upload_competitions.php?season=2014&championship=4');
+$items = $doc->getElementsByTagName ('match');
+foreach($items as $itemNode){
+    $attrs = $itemNode->attributes;
+    
+    $name1 = $attrs->getNamedItem('command1_name')->textContent;
+    $name2 = $attrs->getNamedItem('command2_name')->textContent;
+    
+    if(!$name1 || !$name2) continue;
+    
+    $isPlayed = $attrs->getNamedItem('played')->textContent !== "0";
+    
+    $id = (int)$attrs->getNamedItem('id')->textContent;
+    
+    $params = array(
+        ':time' => $attrs->getNamedItem('timestamp')->textContent,
+        ':descr' => $attrs->getNamedItem('tour_name')->textContent,
+        ':result' => $isPlayed ? '['.$attrs->getNamedItem('result1')->textContent.','.$attrs->getNamedItem('result2')->textContent.']' : null,
+        ':data' => '[["'.$country[getCountryKey($name1)].'","'.$name1.'"],["'.$country[getCountryKey($name2)].'","'.$name2.'"]]'
+    );
+    
+    if(in_array($id, $ids)) {
+        DB::update("UPDATE bets SET `time` = :time, descr = :descr, result = :result, data = :data WHERE id = ".$id, $params);
+    } else {
+        DB::update("INSERT INTO bets (id, `time`, descr, result, data) VALUES ($id, :time, :descr, :result, :data);", $params);
+    }
+}
+/*
+$handle = fopen(__DIR__.'/bets.csv', "r");
+$i = 0;
 
 while (($line = fgetcsv($handle, 0)) !== FALSE) { 
     if($i++<3) continue;
@@ -29,6 +66,7 @@ while (($line = fgetcsv($handle, 0)) !== FALSE) {
     }
 }
 fclose($handle);
+*/
 
 //  Обновляем результаты игроков
 
@@ -60,4 +98,8 @@ foreach($bets as $bet){
             ));
         }
     }
+}
+
+function getCountryKey($name){
+    return preg_replace('/[^\w]/u','', mb_strtolower($name, "UTF-8"));
 }

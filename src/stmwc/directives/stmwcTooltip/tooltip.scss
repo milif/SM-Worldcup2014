@@ -59,8 +59,7 @@
         opacity: 1;
     }
     &:before {
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKAgMAAADJO5Z1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURQAAAP///9zc3FW9W8kAAAABdFJOUwBA5thmAAAAM0lEQVQI12NgYNBgAIFpIIIptAFIcoYmAEnV0AggOTU0DCQcCpTgBJIJQOFQoMRUIBkGAOwBCrWhy8ATAAAAAElFTkSuQmCC');
         top: -10px;
     }
 }
