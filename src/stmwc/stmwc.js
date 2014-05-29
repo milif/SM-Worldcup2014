@@ -32,8 +32,9 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         
         $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm);
         
-     }])
-     .factory('$debounce', function ($timeout) {
+    }])
+    .value('$stmwcEnv', {})
+    .factory('$debounce', function ($timeout) {
 
          return function (wait, fn) {
              var args, context, result, timeout;
@@ -81,5 +82,5 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
 
              return wrapper;
          };
-     });
+    });
 

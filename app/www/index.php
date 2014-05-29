@@ -12,6 +12,7 @@
 ?><!doctype html>
 <html ng-app="stmwc" lang="ru">
 <head>
+  <meta charset="utf-8">
   <title>Чемпионат мира по футболу 2014 от Сотмаркет</title>
   <base href="<?php echo APP_ROOT_URL.'/'; ?>" />
   <!-- @include stmwcIndex -->

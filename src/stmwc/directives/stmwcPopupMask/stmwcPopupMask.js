@@ -30,8 +30,8 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                     bodyEl
                         .removeClass('m_masked')
                         .find('>:first')
-                            .css('top', 0).end()
-                        .scrollTop(scrollTop);
+                            .css('top', 0).end();
+                    $(window).scrollTop(scrollTop);
                 });
                 $(stack).fadeIn(200);
             });
@@ -45,7 +45,7 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                     bodyEl.append(maskEl);
                 }
                 if(!bodyEl.hasClass('m_masked')){
-                    scrollTop = bodyEl.scrollTop();
+                    scrollTop = $(window).scrollTop();
                     bodyEl
                         .addClass('m_masked')
                         .find('>:first')
