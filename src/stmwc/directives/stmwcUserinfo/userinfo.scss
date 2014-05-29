@@ -139,8 +139,8 @@
         vertical-align: top;
         padding:16px  0 0 0;
         text-align: center;
-        width: 100px;
-        margin-left: -50px;
+        width: 200px;
+        margin-left: -100px;
         &:first-child {
             padding-left: 0;
             text-align: left;
@@ -180,13 +180,13 @@
             }
         }
     }
-    &--percentage {
+    &--mnogo {
         &:before {
-            @include szp(discont-disable);
+            @include szp(mnogo-disable);
         }
         &.state_active {
             &:before {
-                @include sp(discont-active);
+                @include sp(mnogo-active);
             }
         }
     }
@@ -200,13 +200,13 @@
             }
         }
     }
-    &--ipad {
+    &--headphone {
         &:before {
-            @include szp(ipad-disable);
+            @include szp(headphone-disable);
         }
         &.state_active {
             &:before {
-                @include sp(ipad-active);
+                @include sp(headphone-active);
             }
         }
     }

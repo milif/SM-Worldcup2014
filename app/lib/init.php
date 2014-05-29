@@ -7,6 +7,11 @@ if(isset($_GET['r'])){
     header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));
     exit;
 }
+if(isset($_GET['authorization'])){
+    setcookie(SESSION_COOKIE.'_authorization', '1', 0, APP_ROOT_URL.'/');
+    header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));
+    exit;
+}
 if(!IS_PRODUCTION){
     if(isset($_GET['delete_user'])){
         require_once __DIR__.'/DB.class.php';

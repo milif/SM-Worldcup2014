@@ -30,7 +30,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
     }])
     .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv){
         
-        $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm);
+        $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
         
     }])
     .value('$stmwcEnv', {})

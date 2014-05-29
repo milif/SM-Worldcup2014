@@ -28,13 +28,16 @@
         
         var apiUser = 'api/user.php';
         
+        var inAuth = false;
+        var isRequireAuth = false;
+        
         var $stmwcAuth = {
             init: init
         };
         
         return $stmwcAuth;
         
-        function init(data, requireConfirm){
+        function init(data, requireConfirm, isReqAuth){
             if($location.hash().indexOf('!') === 0 || $location.url().indexOf('/!') === 0){
                 var context;
                 if($location.hash().indexOf('!') === 0) {
@@ -57,10 +60,13 @@
                 }
             }
             
+            isRequireAuth = isReqAuth;
+            
             $.extend($stmwcAuth, {
                 data: data || {},
                 isAuth: !!data,
                 auth: auth,
+                requireAuth: requireAuth,
                 registrate: registrate,
                 logout: logout,
                 confirmEmail: confirmEmail
@@ -75,6 +81,13 @@
                     localStorage.setItem(key, curTime + 86400000);
                 }
             }
+        }
+        function requireAuth(noCallAuth){
+            if (!$stmwcAuth.isAuth && isRequireAuth){
+                if(!noCallAuth) $stmwcAuth.auth();
+                return true;
+            }
+            return false;
         }
         function confirmEmailInfo(state){
             var $scope = $rootScope.$new();
@@ -246,6 +259,8 @@
             }
         }
         function auth(clbFn){
+            if(inAuth) return;
+            inAuth = true;
             var $scope = $rootScope.$new();
             $scope.authVK = authVK;
             $scope.authFB = authFB;
@@ -253,6 +268,7 @@
             $scope.authTW = authTW;
             $scope.authG = authG;
             $scope.$on('closedPopup-auth', function(){
+                inAuth = false;
                 setTimeout(function(){
                     $scope.$destroy();
                 }, 0);    

@@ -33,29 +33,37 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var dates = $scope.dates = [];
             var menuTime = $scope.menuTime = 0;//getDayTime(new Date().getTime());
             
+            $scope.requireAuth = $stmwcAuth.requireAuth(true);
+            
             updateBets();
             
             var cancelUpdate = $interval(updateBets, 60000);
-            
+            $scope.callRequireAuth = function(){
+                $stmwcAuth.requireAuth();
+            }
             $scope.$on('$destroy', function(){
                 $interval.cancel(cancelUpdate);
             });
             
             $scope.showMore = function(){
+                if($stmwcAuth.requireAuth()) return;
                 if(sections.indexOf(nextSection) >= 0) return;
                 sections.push(nextSection);
             }
             $scope.hideMore = function(){
+                if($stmwcAuth.requireAuth()) return;
                 var ind = sections.indexOf(nextSection);
                 if(ind < 0) return;
                 sections.splice(ind, 1);
             }
             $scope.showPrev = function(){
+                if($stmwcAuth.requireAuth()) return;
                 if(sections.indexOf(prevSection) >= 0) return;
                 sections.splice(0, 0, prevSection);
             }
 
             $scope.onBet = $debounce(500, function(bet){
+                if($stmwcAuth.requireAuth()) return;
                 var value = bet.value;
                 if(!value[0] || !value[1]) return;
                 Bets.bet(bet.id, parseInt(value[0]), parseInt(value[1]), function(canBet){
@@ -69,6 +77,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 }
             });
             $scope.onFocusInput = function(e){
+                if($stmwcAuth.requireAuth()) return;
                 if(!$scope.canBet) {
                     $stmwcAuth.auth();
                 }
@@ -79,6 +88,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 }, 600);
             }
             $scope.luckyBet = function(){
+                if($stmwcAuth.requireAuth()) return;
                 var bet;
                 for(var i=0;i<sections.length;i++){
                     for(var ii=0;ii<sections[i].length;ii++){
@@ -91,6 +101,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 }
             }
             $scope.selectDate = function(date){
+                if($stmwcAuth.requireAuth()) return;
                 $scope.menuTime = menuTime = date ? getDayTime(date.time) : 0;
                 sections.length = 0;
                 sections.push(currentSection);

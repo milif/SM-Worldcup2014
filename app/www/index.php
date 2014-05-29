@@ -2,6 +2,7 @@
     require_once __DIR__.'/../lib/User.class.php';
 
     $ENV = array(
+        'requireAuth' => isset($_COOKIE[SESSION_COOKIE.'_authorization']),
         'place' => array(
             'user' => User::getPlace(),
             'total' => User::getTotal()

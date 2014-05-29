@@ -27,7 +27,7 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             $scope.auth = $stmwcAuth;
             $scope.user = $stmwcAuth.data;
             $scope.bets = Bets;
-            $scope.place = $stmwcEnv.place;
+            var place = $scope.place = $stmwcEnv.place;
             
             $scope.showTop = function(){
                 $scope.showTop20 = true;
@@ -39,7 +39,13 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             var progressCss = $scope.progressCss = {};
             $scope.$watch(function(){
                 $scope.score = Bets.getScore();
-                progressCss.width = Math.round(Math.min($scope.score, 2000) / 2000 * 100) + '%';
+                if($scope.score < 1000) {
+                    progressCss.width = Math.round($scope.score / 1000 * 25) + '%';
+                } else if($scope.score <= 1500){
+                    progressCss.width = Math.round(25 + ($scope.score - 1000) / 500 * 25) + '%';
+                } else {
+                    progressCss.width = Math.round(50 + (place.total - place.user + 1) / place.total * 50) + '%';
+                }
             });
             if(!$stmwcAuth.isAuth){
                 $scope.name = "Игрок № " + $filter('number')(getUserNumber(), 0);
