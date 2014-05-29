@@ -26,14 +26,12 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
             return '<div ng-if="isShow" stmwc-popup-mask ng-cloak>' +
                         '<div class="popup--l" ng-click="onMaskClick($event)">' +
                             '<div class="popup--h">' +
-                                '<div class="popup--hh">' +
                                     '<div ng-style="css" class="popup">' +
                                         '<span ng-click="hide()" class="popup__close">Закрыть</span>' +
                                         '<div class="popup__content '+(content.attr('class') || '')+'">' + content.html() + '</div>' +
                                         (footer.length > 0 ? '<div class="popup__footer '+footer.attr('class')+'">' + footer.html() + '</div>' : '') +
                                     '</div>' +
                                 '</div>' +
-                            '</div>' +
                         '</div>' +
                     '</div>';
         },

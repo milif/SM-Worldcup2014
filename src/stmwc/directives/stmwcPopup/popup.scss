@@ -4,25 +4,22 @@
     position: relative;
     box-shadow: 0 5px 10px rgba(0,0,0,.3);
     min-width: 420px;
+    text-align: left;
     &--l {
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        top: 0px;
-        bottom: 0px;
-        overflow: auto;
         background: rgba(0,0,0, 0.3);
     }
+    
     &--h {
-        display: table;
+        display: inline-block;
         margin: 0 auto;
-        height: 100%;
-        padding: 10px;
+        margin: 10px;
     }
+    /*
     &--hh {
         display: table-cell;
         vertical-align: middle;
     }
+    */
     &--medium {
         width: 420px;
     }

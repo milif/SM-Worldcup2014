@@ -17,23 +17,28 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
     var $ = angular.element;
     var bodyEl = $('body');
     var scrollTop;
+    var stack = [];
     return {
         transclude: true,
         controller: ['$scope', '$transclude', '$attrs', function($scope, $transclude, $attrs) {
             var maskEl;
             var isAnimateEnter = !$attrs.animateEnter || $scope.$eval($attrs.animateEnter);
             $scope.$on('$destroy', function(){
+                stack.splice(stack.indexOf(maskEl.get(0)), 1);
                 $animate.leave(maskEl, function(){
-                    if(bodyEl.find('>.l-popup').length > 0) return;
+                    if(stack.length > 0) return;
                     bodyEl
                         .removeClass('m_masked')
                         .find('>:first')
                             .css('top', 0).end()
                         .scrollTop(scrollTop);
                 });
+                $(stack).fadeIn(200);
             });
             $transclude(function(el, scope){
                 maskEl = $('<div class="l-popup">').append(el);
+                $(stack).fadeOut(200);
+                stack.push(maskEl.get(0));
                 if(isAnimateEnter) {
                     $animate.enter(maskEl, bodyEl);
                 } else {
