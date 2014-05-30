@@ -120,6 +120,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             function onUpdateBets(){
                 var bet;
                 var time = $scope.time = new Date().getTime();
+                var currentDayTime = getDayTime(time);
                 currentSection.length = 0;
                 prevSection.length = 0;
                 nextSection.length = 0;
@@ -141,7 +142,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                             break;
                     }
                     bet.date = $filter('date')(bet.time, 'd MMMM');
-                    if(bet.time < time) {
+                    if(bet.time < currentDayTime) {
                         addToSection(prevSection, bet);
                     } else if((menuTime == 0 && (countSection(currentSection) < 5 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
                         addToSection(currentSection, bet);
