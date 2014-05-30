@@ -7,7 +7,7 @@
      * Внешний интерфейс ставок
      * 
      */            
-    angular.module('stmwc').factory('Bets', ['$resource', '$filter', function($resource, $filter){
+    angular.module('stmwc').factory('Bets', ['$resource', '$filter', '$stmwcEnv', '$timeout', function($resource, $filter, $stmwcEnv, $timeout){
         
         var $$ = angular;
         
@@ -41,9 +41,21 @@
         }
         function update(clbFn){
             var bets
-            var data = Bets.__update({
-                action: 'update'
-            }, function(){
+            var data;
+            
+            if($stmwcEnv.bets) {
+                data = $stmwcEnv.bets;
+                $timeout(applyData, 0);
+                $stmwcEnv.bets = null;
+            } else {
+                data = Bets.__update({
+                    action: 'update'
+                }, applyData);   
+            }
+            
+            return __bets;
+            
+            function applyData(){
                 __bets.canBet = data.canBet;
                 __bets.score = 0;
                 bets = data.bets;
@@ -71,8 +83,7 @@
                 }
                 __bets.sort(function(a, b){return a.time - b.time});
                 clbFn();
-            });
-            return __bets;
+            }
         }
         
     }]) 

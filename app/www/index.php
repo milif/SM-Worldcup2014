@@ -1,8 +1,13 @@
 <?php
     require_once __DIR__.'/../lib/User.class.php';
+    require_once __DIR__.'/../lib/Bets.class.php';
 
     $ENV = array(
         'requireAuth' => isset($_COOKIE[SESSION_COOKIE.'_authorization']),
+        'bets' => array(
+            'bets' => Bets::get(),
+            'canBet' => Bets::canBet()
+        ),
         'place' => array(
             'user' => User::getPlace(),
             'total' => User::getTotal()

@@ -23,7 +23,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcBets:bets.html',
         replace: true,
-        controller: ['$scope', 'Bets', '$interval', '$filter', '$animate', '$stmwcAuth', '$debounce', function($scope, Bets, $interval, $filter, $animate, $stmwcAuth, $debounce){
+        controller: ['$scope', 'Bets', '$interval', '$filter', '$animate', '$stmwcAuth', '$debounce', '$stmwcEnv', function($scope, Bets, $interval, $filter, $animate, $stmwcAuth, $debounce, $stmwcEnv){
             var bets;
             var currentSection = $scope.currentSection = [];
             var prevSection = $scope.prevSection = [];
