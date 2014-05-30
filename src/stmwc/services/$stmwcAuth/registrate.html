@@ -1,31 +1,38 @@
 <div stmwc-popup="registrate">
     <content>
-        <div class="popup__title">Почти готово</div>
-        <form ng-class="isSubmited ? 'state_submited' : ''" name="modelData.form" ng-submit="submit()" ui-keypress="{13:'submit()'}" class="form g-form" novalidate>
-            <fieldset>
-                <div class="form-row">
-                    <label for="user-mail" class="form-label">Ваша электронная почта</label> <br>
-                    <input ng-model="model.email" required type="email" id="user-mail" class="input-text input-text--size-normal">
-                    <div class="form-hint">только для уведомлений</div>
-                </div>
-                <div class="form-row">
-                    <label for="user-name" class="form-label">Ваше имя</label> <br>
-                    <input type="text" ng-model="model.name" required id="user-name" class="input-text input-text--size-normal">
-                </div>
-                <div class="form-row">
-                    Ваш пол  &nbsp;&nbsp;&nbsp;&nbsp; <label for="user-male" class="form-label"><input type="radio" ng-model="model.gender" id="user-male" value="m" class="form-radio">Мужской</label>
-                    <label for="user-famale" class="form-label"><input ng-model="model.gender" type="radio" name="sex" id="user-famale" class="form-radio" value="f">Женский</label>
-                </div>
-                <div class="form-row">
-                    <label for="user-name" class="form-label">Дата вашего рождения</label> <br>
-                    <input type="text" ui-mask="99.99.9999" date ng-model="model.dob" id="user-birthday" class="input-text input-text--size-normal input-text--short" placeholder="дд/мм/гггг">
-                </div>
-            </fieldset>
-        </form>
+        <div ng-if="state == 'end'">
+            <div class="popup__title">Регистрация завершена</div>
+            <p>На <b>{{model.email}}</b> отправлено письмо<br>с подтверждением регистрации.<br><b>Пройдите по указанной в письме ссылке.</b></p>
+        </div>
+        <div ng-if="state == 'start'">
+            <div class="popup__title">Почти готово</div>
+            <form ng-class="isSubmited ? 'state_submited' : ''" name="modelData.form" ng-submit="submit()" ui-keypress="{13:'submit()'}" class="form g-form" novalidate>
+                <fieldset>
+                    <div class="form-row">
+                        <label for="user-mail" class="form-label">Ваша электронная почта</label> <br>
+                        <input ng-model="model.email" required type="email" id="user-mail" class="input-text input-text--size-normal">
+                        <div class="form-hint">только для уведомлений</div>
+                    </div>
+                    <div class="form-row">
+                        <label for="user-name" class="form-label">Ваше имя</label> <br>
+                        <input type="text" ng-model="model.name" required id="user-name" class="input-text input-text--size-normal">
+                    </div>
+                    <div class="form-row">
+                        Ваш пол  &nbsp;&nbsp;&nbsp;&nbsp; <label for="user-male" class="form-label"><input type="radio" ng-model="model.gender" id="user-male" value="m" class="form-radio">Мужской</label>
+                        <label for="user-famale" class="form-label"><input ng-model="model.gender" type="radio" name="sex" id="user-famale" class="form-radio" value="f">Женский</label>
+                    </div>
+                    <div class="form-row">
+                        <label for="user-name" class="form-label">Дата вашего рождения</label> <br>
+                        <input type="text" ui-mask="99.99.9999" date ng-model="model.dob" id="user-birthday" class="input-text input-text--size-normal input-text--short" placeholder="дд/мм/гггг">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </content>
     <footer>
         <div class="button-center">
-            <button ng-class="isSend ? 'state_loading' : ''" ng-click="submit()" class="btn btn--subscribe">Готово</button>
+            <button ng-if="state == 'start'" ng-class="isSend ? 'state_loading' : ''" ng-click="submit()" class="btn btn--subscribe">Готово</button>
+            <div ng-if="state == 'end'" stmwc-share>шаре</div>
         </div>
     </footer>
 </div>

@@ -1,8 +1,7 @@
 <?php
 
 require_once __DIR__.'/../config.php';
-//require_once __DIR__.'/Socials.class.php';
-//require_once __DIR__.'/Auth.class.php';
+require_once __DIR__.'/Share.class.php';
 require_once __DIR__.'/User.class.php';
 
 if(!isset($GAME_DATA)) $GAME_DATA = array();
@@ -13,7 +12,7 @@ if(isset($_GET['email'])){
 }
 
 $API = array_merge(array(
-    //"api/socials.php" => Socials::get($SHARE_URI)
+    "api/share.php" => Share::get($SHARE_URI)
 ), isset($API) ? $API : array());
 
 $ENV = array_merge(array(

@@ -11,6 +11,7 @@
      * @requires stmwc.$stmwcAuth:confirm.scss
      *
      * @requires stmwc.directive:stmwcPopup
+     * @requires stmwc.directive:stmwcShare
      *
      * @description
      *
@@ -52,7 +53,7 @@
                 var contextData = context.split(":");
                 if(contextData[0] === 'c'){
                     $rootScope.$on('loaded', function(){
-                           confirmEmailInfo(parseInt(contextData[1]));
+                        confirmEmailInfo(parseInt(contextData[1]));
                     });
                 } else {
                     $stmwcAuth.session = context;
@@ -66,8 +67,8 @@
                 data: data || {},
                 isAuth: !!data,
                 auth: auth,
-                requireAuth: requireAuth,
                 registrate: registrate,
+                requireAuth: requireAuth,
                 logout: logout,
                 confirmEmail: confirmEmail
             });
@@ -104,7 +105,13 @@
         function registrate(){
             var $scope = $rootScope.$new();
             var model = $scope.modelData = {};
+            
+            $scope.state = 'start';
+            
             $scope.$on('closedPopup-registrate', function(){
+                if($scope.state == 'end') {
+                    window.location.reload();
+                }
                 setTimeout(function(){
                     $scope.$destroy();
                 }, 0);
@@ -115,14 +122,17 @@
                 $scope.isSubmited = true;
                 if(!$scope.isSend && form.$valid) {
                     $scope.isSend = true;
-                    var email = model.email;
                     var res = $http.post(apiUser, {
                         action: 'reg',
                         data: model.data,
                         session: $stmwcAuth.session
                     });
-                    res.success(function(data){
-                        window.location.reload();
+                    res.success(function(res){
+                        if(res.success){
+                           $scope.state = 'end';
+                           $stmwcAuth.isAuth = true;
+                           $stmwcAuth.data = res.data;
+                        }
                     });
                     res.finally(function(){
                         $scope.isSend = false;
@@ -220,10 +230,11 @@
                         send: true,
                         email: email
                     });
-                    res.success(function(data){
-                        if(data.success){
+                    res.success(function(res){
+                        if(res.success){
                             $scope.state = 'send';
-                            $stmwcAuth.data.email = email;
+                            $stmwcAuth.data = res.data;
+                            $stmwcAuth.isAuth = true;
                         }
                     });
                     res.finally(function(){

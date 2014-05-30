@@ -2,6 +2,7 @@
 
 class Stm {
     const API_URL = 'http://www.sotmarket.ru/ajx/userInfo.php';
+    const API_KEY = '60a8C9957E201E45C2e7270D1F7e4AE3DC2b4D0f';
     static public function auth(){
         if($_GET['stm'] == "1") {
             return isset($_COOKIE['sotmarketid']) ? self::__userData(
@@ -33,6 +34,7 @@ class Stm {
         );
     }
     static private function __post($url, $params){
+        $params['api_key'] = self::API_KEY;
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",

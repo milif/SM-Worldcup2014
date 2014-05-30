@@ -27,6 +27,7 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             $scope.auth = $stmwcAuth;
             $scope.user = $stmwcAuth.data;
             $scope.bets = Bets;
+            $scope.score = 0;
             var place = $scope.place = $stmwcEnv.place;
             
             $scope.showTop = function(){

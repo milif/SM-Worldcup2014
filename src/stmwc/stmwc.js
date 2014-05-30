@@ -28,13 +28,23 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         $sceProvider.enabled(false);
         $locationProvider.html5Mode(true);
     }])
-    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv){
+    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory){
         
         $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
         
+        // Cache
+        var cache = $cacheFactory('stmwc');
+        $http.defaults.cache = cache;
+        
+        if($stmwcEnv.api){
+            var api = $stmwcEnv.api;
+            for(var key in api){
+                cache.put(key, api[key]);
+            }
+        }
     }])
     .value('$stmwcEnv', {})
-    .factory('$debounce', function ($timeout) {
+    .factory('$debounce', ['$timeout', function ($timeout) {
 
          return function (wait, fn) {
              var args, context, result, timeout;
@@ -82,5 +92,5 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
 
              return wrapper;
          };
-    });
+    }]);
 
