@@ -6,7 +6,7 @@ class Stm {
     static public function auth(){
         if($_GET['stm'] == "1") {
             return isset($_COOKIE['sotmarketid']) ? self::__userData(
-                self::__post(self::API_URL, array(
+                self::__post(array(
                     'cookie' => $_COOKIE['sotmarketid']
                 ))
             ) : false;
@@ -15,7 +15,7 @@ class Stm {
             $dataJson = file_get_contents("php://input");
             $data = json_decode($dataJson, true);
             return self::__userData(
-                self::__post(self::API_URL, array(
+                self::__post(array(
                     'login' => $data['login'],
                     'password' => $data['password']
                 ))
@@ -33,7 +33,7 @@ class Stm {
             'gender' => NULL
         );
     }
-    static private function __post($url, $params){
+    static private function __post($params){
         $params['api_key'] = self::API_KEY;
         $options = array(
             'http' => array(
@@ -43,7 +43,7 @@ class Stm {
             ),
         );
         $context  = stream_context_create($options);
-        $jsonData = json_decode(file_get_contents($url, false, $context), true);
+        $jsonData = json_decode(file_get_contents(self::API_URL, false, $context), true);
         return $jsonData;
     }
 }

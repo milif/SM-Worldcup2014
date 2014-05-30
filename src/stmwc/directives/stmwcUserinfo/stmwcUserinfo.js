@@ -39,7 +39,7 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             
             var progressCss = $scope.progressCss = {};
             $scope.$watch(function(){
-                $scope.score = Bets.getScore();
+                $scope.score = Bets.getScore() || 0;
                 if($scope.score < 1000) {
                     progressCss.width = Math.round($scope.score / 1000 * 25) + '%';
                 } else if($scope.score <= 1500){
