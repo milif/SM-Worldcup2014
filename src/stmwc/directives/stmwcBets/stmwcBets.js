@@ -102,7 +102,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
             $scope.selectDate = function(date){
                 if($stmwcAuth.requireAuth()) return;
-                $scope.menuTime = menuTime = date ? getDayTime(date.time) : 0;
+                $scope.menuTime = menuTime = date ? getDayTime(date.bets[0].time) : 0;
                 sections.length = 0;
                 sections.push(currentSection);
                 onUpdateBets();
@@ -126,7 +126,6 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 $scope.countMore = 0;
                 $scope.countCurrent = 0;
                 $scope.canBet = bets.canBet;
-                dates.keys = {};
                 dates.length = 0;
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
@@ -142,13 +141,9 @@ angular.module('stmwc').directive('stmwcBets', function(){
                             break;
                     }
                     bet.date = $filter('date')(bet.time, 'd MMMM');
-                    if(!dates.keys[bet.date] && time < bet.time && dates.length < 10){
-                        dates.keys[bet.date] = true;
-                        dates.push(bet);
-                    }
                     if(bet.time < time) {
                         addToSection(prevSection, bet);
-                    } else if((menuTime == 0 && countSection(currentSection) < 5) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
+                    } else if((menuTime == 0 && (countSection(currentSection) < 5 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
                         addToSection(currentSection, bet);
                     } else {
                         addToSection(nextSection, bet);
@@ -159,6 +154,22 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         currentSection.push(nextSection.splice(0,1)[0]);
                     } else if(prevSection.length > 0){
                         currentSection.push(prevSection.pop());
+                    }
+                }
+                
+                var dateBet, descrs, descr;
+                for(var date in dateBetsSet){
+                    dateBet = dateBetsSet[date];
+                    descrs = [];
+                    for(var i=0;i<dateBet.bets.length;i++){
+                        descr = dateBet.bets[i].descr;
+                        if(descrs.indexOf(descr) < 0) descrs.push(descr);
+                    }
+                    descrs.sort();
+                    dateBet.descr = descrs.join(',').replace(/,группа\s/ig, ',');
+                    
+                    if(time < dateBet.bets[0].time && dates.length < 10){
+                        dates.push(dateBet);
                     }
                 }
                 
@@ -176,12 +187,11 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 return count;
             }
             function addToSection(section, bet){
-                var key = bet.date + bet.descr;
+                var key = bet.date;
                 var dateBets = dateBetsSet[key];
                 if(!dateBets) {
                     dateBets = {
                         date: bet.date,
-                        descr: bet.descr,
                         bets: []
                     };
                     dateBetsSet[key] = dateBets; 
