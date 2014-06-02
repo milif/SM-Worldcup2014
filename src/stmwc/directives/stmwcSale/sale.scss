@@ -1,0 +1,54 @@
+/* HEADER SALE */
+/*==========================================================*/
+.header-sale {
+    margin-bottom: 50px;
+    padding-top: 30px;
+    clear: both;
+    &__title {
+        width: 465px;
+        height: 104px;
+        margin: 50px auto 30px;
+        @extend %sprite;
+        @include sp(sale-title);
+    }
+    &__list {
+        font-size: 0;
+        white-space: nowrap;
+    }
+    &__item {
+        white-space: normal;
+        @extend %inline;
+        width: 33.333%;
+        text-align: center;
+        margin-top: 330px;
+    }
+    &__item-link {
+        position: relative;
+        color: #000;
+    }
+    &__item-note {
+        font-size: 16px;
+    }
+    &__item-note-d {
+        color: #000;
+        @extend %link-active;
+    }
+    &__play-h {
+        margin: 40px 0 50px;
+        text-align: center;
+    }
+    &__play {
+        @extend %btn;
+        @extend %btn--green;
+        @extend %btn--size-big;
+    }
+//    &__item-image {
+//        position: absolute;
+//        height: 330px;
+//
+//    }
+    &__item-im {
+        position: absolute;
+        bottom: 36px;
+    }
+}

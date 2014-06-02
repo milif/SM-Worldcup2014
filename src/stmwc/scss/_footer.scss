@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+/* footer */
+/*==========================================================*/
+.footer {
+    margin-bottom: 30px;
+    &__copyrigth {
+        font-size: 13px;
+        white-space: nowrap;
+        color: #999;
+    }
+    &__copyrigth-link {
+        color: #999;
+        @extend %link-active;
+        &--out {
+            position: relative;
+            &:before {
+                content: '';
+                position: absolute;
+                right: -16px;
+                display: block;
+                top: 50%;
+                margin-top: -6px;
+                width: 11px;
+                height: 11px;
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAALUlEQVQoz2P4zwCCDP+xQpzCyAAoUPcfBIkXhjBIE0aDdSjq6qAqcAujQogwALOJsq6pJJ9jAAAAAElFTkSuQmCC') no-repeat 0 0;
+            }
+        }
+    }
+    &__copyrigth-separator {
+        font-size: 20px;
+        padding: 0 14px;
+    }
+}

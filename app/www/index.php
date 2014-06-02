@@ -26,6 +26,7 @@
 </head>
 <body stmwc-layout-page>
     <div stmwc-toolbar></div>
+    <div stmwc-sale></div>
     <div stmwc-userinfo></div>
     <div stmwc-layout-sidebar>
         <content>
@@ -36,5 +37,11 @@
         </sidebar>
     </div>
     <div stmwc-preload></div>
+    <div class="footer">
+        <div class="footer__copyrigth">
+            © <a href="/" class="footer__copyrigth-link">Сотмаркет</a> 2005–2014 <span class="footer__copyrigth-separator">|</span> <a href="/" class="footer__copyrigth-link footer__copyrigth-link--out" target="_blank">Полные правила акции</a>
+        </div>
+
+    </div>
 </body>
 </html>

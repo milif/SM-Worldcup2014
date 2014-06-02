@@ -4,19 +4,21 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     line-height: 1.4;
     -webkit-font-smoothing: antialiased;
-    background: #fff9e5;
+    background: #fff;
 }  
 .l-page {
     width: 1030px;
     margin: 0 auto;
-    overflow: hidden;
 } 
 .l-page > * {
   margin: 20px 0;
+  &:first-child {
+      margin-top: 0;
+  }
 } 
 .ll-page {
     min-width: 1050px;
     width: 100%;
     position: relative;
-    background: url("../../assets/i/head.png") repeat-x 0 0;
+    background: url("../../assets/i/headers.png") repeat-x 0 0;
 }    

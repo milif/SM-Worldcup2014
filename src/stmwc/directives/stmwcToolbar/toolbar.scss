@@ -4,18 +4,27 @@
     @extend %clearfix;
     @extend %bg-clip;
     position: relative;
-    height: 37px;
+    height: 46px;
     border-radius: 7px;
-    background-color: #008a1b;
+    @include background-image(linear-gradient(bottom, #00891b 0%, #009e20 100%));
     &__logo {
-        position: absolute;
-        left: 50%;
-        top: 12px;
+        float: left;
+        margin: 16px 16px 0 20px;
         text-indent: -9999px;
-        @extend %inline;
         @extend %sprite;
-        @include sz(toolbar__logo);
-        @include szpl(toolbar__logo);
+        @include szp(toolbar__logo);
+    }
+    &__share-h {
+        float: right;
+        line-height: 46px;
+        height: 46px;
+    }
+    &__share {
+        position: relative;
+        top: -1px;
+        line-height: normal;
+        vertical-align: middle;
+        display: inline-block;
     }
 }
 
@@ -23,38 +32,50 @@
 /* toolbar-buttons */
 .toolbar-buttons {
     font-size: 0;
-    cursor: pointer;
-    &--left {
-        float: left;
-    }
-    &--right {
-        float: right;
-    }
+    float: left;
     &__item {
         @extend %inline;
         font-size: 16px;
         padding: 0 14px;
-        height: 37px;
-        line-height: 37px;
+        height: 46px;
+        line-height: 46px;
         color: #fff;
         text-shadow: 0 -1px 0 #004f0f;
         text-decoration: none;
         @extend %bg-clip;
-        &:first-child {
-            .toolbar-buttons--left & {
-                border-radius: 6px 0 0 6px;
-            }
-        }
-        &:last-child {
-            .toolbar-buttons--right & {
-                border-radius: 0 6px 6px 0;
-            }
-        }
         &:hover {
             @extend %button-hover-yellow;
         }
         &:active {
             @extend %button-hover-yellow-active;
         }
+    }
+}
+
+
+
+.l-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    min-width: 1050px;
+    z-index: 1000;
+    background-image: linear-gradient(bottom, #00891b 0%, #009e20 100%);
+    box-shadow: 1px 1px 15px 0px rgba(50, 50, 50, 0.35);
+}
+
+.toolbar-in {
+    margin: 0 auto;
+    width: 1000px;
+    @extend %clearfix;
+    @extend %bg-clip;
+    position: relative;
+    height: 46px;
+    &__logo {
+        float: left;
+        margin: 16px 16px 0 20px;
+        text-indent: -9999px;
+        @extend %sprite;
+        @include szp(toolbar__logo);
     }
 }

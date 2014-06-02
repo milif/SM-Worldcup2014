@@ -30,6 +30,7 @@ module.exports = function(grunt) {
                     'directive:stmwcLayoutPage',
                     'directive:stmwcLayoutSidebar',
                     'directive:stmwcToolbar',
+                    'directive:stmwcSale',
                     'directive:stmwcPreload',
                     'directive:stmwcBets',
                     'directive:stmwcUserinfo',

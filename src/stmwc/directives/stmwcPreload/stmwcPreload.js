@@ -19,9 +19,11 @@ angular.module('stmwc').directive('stmwcPreload', [function(){
     return {
         scope: true,
         templateUrl: 'partials/stmwc.directive:stmwcPreload:preload.html',
-        controller: ['$scope', '$timeout', function($scope, $timeout){
+        controller: ['$scope', '$timeout', '$element', function($scope, $timeout, $element){
             var assets;
             var count;
+            
+            $element.hide();
             
             init();
             

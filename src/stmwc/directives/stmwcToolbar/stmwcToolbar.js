@@ -7,6 +7,8 @@
  * @requires stmwc.directive:stmwcToolbar:toolbar.scss
  * @requires stmwc.directive:stmwcToolbar:toolbar.html
  *
+ * @requires stmwc.directive:stmwcShare
+ *
  * @description
  * Тулбар
  *
@@ -18,12 +20,16 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcToolbar:toolbar.html',
         replace: true,
-        controller:['$scope', function($scope){
-            $scope.goBets = function(){
-                $('body').animate({
-                    scrollTop: $('[stmwc-bets]').offset().top
+        link: function($scope, el){
+            $('body').append(el);
+        },
+        controller:['$scope', '$element', function($scope, $element){
+            $(window).scroll(function(){
+                if($('body').hasClass('m_masked')) return;
+                $element.css({
+                    left: -Math.max(0, Math.min($(window).scrollLeft(), $('.ll-page').width() - $(window).width()))
                 });
-            }
+            });
         }]
     };
 });
