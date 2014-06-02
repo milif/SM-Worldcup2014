@@ -4,12 +4,19 @@
     margin-bottom: 50px;
     padding-top: 30px;
     clear: both;
+    position: relative;
     &__title {
         width: 465px;
         height: 104px;
         margin: 50px auto 30px;
         @extend %sprite;
         @include sp(sale-title);
+    }
+    &__content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
     &__list {
         font-size: 0;
@@ -34,7 +41,7 @@
         @extend %link-active;
     }
     &__play-h {
-        margin: 40px 0 50px;
+        margin: 40px 0 30px;
         text-align: center;
     }
     &__play {

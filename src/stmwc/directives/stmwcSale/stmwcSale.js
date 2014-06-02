@@ -19,10 +19,13 @@ angular.module('stmwc').directive('stmwcSale', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcSale:sale.html',
         replace: true,
-        controller: ['$scope', function($scope){
+        controller: ['$scope', '$element', function($scope, $element){
+            $element.css({
+                'height': Math.max(650, $(window).height() - 50)
+            });
             $scope.goBets = function(){
                 $('body').animate({
-                    scrollTop: $('[stmwc-bets]').offset().top - 60
+                    scrollTop: $('[stmwc-userinfo]').offset().top - 60
                 });
             }
         }]

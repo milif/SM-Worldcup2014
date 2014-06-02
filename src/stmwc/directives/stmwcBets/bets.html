@@ -67,8 +67,8 @@
                                 <div ng-if="bet.result" class="true-score">{{bet.result[0]}} : {{bet.result[1]}}</div>
                             </div>
                             <div class="bets__item-table-td">
-                                <div ng-if="(!bet.value[0] || !bet.value[1]) && bet.time > time" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку</div>
-                                <div ng-if="bet.value[0] && bet.value[1] && !bet.result" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка сделана</div>
+                                <div ng-if="!(bet.value[0] >= 0 && bet.value[1] >= 0) && bet.time > time" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку</div>
+                                <div ng-if="bet.value[0] >= 0 && bet.value[1] >= 0 && !bet.result" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка сделана</div>
                                 <div ng-if="bet.result && bet.userResult == 0"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
                                 <div ng-if="bet.result && bet.userResult == 1" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали победителя <span class="labelst">+{{bet.score}} Б</span></div>
                                 <div ng-if="bet.result && bet.userResult == 2" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Вы угадали <br>счет <span class="labelst">+{{bet.score}} Б</span></div>
