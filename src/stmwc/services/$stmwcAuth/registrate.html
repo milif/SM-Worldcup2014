@@ -31,7 +31,7 @@
     </content>
     <footer>
         <div class="button-center">
-            <button ng-if="state == 'start'" ng-class="isSend ? 'state_loading' : ''" ng-click="submit()" class="btn btn--subscribe">Готово</button>
+            <button ng-if="state == 'start'" ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="btn btn--subscribe">Готово</button>
             <div ng-if="state == 'end'" stmwc-share></div>
         </div>
     </footer>

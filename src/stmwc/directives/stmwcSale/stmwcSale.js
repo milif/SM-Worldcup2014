@@ -24,7 +24,7 @@ angular.module('stmwc').directive('stmwcSale', function(){
                 'height': Math.max(650, $(window).height() - 50)
             });
             $scope.goBets = function(){
-                $('body').animate({
+                $('html,body').animate({
                     scrollTop: $('[stmwc-userinfo]').offset().top - 60
                 });
             }

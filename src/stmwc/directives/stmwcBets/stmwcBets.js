@@ -95,7 +95,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         for(var iii=0;iii<sections[i][ii].bets.length;iii++){
                             bet = sections[i][ii].bets[iii];
                             if(bet.time < $scope.time || bet.value[0] >= 0 || bet.value[1] >= 0) continue;
-                            doBet(bet, [Math.round(Math.random() * 9), Math.round(Math.random() * 9)]);
+                            doBet(bet, [Math.round(Math.random() * 4), Math.round(Math.random() * 4)]);
                         }
                     }
                 }
