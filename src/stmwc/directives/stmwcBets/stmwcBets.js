@@ -167,7 +167,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         if(descrs.indexOf(descr) < 0) descrs.push(descr);
                     }
                     descrs.sort();
-                    dateBet.descr = descrs.join(',').replace(/,группа\s/ig, ',');
+                    dateBet.descr = descrs.join(',').replace(/,группа\s/ig, ', ');
                     
                     if(time < dateBet.bets[0].time && dates.length < 10){
                         dates.push(dateBet);

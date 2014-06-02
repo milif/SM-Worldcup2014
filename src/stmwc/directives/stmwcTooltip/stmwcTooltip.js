@@ -35,6 +35,7 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
             
             $element.parent().on('mousedown', $attrs.element, function(e){
                 if($(e.target).closest($element).length == 0){
+                    if(!$scope.hide) return;
                     showTooltip(e); 
                     $scope.$digest();
                 }

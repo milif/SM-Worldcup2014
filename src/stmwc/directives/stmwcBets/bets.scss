@@ -26,7 +26,7 @@
 .button-bet-top {
     min-width: 160px;
     @extend %btn;
-    @extend %btn--green;
+    @extend %btn--gray;
     @extend %btn--size-normal;
     border-radius: 3px;
 }
