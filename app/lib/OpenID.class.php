@@ -29,10 +29,10 @@ class OpenID {
     }
     static private function __authVK(){
         $url = 'https://oauth.vk.com/access_token?client_id='.self::VK_CLIENT_ID.'&client_secret='.self::VK_CLIENT_SECRET.'&code='.$_GET['code'].'&redirect_uri='.urlencode(self::getRedirectUrl());
-        $dataCode =  json_decode(file_get_contents($url), true);
+        $dataCode =  json_decode(self::__getSSLPage($url), true);
         if(!isset($dataCode['access_token'])) return false;
         $url = "https://api.vk.com/method/users.get?fields=sex,bdate,photo_100,domain&v=5.21&access_token={$dataCode['access_token']}&user_id={$dataCode['user_id']}";
-        $dataUser =  json_decode(file_get_contents($url), true);
+        $dataUser =  json_decode(self::__getSSLPage($url), true);
         if(!isset($dataUser['response'])) return false;
         $dataUser = $dataUser['response']['0'];
         $dob = $dataUser['bdate'] ? explode('.',$dataUser['bdate']) : NULL;
@@ -51,12 +51,12 @@ class OpenID {
     static private function __authFB(){
         $url ='https://graph.facebook.com/oauth/access_token?client_secret='.self::FB_CLIENT_SECRET.'&code='.$_GET['code'].'&client_id='.self::FB_CLIENT_ID.'&redirect_uri='.urlencode(self::getRedirectUrl());
         
-        $data = file_get_contents($url);
+        $data = self::__getSSLPage($url);
         preg_match('/access_token=([^&]+)/', $data, $accessToken);      
         if(!$accessToken) return false;
 
         $url = "https://graph.facebook.com/me?fields=link,email,birthday,name,gender,picture.type(square),picture.width(62),picture.height(62)&access_token=&access_token=".$accessToken[1];
-        $dataUser =  json_decode(file_get_contents($url), true);
+        $dataUser =  json_decode(self::__getSSLPage($url), true);
 
         if(!isset($dataUser['link'])) return false;
         
@@ -79,17 +79,9 @@ class OpenID {
             'redirect_uri' => self::getRedirectUrl(),
             'grant_type' => 'authorization_code'
         );
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($params),
-            ),
-        );
-        $context  = stream_context_create($options);
-        $accessData = json_decode(file_get_contents('https://accounts.google.com/o/oauth2/token', false, $context), true);
+        $accessData = json_decode(self::__getSSLPage('https://accounts.google.com/o/oauth2/token', $params), true);
         if(!is_array($accessData) || !isset($accessData['access_token'])) return false;
-        $userData = json_decode(file_get_contents('https://www.googleapis.com/plus/v1/people/me?access_token='.$accessData['access_token']), true);
+        $userData = json_decode(self::__getSSLPage('https://www.googleapis.com/plus/v1/people/me?access_token='.$accessData['access_token']), true);
         if(!is_array($userData) || !isset($userData['url'])) return false;
 
         $data = array(
@@ -141,5 +133,21 @@ class OpenID {
             ':expire' => time() + 3600
         ));
         return $connection->getAuthorizeURL($temporary_credentials);
+    }
+    private static function __getSSLPage($url, $params = NULL) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSLVERSION,3); 
+        
+        if($params){
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded")); 
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));   
+        }
+        
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 }
