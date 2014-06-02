@@ -61,6 +61,7 @@
     min-width: 1050px;
     z-index: 1000;
     background-image: linear-gradient(bottom, #00891b 0%, #009e20 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#009e20', endColorstr='#00891b');
     box-shadow: 1px 1px 15px 0px rgba(50, 50, 50, 0.35);
 }
 
