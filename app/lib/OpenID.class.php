@@ -139,11 +139,12 @@ class OpenID {
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSLVERSION,3); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         
         if($params){
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded")); 
-            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));   
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded")); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));   
         }
         
         $result = curl_exec($ch);
