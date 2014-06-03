@@ -56,7 +56,7 @@ class User {
         $userData = Cache::get($key);
         if($userData !== false) return $userData;
         
-        $rs = DB::query("SELECT name, avatar, email, phone, gender, dob, ref_key FROM `user` WHERE id = ".$userId);
+        $rs = DB::query("SELECT name, avatar, email, phone, gender, dob, ref_key, mnogoru_card FROM `user` WHERE id = ".$userId);
         $userData = array(
             'refKey' => $rs[0]['ref_key'],
             'avatar' => $rs[0]['avatar'],
@@ -65,7 +65,8 @@ class User {
             'phone' => $rs[0]['phone'],
             'gender' => $rs[0]['gender'],
             'dob' => $rs[0]['dob'] ? date('dmY', strtotime($rs[0]['dob'])) : '',
-            'isReg' => self::isRegistrated($userId)
+            'isReg' => self::isRegistrated($userId),
+            'hasMnogo' => !!$rs[0]['mnogoru_card']
         );
         
         Cache::set($key, $userData, 1200);
@@ -113,7 +114,7 @@ class User {
         if(!User::isAuth()) return false;
         $rs = DB::query("SELECT email FROM `user` WHERE registrated > 0 AND id = ".User::getKey());
         $isRegistrated = count($rs) > 0;
-        $isResetConfirmation = $isRegistrated && $rs[0]['email'] != $data['email'];
+        $isResetConfirmation = isset($data['email']) && $isRegistrated && $rs[0]['email'] != $data['email'];
 
         $data = array_intersect_key($data, array(
             'avatar' => true,
@@ -122,6 +123,7 @@ class User {
             'phone' => true,
             'gender' => true,
             'dob' => true,
+            'mnogoru_card' => true
         ));
 
         DB::update("UPDATE `user` SET ".DB::getSetPart($data).($isRegistrated ? '' : ', registrated = NOW()').($isResetConfirmation ? ', is_confirmed = 0' : '')."  WHERE id = ".User::getKey(), $data);

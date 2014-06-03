@@ -47,7 +47,9 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
             }
             
             var css = $scope.css = {}
-            if($attrs.width) css.width = $attrs.width;
+            if($attrs.width) {
+                css.minWidth = css.width = $attrs.width;
+            }
             $scope.hide = hide;
             $scope.onMaskClick = function(e){
                 if($(e.target).closest('.popup').length > 0) return;

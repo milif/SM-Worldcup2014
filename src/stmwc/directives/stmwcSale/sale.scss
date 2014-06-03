@@ -13,10 +13,7 @@
         @include sp(sale-title);
     }
     &__content {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        margin-bottom: 50px;
     }
     &__list {
         font-size: 0;
@@ -57,5 +54,14 @@
     &__item-im {
         position: absolute;
         bottom: 36px;
+        &.mod_iphone {
+            margin-left: 13px;
+        }
+        &.mod_phones {
+            margin-left: -31px;
+        }
+        &.mod_mnogo {
+            margin-left: -10px;
+        }
     }
 }

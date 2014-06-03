@@ -1,3 +1,3 @@
 <div ng-if="!isLoad" stmwc-popup-mask animate-enter="false">
-    <div class="b-preload"></div>
+    <div ng-class="showLoading ? 'state_loading' : ''" class="b-preload"></div>
 </div>

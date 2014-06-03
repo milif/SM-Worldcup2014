@@ -1,0 +1,7 @@
+.b-registrate {
+    &--mnogo-hint {
+        @extend %link-active;
+        @extend .form-hint;
+        color: #008800;
+    }
+}

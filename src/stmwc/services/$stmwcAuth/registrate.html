@@ -1,5 +1,5 @@
 <div stmwc-popup="registrate">
-    <content>
+    <content class="b-registrate">
         <div ng-if="state == 'end'">
             <div class="popup__title">Регистрация завершена</div>
             <p>На <b>{{model.email}}</b> отправлено письмо<br>с подтверждением регистрации.<br><b>Пройдите по указанной в письме ссылке.</b></p>
@@ -19,19 +19,24 @@
                     </div>
                     <div class="form-row">
                         Ваш пол  &nbsp;&nbsp;&nbsp;&nbsp; <label for="user-male" class="form-label"><input type="radio" ng-model="model.gender" id="user-male" value="m" class="form-radio">Мужской</label>
-                        <label for="user-famale" class="form-label"><input ng-model="model.gender" type="radio" name="sex" id="user-famale" class="form-radio" value="f">Женский</label>
+                        <label for="user-female" class="form-label"><input ng-model="model.gender" type="radio" name="sex" id="user-female" class="form-radio" value="f">Женский</label>
                     </div>
                     <div class="form-row">
-                        <label for="user-name" class="form-label">Дата вашего рождения</label> <br>
+                        <label for="user-birthday" class="form-label">Дата вашего рождения</label> <br>
                         <input type="text" ui-mask="99.99.9999" date ng-model="model.dob" id="user-birthday" class="input-text input-text--size-normal input-text--short" placeholder="дд/мм/гггг">
+                    </div>
+                    <div class="form-row">
+                        <label for="user-mnogo" class="form-label">Номер карты Много.ру</label> <br>
+                        <input type="text" ui-mask="9999 9999" placeholder = "XXXX XXXX" ng-model="model.mnogoru_card" id="user-mnogo" class="input-text input-text--size-normal">
+                        <a href="http://www.mnogo.ru/anketa.html?range=879" target="_blank" class="b-registrate--mnogo-hint">Получить карту</a>
                     </div>
                 </fieldset>
             </form>
         </div>
     </content>
-    <footer>
+    <footer class="popup__footer--green">
         <div class="button-center">
-            <button ng-if="state == 'start'" ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="btn btn--subscribe">Готово</button>
+            <span ng-if="state == 'start'" ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="btn btn--subscribe">Готово</span>
             <div ng-if="state == 'end'" stmwc-share></div>
         </div>
     </footer>

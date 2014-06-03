@@ -9,7 +9,7 @@
     @include background-image(linear-gradient(bottom, #00891b 0%, #009e20 100%));
     &__logo {
         float: left;
-        margin: 16px 16px 0 20px;
+        margin: 10px 0px 0 20px;
         text-indent: -9999px;
         @extend %sprite;
         @include szp(toolbar__logo);

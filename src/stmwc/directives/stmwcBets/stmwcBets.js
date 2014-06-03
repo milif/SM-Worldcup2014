@@ -31,7 +31,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var sections = $scope.sections = [currentSection];
             var betsForAuth = 0;
             var dates = $scope.dates = [];
-            var menuTime = $scope.menuTime = 0;//getDayTime(new Date().getTime());
+            var menuTime = $scope.menuTime = 0;
+            var time = new Date().getTime();
             
             $scope.requireAuth = $stmwcAuth.requireAuth(true);
             
@@ -68,6 +69,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 if(!value[0] || !value[1]) return;
                 Bets.bet(bet.id, parseInt(value[0]), parseInt(value[1]), function(canBet){
                     $scope.canBet = canBet;
+                    updateState(bet);
                 });
                 betsForAuth++;
                 
@@ -112,6 +114,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 Bets.bet(bet.id, value[0], value[1], function(canBet, success){
                     if(success) bet.value = value;
                     $scope.canBet = canBet;
+                    updateState(bet);
                 });
             }
             function updateBets(){
@@ -119,7 +122,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
             function onUpdateBets(){
                 var bet;
-                var time = $scope.time = new Date().getTime();
+                time = $scope.time = new Date().getTime();
                 var currentDayTime = getDayTime(time);
                 currentSection.length = 0;
                 prevSection.length = 0;
@@ -130,17 +133,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 dates.length = 0;
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
-                    switch(bet.userResult) {
-                        case 0:
-                            bet.state = 'false';
-                            break;
-                        case 1:
-                            bet.state = 'true';
-                            break;
-                        case 2:
-                            bet.state = 'wine';
-                            break;
-                    }
+                    updateState(bet);
                     bet.date = $filter('date')(bet.time, 'd MMMM');
                     if(bet.time < currentDayTime) {
                         addToSection(prevSection, bet);
@@ -180,6 +173,29 @@ angular.module('stmwc').directive('stmwcBets', function(){
             
             var dateBetsSet = {};
             
+            function updateState(bet){
+                if(bet.userResult) {
+                    switch(bet.userResult) {
+                        case 0:
+                            bet.state = 'false';
+                            break;
+                        case 1:
+                            bet.state = 'true';
+                            break;
+                        case 2:
+                            bet.state = 'wine';
+                            break;
+                    }   
+                } else if(bet.time > time && bet.value[0] >= 0 && bet.value[1] >= 0){
+                    bet.state = 'bet';
+                } else if(bet.time <= time && bet.value[0] >= 0 && bet.value[1] >= 0){
+                    bet.state = 'lock';
+                } if(bet.time > time && bet.time - 3600000 <= time && !(bet.value[0] >= 0 && bet.value[1] >= 0)) {
+                    bet.state = 'warn';
+                } else {
+                    bet.state = null;
+                }
+            }
             function countSection(section){
                 var count = 0;
                 for(var i=0;i<section.length;i++){
@@ -248,8 +264,8 @@ angular.module('stmwc').filter('timeto', ['$filter', function($filter) {
     return function(time, curTime) {
         var interval = Math.round(time - curTime) / 1000;
         var dd = Math.floor(interval / 86400);
-        var hh = Math.floor((interval - dd * 86400) / 3600);
-        var mm = Math.ceil((interval - dd * 86400 - hh * 3600) / 60);
+        var hh = Math[dd > 0 ? 'round' : 'floor']((interval - dd * 86400) / 3600);
+        var mm = dd > 0 ? 0 : Math.ceil((interval - dd * 86400 - hh * 3600) / 60);
 
         var res = [];
         if(dd > 0) {

@@ -12,7 +12,7 @@
  <meta property="og:title" content="ЧМ по футболу 2014 от Сотмаркет"/>
  <meta property="og:description" content="Ставлю на победу в Чемпионате Мира. Присоединяйся к игре!"/> 
  <?php require_once __DIR__.'/../lib/env.php'; ?>
- <meta property="og:image" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>share.png"/>
+ <meta property="og:image" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>share2.png"/>
  <meta property="og:url" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>"/> <?php 
  try{
      if(IS_PRODUCTION) include_once __DIR__.'/../partner.php';

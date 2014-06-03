@@ -5,10 +5,13 @@
      *
      * @requires stmwc.$stmwcAuth:auth.html
      * @requires stmwc.$stmwcAuth:registrate.html
+     * @requires stmwc.$stmwcAuth:registrate.scss
      * @requires stmwc.$stmwcAuth:sotmarket.html
      * @requires stmwc.$stmwcAuth:confirmed.html
      * @requires stmwc.$stmwcAuth:confirm.html
      * @requires stmwc.$stmwcAuth:confirm.scss
+     * @requires stmwc.$stmwcAuth:mnogo.html
+     * @requires stmwc.$stmwcAuth:mnogo.scss
      *
      * @requires stmwc.directive:stmwcPopup
      * @requires stmwc.directive:stmwcShare
@@ -70,6 +73,7 @@
                 registrate: registrate,
                 requireAuth: requireAuth,
                 logout: logout,
+                sendMnogo: sendMnogo,
                 confirmEmail: confirmEmail
             });
             
@@ -89,6 +93,46 @@
                 return true;
             }
             return false;
+        }
+        function sendMnogo(){
+            var $scope = $rootScope.$new();
+            var model = $scope.modelData = {};
+            $scope.model = model.data = {};
+            
+            $scope.state = 'start';
+            
+            $scope.$on('closedPopup-mnogosend', function(){
+                setTimeout(function(){
+                    $scope.$destroy();
+                }, 0);
+            });
+
+            $scope.submit = function(){
+                var form = model.form;
+                $scope.isSubmited = true;
+                if(!$scope.isSend && form.$valid) {
+                    $scope.isSend = true;
+                    var res = $http.post(apiUser, {
+                        action: 'mnogo',
+                        data: model.data
+                    });
+                    res.success(function(res){
+                        if(res.success){
+                           $scope.state = 'end';
+                           $stmwcAuth.data.hasMnogo = true;
+                           $scope.$broadcast('closePopup-mnogosend');
+                        }
+                    });
+                    res.finally(function(){
+                        $scope.isSend = false;
+                    });
+                }
+            }
+
+            $http.get('partials/stmwc.$stmwcAuth:mnogo.html', {cache: $templateCache})
+                .success(function(tpl){
+                    $compile(tpl)($scope);
+                });
         }
         function confirmEmailInfo(state){
             var $scope = $rootScope.$new();

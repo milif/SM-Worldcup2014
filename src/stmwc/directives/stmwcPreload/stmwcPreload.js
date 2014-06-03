@@ -27,6 +27,8 @@ angular.module('stmwc').directive('stmwcPreload', [function(){
             
             init();
             
+            $('html,body').scrollTop(1).scrollTop(0);
+            
             function init(){
                 $scope.isLoad = false;
                 assets = window._assets;

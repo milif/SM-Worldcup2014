@@ -35,8 +35,8 @@
                     <div data-bet ng-class="bet.state ? 'bets__item--' + bet.state : ''" ng-repeat="bet in dateBets.bets" class="bets__item">
                         <div class="bets__item-table">
                             <div ng-if="bet.time > time" class="bets__item-table-td">
-                                <div class="bets__item-note">До матча осталось:</div>
-                                <div class="bets__item-note bets__item-note--alert">{{bet.time | timeto:time}}</div>
+                                <div class="bets__item-note bets__item-note--fade">До матча осталось:</div>
+                                <div class="bets__item-note bets__item-note--time">{{bet.time | timeto:time}}</div>
                             </div>
                             <div ng-if="bet.time <= time" class="bets__item-table-td">
                                 <div ng-if="!bet.result" data-error-flash class="bets__item-note">Матч уже идет</div>

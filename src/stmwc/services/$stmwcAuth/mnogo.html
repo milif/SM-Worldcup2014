@@ -1,0 +1,17 @@
+<div stmwc-popup="mnogosend" width="340px">
+    <content class="b-mnogo">
+            <div class="b-mnogo__title ">Укажите номер<br>вашей карты Много.ру</div>
+            <form ng-class="isSubmited ? 'state_submited' : ''" name="modelData.form" ng-submit="submit()" ui-keypress="{13:'submit()'}" class="form g-form" novalidate>
+                <fieldset>
+                    <div class="form-row">
+                        <input type="text" ui-mask="9999 9999" required placeholder = "XXXX XXXX" ng-model="model.mnogoru_card" id="user-mnogo" class="input-text input-text--size-normal" style="text-align: center;">
+                    </div>
+                </fieldset>
+            </form>
+    </content>
+    <footer class="popup__footer--purple">
+        <div class="button-center">
+            <span ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="b-mnogo__submit">Готово</span>
+        </div>
+    </footer>
+</div>

@@ -13,15 +13,15 @@
         </form>
         <div ng-if="isError">Неверный логин или пароль.</div>
     </content>
-    <footer>
+    <footer class="popup__footer--green">
         <div ng-if="!isError">
-            <button ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="btn btn--subscribe">Войти</button>
+            <span ng-class="isSend ? 'state_loading' : ''" ng-mousedown="submit()" class="btn btn--subscribe">Войти</span>
             <div class="popup__footer--link-reg-h">
                 <a href="http://www.sotmarket.ru/#register" class="popup__footer--link-reg">Зарегистрироваться</a>
             </div>
         </div>
         <div ng-if="isError" class="button-center">
-            <button ng-click="again()" class="btn btn--subscribe">Войти снова</button>
+            <span ng-click="again()" class="btn btn--subscribe">Войти снова</span>
         </div>
     </footer>
 </div>

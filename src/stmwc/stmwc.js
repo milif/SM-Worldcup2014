@@ -32,6 +32,12 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         
         $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
         
+        $rootScope.$watch(function(){
+            $rootScope.requireMnogoCard = $stmwcAuth.isAuth && !$stmwcAuth.data.hasMnogo;
+        });
+        
+        $rootScope.sendMnogo = $stmwcAuth.sendMnogo;
+        
         // Cache
         var cache = $cacheFactory('stmwc');
         $http.defaults.cache = cache;

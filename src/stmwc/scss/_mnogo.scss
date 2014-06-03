@@ -1,0 +1,43 @@
+.b-reqmnogo {
+    height: 45px;
+    @include background-image(linear-gradient(bottom, #95287e 0%, #a4318c 100%));
+    border-radius: 6px;
+    color: #fff;
+    line-height: 45px;
+    padding: 0 0 0 0;
+    padding: 0 15px;
+    &--msg {
+        float: left;
+        position: relative;
+        padding-left: 29px;
+        font-size: 16px;
+        &:before {
+            display: inline-block;
+            content: '';
+            @extend %sprite;
+            @include szp(mnogo-icon);
+            position: absolute;
+            top: 50%;
+            margin-top: -12px;
+            left: 0;
+        }
+    }
+    &--getcard {
+        color: #fff;
+        font-size: 13px;
+        float: right;
+        @extend %link-active;
+        position: relative;
+        padding-left: 25px;
+        &:before {
+            display: inline-block;
+            content: '';
+            @extend %sprite;
+            @include szp(mnogowin-icon);
+            position: absolute;
+            top: 50%;
+            margin-top: -9px;
+            left: 0;
+        }
+    }
+}

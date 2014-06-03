@@ -5,6 +5,7 @@
     box-shadow: 0 5px 10px rgba(0,0,0,.3);
     min-width: 420px;
     text-align: left;
+    border-radius: 6px;
     &--l {
         background: rgba(0,0,0, 0.3);
     }
@@ -36,8 +37,14 @@
         @include background-image(linear-gradient(bottom, #fffae7 0%, #fffae7 6.18%, #fffae7 100%));
         border-radius: 0 0 6px 6px;
         padding: 20px;
+        &--green {
+            @include background-image(linear-gradient(bottom, #008a1c 0%, #009e20 100%));
+        }
+        &--purple {
+            @include background-image(linear-gradient(bottom, #95287e 0%, #a4318c 100%));
+        }
         &--link-reg {
-            color: #008800;
+            color: #fff;
             @extend %link-active;
             &-h {
                 line-height: 38px;

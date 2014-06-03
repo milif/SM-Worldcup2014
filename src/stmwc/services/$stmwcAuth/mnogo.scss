@@ -1,0 +1,12 @@
+.b-mnogo {
+    &__title {
+        font-size: 24px;
+        color: #95287e;
+        margin-bottom: 15px;
+    }
+    &__submit {
+        @extend %btn;
+        @extend %btn--gray;
+        @extend %btn--size-normal;
+    }
+}

@@ -20,12 +20,14 @@ angular.module('stmwc').directive('stmwcSale', function(){
         templateUrl: 'partials/stmwc.directive:stmwcSale:sale.html',
         replace: true,
         controller: ['$scope', '$element', function($scope, $element){
+            /*
             $element.css({
                 'height': Math.max(650, $(window).height() - 50)
             });
+            */
             $scope.goBets = function(){
                 $('html,body').animate({
-                    scrollTop: $('[stmwc-userinfo]').offset().top - 60
+                    scrollTop: $('[stmwc-userinfo]').offset().top - 65
                 });
             }
         }]

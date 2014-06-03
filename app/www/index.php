@@ -30,6 +30,10 @@
     <div stmwc-userinfo></div>
     <div stmwc-layout-sidebar>
         <content>
+            <div ng-if="requireMnogoCard" class="b-reqmnogo">
+                <span class="b-reqmnogo--msg">Пожалуйста, <span ng-click="sendMnogo()" class="a-pseudo">укажите номер своей карты Много.ру</span></span>
+                <a href="http://www.mnogo.ru/anketa.html?range=879" target="_blank" class="b-reqmnogo--getcard">Получить карту бесплатно</a>
+            </div>
             <div stmwc-bets></div>
         </content>
         <sidebar>
