@@ -113,6 +113,15 @@
         &--false {
             border-color: #ed1c24;
         }
+        &--warn {
+            border-color: #ffd938;
+        }
+        &--lock {
+            border-color: #008a1c;
+        }
+        &--bet {
+            border-color: #ace7b0;
+        }
     }
 
     &__item-table {
@@ -147,6 +156,7 @@
     &__item-country-flag {
         @extend %inline;
         padding-top: 9px;
+        line-height: 11px;
     }
     
     &__item-note {
@@ -158,7 +168,12 @@
             color: #999;
         }
         &--time {
-            color: #999;
+            &.state_active {
+                color: #000;
+                font-weight: normal;
+                margin: 2px 0 0 3px;
+                @extend .labelst;
+            }
         }
     }
 }
@@ -194,7 +209,6 @@
 .bets-active {
     padding-left: 24px;
     font-size: 13px;
-    @extend %inline;
     position: relative;
     line-height: 18px;
     &--fade {
@@ -222,6 +236,9 @@
     }
     .bets__item--false & {
         color: #ed1c24;
+    }
+    .bets__item--lock & {
+        color: #006c16;
     }
 }
 
@@ -268,9 +285,10 @@
         @include szp(ico-wrong);
         top: 2px;
     }
-    &--close {
-        @include szp(bet-active);
+    &--bet-lock {
+        @include szp(ico-lock);
         top: -2px;
+        left: 5px;
     }
 
 }

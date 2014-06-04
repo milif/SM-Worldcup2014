@@ -62,12 +62,21 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 if(sections.indexOf(prevSection) >= 0) return;
                 sections.splice(0, 0, prevSection);
             }
-
-            $scope.onBet = $debounce(500, function(bet){
+            $scope.onBet = function(bet){
+                
                 if($stmwcAuth.requireAuth()) return;
+                
                 var value = bet.value;
+                bet.__value = [value[0] || bet.__value[0], value[1] || bet.__value[1]];
                 if(!value[0] || !value[1]) return;
-                Bets.bet(bet.id, parseInt(value[0]), parseInt(value[1]), function(canBet){
+                
+                onBet(bet);
+            }
+            var onBet = $debounce(500, function(bet){
+                var value = bet.value;
+                value[0] = parseInt(value[0]);
+                value[1] = parseInt(value[1]);
+                Bets.bet(bet.id, value[0], value[1], function(canBet){
                     $scope.canBet = canBet;
                     updateState(bet);
                 });
@@ -78,7 +87,12 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     $stmwcAuth.auth();
                 }
             });
-            $scope.onFocusInput = function(e){
+            $scope.onBlurInput = function(bet){
+                bet.value[0] = bet.__value[0];
+                bet.value[1] = bet.__value[1];
+            }
+            $scope.onFocusInput = function(e, bet){
+                bet.__value = [bet.value[0],bet.value[1]];
                 if($stmwcAuth.requireAuth()) return;
                 if(!$scope.canBet) {
                     $stmwcAuth.auth();
@@ -190,7 +204,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     bet.state = 'bet';
                 } else if(bet.time <= time && bet.value[0] >= 0 && bet.value[1] >= 0){
                     bet.state = 'lock';
-                } if(bet.time > time && bet.time - 3600000 <= time && !(bet.value[0] >= 0 && bet.value[1] >= 0)) {
+                } else if(bet.time > time && bet.time - 7200000 <= time && !(bet.value[0] >= 0 && bet.value[1] >= 0)) {
                     bet.state = 'warn';
                 } else {
                     bet.state = null;
