@@ -12,8 +12,8 @@
     &__copyrigth-link {
         color: #999;
         @extend %link-active;
-        margin-left: 20px;
         &--out {
+            margin-left: 20px;
             position: relative;
             &:before {
                 content: '';
