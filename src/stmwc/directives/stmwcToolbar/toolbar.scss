@@ -9,7 +9,7 @@
     @include background-image(linear-gradient(bottom, #00891b 0%, #009e20 100%));
     &__logo {
         float: left;
-        margin: 10px 0px 0 20px;
+        margin: 10px 20px 0 20px;
         text-indent: -9999px;
         @extend %sprite;
         @include szp(toolbar__logo);
@@ -42,13 +42,30 @@
         color: #fff;
         text-shadow: 0 -1px 0 #004f0f;
         text-decoration: none;
+        box-sizing: border-box;
         @extend %bg-clip;
+        @include single-transition();
+        border-bottom: #e4a600 solid 0px;
         &:hover {
-            @extend %button-hover-yellow;
+            /*@extend %button-hover-yellow;*/
+            border-bottom-width: 5px;
+            color: #fff498;
         }
+        &.state_active {
+            @extend %button-hover-yellow;
+            border-bottom: none;
+            &:active {
+                @extend %button-hover-yellow-active;
+            }
+            &:hover {
+                @extend %button-hover-yellow;
+            }
+        }
+        /*
         &:active {
             @extend %button-hover-yellow-active;
         }
+        */
     }
 }
 

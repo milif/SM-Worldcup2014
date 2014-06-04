@@ -24,9 +24,11 @@ if (!window.requestAnimationFrame) {
         };
 }
 angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui.utils'])
-    .config(['$sceProvider', '$locationProvider', function($sceProvider, $locationProvider){
+    .config(['$sceProvider', '$locationProvider', '$anchorScrollProvider', function($sceProvider, $locationProvider, $anchorScrollProvider){
         $sceProvider.enabled(false);
         $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('#');
+        $anchorScrollProvider.disableAutoScrolling();
     }])
     .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory){
         

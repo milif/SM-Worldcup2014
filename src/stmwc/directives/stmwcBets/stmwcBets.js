@@ -151,7 +151,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     bet.date = $filter('date')(bet.time, 'd MMMM');
                     if(bet.time < currentDayTime) {
                         addToSection(prevSection, bet);
-                    } else if((menuTime == 0 && (countSection(currentSection) < 5 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
+                    } else if((menuTime == 0 && (countSection(currentSection) < 15 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
                         addToSection(currentSection, bet);
                     } else {
                         addToSection(nextSection, bet);

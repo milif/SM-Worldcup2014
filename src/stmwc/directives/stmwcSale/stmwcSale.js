@@ -19,16 +19,15 @@ angular.module('stmwc').directive('stmwcSale', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcSale:sale.html',
         replace: true,
-        controller: ['$scope', '$element', function($scope, $element){
+        controller: ['$scope', '$element', '$location', function($scope, $element, $location){
             /*
             $element.css({
                 'height': Math.max(650, $(window).height() - 50)
             });
             */
             $scope.goBets = function(){
-                $('html,body').animate({
-                    scrollTop: $('[stmwc-userinfo]').offset().top - 65
-                });
+                $location.hash('bets');
+                $scope.$emit('$locationChangeSuccess');
             }
         }]
     };

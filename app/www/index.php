@@ -43,7 +43,7 @@
     <div stmwc-preload></div>
     <div class="footer">
         <div class="footer__copyrigth">
-            © <a href="/" class="footer__copyrigth-link">Сотмаркет</a> 2005–2014<!-- <span class="footer__copyrigth-separator">|</span> <a href="/" class="footer__copyrigth-link footer__copyrigth-link--out" target="_blank">Полные правила акции</a>-->
+            © <a href="/" class="footer__copyrigth-link">Сотмаркет</a> 2005–2014 <span class="footer__copyrigth-separator">|</span> <a href="agreement.pdf" class="footer__copyrigth-link footer__copyrigth-link--out" target="_blank">Полные правила акции</a>
         </div>
 
     </div>

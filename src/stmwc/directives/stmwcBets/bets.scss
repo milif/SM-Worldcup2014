@@ -184,6 +184,9 @@
     @extend %input-text-size-medium;
     text-align: center;
     margin: 0 3px;
+    &[readonly] {
+        color: #c3c3c3;
+    }
 }
 
 .form-scoring {
