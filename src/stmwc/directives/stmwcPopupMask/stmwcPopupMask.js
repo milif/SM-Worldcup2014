@@ -16,6 +16,7 @@
 angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($animate){   
     var $ = angular.element;
     var bodyEl = $('body');
+    var windowEl = $(window);
     var scrollTop;
     var stack = [];
     return {
@@ -31,7 +32,8 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                         .removeClass('m_masked')
                         .find('>:first')
                             .css('top', 0).end();
-                    $(window).scrollTop(scrollTop);
+                    if(scrollTop == 0) windowEl.scrollTop(1).scrollTop(0);
+                    windowEl.scrollTop(scrollTop);
                 });
                 $(stack).fadeIn(200);
             });
@@ -45,7 +47,7 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                     bodyEl.append(maskEl);
                 }
                 if(!bodyEl.hasClass('m_masked')){
-                    scrollTop = $(window).scrollTop();
+                    scrollTop = windowEl.scrollTop();
                     bodyEl
                         .addClass('m_masked')
                         .find('>:first')

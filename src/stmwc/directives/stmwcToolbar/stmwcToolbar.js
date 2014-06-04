@@ -38,7 +38,12 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             $scope.$on('loaded', function(){
                 anchorEls = $('body,[anchor]');
                 $scope.hash = $location.hash();
-                onUrlUpdate();
+                setTimeout(function(){
+                    inScroll = false;
+                    inMenuScroll = false;
+                    onUrlUpdate();
+                    $scope.$digest();
+                }, 250);        
             });
             
             $element.on('click', '[hashbutton]', function(e){
@@ -57,8 +62,8 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 });
             });
             
-            var inScroll = false;
-            var inMenuScroll = false;
+            var inScroll = true;
+            var inMenuScroll = true;
             var cancelInScrollTimeout;
             
             function onScrollUpdate(){
@@ -82,17 +87,22 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                      });
                 }
             }
-            function onUrlUpdate(){
+            function onUrlUpdate(isJump){
                 if(inScroll) return;
                 var hash = $location.hash();
                 var el = $(hash == '' ? 'body' : '[anchor='+hash+']');
-                if(el.length > 0) { 
-                    inMenuScroll = true;
-                    $('html,body').animate({
-                        scrollTop: Math.max(0, el.offset().top - 65)
-                    }, null, null, function(){
-                        inMenuScroll = false;
-                    });
+                var scrollTop = Math.max(0, el.offset().top - 65);
+                if(el.length > 0 && scrollTop != windowEl.scrollTop()) { 
+                    if(isJump) {
+                        windowEl.scrollTop(scrollTop);
+                    } else {
+                        inMenuScroll = true;
+                        $('html,body').animate({
+                            scrollTop: scrollTop
+                        }, null, null, function(){
+                            inMenuScroll = false;
+                        });
+                    }
                 }
             }
             function setInScroll(){

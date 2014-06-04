@@ -15,6 +15,8 @@
  <meta property="og:image" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>share2.png"/>
  <meta property="og:url" content="http://<?php echo $_SERVER["HTTP_HOST"].APP_ROOT_URL.$SHARE_URI; ?>"/> <?php 
  try{
+     ob_start();
      if(IS_PRODUCTION) include_once __DIR__.'/../partner.php';
+     ob_end_clean();
  } catch(Exception $e){};
 ?>

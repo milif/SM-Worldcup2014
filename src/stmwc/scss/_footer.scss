@@ -3,7 +3,7 @@
 /* footer */
 /*==========================================================*/
 .footer {
-    margin-bottom: 30px;
+    margin: 50px 0 30px 0px !important;
     &__copyrigth {
         font-size: 13px;
         white-space: nowrap;
@@ -12,6 +12,7 @@
     &__copyrigth-link {
         color: #999;
         @extend %link-active;
+        margin-left: 20px;
         &--out {
             position: relative;
             &:before {
@@ -26,9 +27,5 @@
                 background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAQAAAADpb+tAAAALUlEQVQoz2P4zwCCDP+xQpzCyAAoUPcfBIkXhjBIE0aDdSjq6qAqcAujQogwALOJsq6pJJ9jAAAAAElFTkSuQmCC') no-repeat 0 0;
             }
         }
-    }
-    &__copyrigth-separator {
-        font-size: 20px;
-        padding: 0 14px;
     }
 }

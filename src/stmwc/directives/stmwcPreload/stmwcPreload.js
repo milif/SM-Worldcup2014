@@ -63,6 +63,7 @@ angular.module('stmwc').directive('stmwcPreload', [function(){
                 
                 function onload(){
                     if(count == 0 || count-- == 1) {
+                        
                         $scope.percent = 100;
                         $scope.isLoad = true;
                         /**
@@ -73,7 +74,7 @@ angular.module('stmwc').directive('stmwcPreload', [function(){
                            * @description
                            * Окончание загрузки 
                            * 
-                           */                                
+                           */                         
                         $scope.$emit('loaded'); 
                         $scope.$destroy();                         
                     } else {    
