@@ -18,11 +18,7 @@
  *
  * Sotmarket Worldcup 2014
  */
-if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function(callback) {
-            setTimeout(callback, 10);
-        };
-}
+
 angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui.utils'])
     .config(['$sceProvider', '$locationProvider', '$anchorScrollProvider', function($sceProvider, $locationProvider, $anchorScrollProvider){
         $sceProvider.enabled(false);
