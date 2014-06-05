@@ -33,6 +33,7 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             
             $scope.$on('$locationChangeSuccess', function(){
                 $scope.hash = $location.hash();
+                console.log('Hash:' + $scope.hash)
                 onUrlUpdate();
             });
             $scope.$on('loaded', function(){
@@ -47,7 +48,7 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             });
             
             $element.on('click', '[hashbutton]', function(e){
-                if('#' + $location.hash() == $(e.target).closest('[href]').attr('href')) {
+                if('#' + $location.hash() == $(e.target).closest('[href]').attr('href') && !inMenuScroll) {
                     onUrlUpdate();
                     $scope.$digest();
                 }
@@ -68,6 +69,7 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             
             function onScrollUpdate(){
                 if(!anchorEls || inMenuScroll) return;
+                //console.log('onScrollUpdate')
                 if(!inScroll) setInScroll();
                 var posTop = windowEl.scrollTop() + windowEl.height() * 0.5;
                 var winHeight = windowEl.height();
@@ -92,15 +94,18 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 var hash = $location.hash();
                 var el = $(hash == '' ? 'body' : '[anchor='+hash+']');
                 var scrollTop = Math.max(0, el.offset().top - 65);
+                //console.log(hash, scrollTop, inMenuScroll, inScroll)
                 if(el.length > 0 && scrollTop != windowEl.scrollTop()) { 
                     if(isJump) {
                         windowEl.scrollTop(scrollTop);
                     } else {
                         inMenuScroll = true;
-                        $('html,body').animate({
+                        $('html,body').stop().animate({
                             scrollTop: scrollTop
                         }, null, null, function(){
-                            inMenuScroll = false;
+                            setTimeout(function(){
+                                inMenuScroll = false;
+                            }, 50);
                         });
                     }
                 }
