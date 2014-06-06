@@ -72,6 +72,13 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 
                 onBet(bet);
             }
+            $scope.cancel = function(bet){
+                Bets.bet(bet.id, null, null, function(canBet){
+                    delete bet.value[0];
+                    delete bet.value[1];
+                    updateState(bet);
+                });
+            }
             var onBet = $debounce(500, function(bet){
                 var value = bet.value;
                 value[0] = parseInt(value[0]);
@@ -103,8 +110,12 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     el.removeClass('a-error-flash');
                 }, 600);
             }
-            $scope.luckyBet = function(){
+            $scope.luckyBet = function(bet){
                 if($stmwcAuth.requireAuth()) return;
+                if(bet) {
+                    doBet(bet, [Math.round(Math.random() * 4), Math.round(Math.random() * 4)]);
+                    return;
+                }
                 var bet;
                 for(var i=0;i<sections.length;i++){
                     for(var ii=0;ii<sections[i].length;ii++){

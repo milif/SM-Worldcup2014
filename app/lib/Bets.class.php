@@ -34,11 +34,13 @@ class Bets {
             ':betId' => $betId,
             ':userKey' => User::getKey()
         ));
-        DB::update("INSERT INTO user_bets (bet_id, user_key, value) VALUES (:betId, :userKey, :value)", array(
-            ':betId' => $betId,
-            ':userKey' => User::getKey(),
-            ':value' => json_encode($value)
-        ));
+        if($value[0] !== NULL && $value[1] !== NULL) {
+            DB::update("INSERT INTO user_bets (bet_id, user_key, value) VALUES (:betId, :userKey, :value)", array(
+                ':betId' => $betId,
+                ':userKey' => User::getKey(),
+                ':value' => json_encode($value)
+            ));   
+        }
         return true;
     }
     static public function canBet(){
