@@ -36,8 +36,6 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         
         $rootScope.sendMnogo = $stmwcAuth.sendMnogo;
         
-        $timeout($stmwcAuth.confirmEmail, 500);
-        
         // Cache
         var cache = $cacheFactory('stmwc');
         $http.defaults.cache = cache;
