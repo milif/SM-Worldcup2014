@@ -5,8 +5,8 @@
             Электронная почта <b>{{model.email}}</b>,<br>указанная вами при регистрации, все еще не подтверждена.<br>
             <div class="popup__note">Возможно, вы не получили письмо с информацией<br>для подтверждения. Мы готовы выслать его ещё раз.</div>
             <div class="popup__actions">
-                <span ng-click="send()" class="a-pseudo">Прислать письмо</span><br>
-                <span ng-click="changeEmail()" class="a-pseudo">Указать другой адрес электронной почты</span>
+                <div><span ng-click="send()" class="a-pseudo">Прислать письмо</span></div>
+                <div><span ng-click="changeEmail()" class="a-pseudo">Указать другой адрес электронной почты</span></div>
             </div>
         </div>
         <form ng-if="state == 'email'" ng-class="isSubmited ? 'state_submited' : ''" name="model.form" ng-submit="submit()" class="form g-form" novalidate>
@@ -25,7 +25,7 @@
         <div ng-if="state == 'send'">
             На адрес <b>{{model.email}}</b><br>отправлена информация для подтверждения. Обычно наше<br>письмо приходит не позже, чем через 5 минут.
             <div class="popup__actions">
-                <span ng-click="start()" class="a-pseudo">Прислать письмо повторно или указать другой адрес</span>
+                <div><span ng-click="start()" class="a-pseudo">Прислать письмо повторно или указать другой адрес</span></div>
             </div>
         </div>
     </content>
