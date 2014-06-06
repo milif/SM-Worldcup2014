@@ -10,6 +10,7 @@
 * @requires stmwc.directive:stmwcUserinfo:userinfo.html
  *
  * @requires stmwc.Bets
+ * @requires stmwc.directive:stmwcTooltip
  *
  * @description
  * Пользовательская панель

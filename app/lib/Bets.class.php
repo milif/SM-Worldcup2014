@@ -29,17 +29,27 @@ class Bets {
         ));
         if(!count($rs) || strtotime($rs[0]['time']." Europe/Moscow") < time()) return false;
 
-        
-        DB::update("DELETE FROM user_bets WHERE bet_id = :betId AND user_key = :userKey", array(
-            ':betId' => $betId,
-            ':userKey' => User::getKey()
-        ));
         if($value[0] !== NULL && $value[1] !== NULL) {
-            DB::update("INSERT INTO user_bets (bet_id, user_key, value) VALUES (:betId, :userKey, :value)", array(
+            $rs = DB::query("SELECT id FROM user_bets WHERE bet_id = :betId AND user_key = :userKey", array(
                 ':betId' => $betId,
-                ':userKey' => User::getKey(),
-                ':value' => json_encode($value)
-            ));   
+                ':userKey' => User::getKey()
+            ));
+            if(count($rs)){
+                DB::update("UPDATE user_bets SET value = :value WHERE id = ".$rs[0]['id'], array(
+                    ':value' => json_encode($value)
+                ));
+            } else {
+                DB::update("INSERT INTO user_bets (bet_id, user_key, value) VALUES (:betId, :userKey, :value)", array(
+                    ':betId' => $betId,
+                    ':userKey' => User::getKey(),
+                    ':value' => json_encode($value)
+                ));   
+            }   
+        } else {
+            DB::update("DELETE FROM user_bets WHERE bet_id = :betId AND user_key = :userKey", array(
+                ':betId' => $betId,
+                ':userKey' => User::getKey()
+            ));
         }
         return true;
     }
