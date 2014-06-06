@@ -19,7 +19,7 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
         transclude: true,
         scope: true,
         link: function(scope, element, attrs) {
-            element.closest('[tooltips]').append(element);
+            element.insertAfter(element.closest('[tooltips]'));
         },
         controller: ['$scope', '$attrs', '$timeout', '$element', function($scope, $attrs, $timeout, $element){         
             
@@ -47,6 +47,7 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
             
             var position;
             var direction = $attrs.direction ? $scope.$eval($attrs.direction) || $attrs.direction : null;
+            var align = $attrs.align || 'center';
             
             $scope.id = $attrs.stmwcTooltip;
             $scope.hide = true;
@@ -65,12 +66,29 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
                 } else {
                     $scope.direction = direction;
                 }
-                if(isTop){
-                    position = [-cntOffset.left + offset.left + el.outerWidth() / 2, -cntOffset.top + offsetParentEl.outerHeight() - offset.top];
+                
+                $scope.align = align;
+                
+                var css = $scope.css = {};
+                var cssTri = $scope.cssTri = {};
+                
+                if(align == 'right') {
+                    css.right = cntOffset.left + offsetParentEl.outerWidth() - (offset.left + el.outerWidth());
+                    cssTri.left = css.left = 'auto';
+                    cssTri.right = el.outerWidth() / 2;
                 } else {
-                    position = [-cntOffset.left + offset.left + el.outerWidth() / 2, -cntOffset.top + offset.top + el.outerHeight()];
+                    css.left = -cntOffset.left + offset.left + el.outerWidth() / 2;
                 }
-                updatePosition();               
+                
+                if(isTop){
+                    css.bottom = -cntOffset.top + offsetParentEl.outerHeight() - offset.top;
+                } else {
+                    css.top = -cntOffset.top + offset.top + el.outerHeight();
+                }
+                
+                css.marginLeft = -(width || 200) / 2;
+                css.width = width || 'auto';  
+                           
                 show();   
                 
             }
@@ -86,23 +104,6 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
                 windowEl.off(globalEvents);
                 $scope.hide = true;
                 $scope.$emit('hideTooltip', $scope.id);
-            }
-            function updatePosition(){
-                if(!position) return;
-                if($scope.direction == 'top'){
-                    $scope.css = {
-                        left: position[0] + offset[0],
-                        bottom: position[1] + offset[1]
-                    }                
-                } else {
-                    $scope.css = {
-                        left: position[0] + offset[0],
-                        top: position[1] + offset[1]
-                        
-                    }
-                }
-                $scope.css.marginLeft = -(width || 200) / 2;
-                $scope.css.width = width || 'auto';      
             }
         }]
     };

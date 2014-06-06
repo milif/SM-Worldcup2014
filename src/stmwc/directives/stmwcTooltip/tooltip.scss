@@ -14,8 +14,8 @@
     font-size: 13px;
     text-align: center;
     box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.35);
-    &:before {
-        content: '';
+    
+    &--tri {
         display: block;
         position: absolute;
         left: 50%;
@@ -33,8 +33,14 @@
     &.ng-leave.ng-leave-active {
         opacity: 0;
     }
+    &.align_right {
+        margin-right: -20px;
+        & .b-tooltip--tri {
+            margin-right: 10px;
+        }
+    }
 }
-.b-tooltip.mod_top {
+.b-tooltip.dir_top {
     margin-bottom: 11px;
     &.ng-enter {
         -webkit-transition: 0.2s ease-in all;
@@ -47,7 +53,7 @@
         opacity: 1;
     }
 }
-.b-tooltip.mod_bottom {
+.b-tooltip.dir_bottom {
     margin-top: 11px;
     &.ng-enter {
         -webkit-transition: 0.2s ease-in all;
@@ -59,7 +65,7 @@
         margin-top: 11px;
         opacity: 1;
     }
-    &:before {
+    & .b-tooltip--tri {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKAgMAAADJO5Z1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURQAAAP///9zc3FW9W8kAAAABdFJOUwBA5thmAAAAM0lEQVQI12NgYNBgAIFpIIIptAFIcoYmAEnV0AggOTU0DCQcCpTgBJIJQOFQoMRUIBkGAOwBCrWhy8ATAAAAAElFTkSuQmCC');
         top: -10px;
     }

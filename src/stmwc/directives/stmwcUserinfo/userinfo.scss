@@ -215,6 +215,10 @@
 .user-progress-info__title {
     font-weight: bold;
     white-space: nowrap;
+    &-link {
+        @extend %link-pseudo;
+        color: #008a1c;
+    }
 }
 .user-progress-info__hint {
     color: #999;
