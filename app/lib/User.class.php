@@ -8,8 +8,8 @@ require_once __DIR__.'/Log.class.php';
 class User {
     const CONFIRM_ERROR = 1;
     const CONFIRM_ERROR_HAS = 2;
-    const UNSUBSCRIBE_ERROR = 'Ошибка при отписке.';
-    const UNSUBSCRIBE_ERROR_HAS = 'Адрес <b>%s</b> уже отписан от всех рассылок.';
+    const UNSUBSCRIBE_ERROR = 1;
+    const UNSUBSCRIBE_ERROR_HAS = 2;
     static private $userId = null;
     static private $userKey = null;
     static public function getFriendsCount(){
@@ -91,7 +91,10 @@ class User {
         DB::query("UPDATE `user` SET `is_confirmed` = 1, `openid_verified_email` = {$rs[0]['email']} WHERE `id` = ".$rs[0]['id']);
         Log::add('confirm_email', array(
             'user' => $rs[0]
-        ));        
+        ));
+        
+        self::auth((int)$rs[0]['id'], true);
+        
         Cache::remove('isconfrm.'.$rs[0]['id']);
         return true;
     }
@@ -156,7 +159,6 @@ class User {
         
         self::logout();
         
-        $cookie = md5(uniqid());
         $uri = $data['uri'];
         if(!$uri) return false;
 
@@ -200,15 +202,7 @@ class User {
         }
         if(!$id) return false;
         
-        $expire = time() + SESSION_TIME;
-        if($isReg) {
-            setcookie(SESSION_COOKIE, $cookie, $expire, APP_ROOT_URL."/");
-        }
-        DB::query("DELETE FROM session WHERE expire < ".time());
-        DB::query("INSERT INTO session (`key`, expire, user_id) VALUES (:cookie, $expire, $id)", array(':cookie'=>$cookie));
-        
-        self::$userId = $id;
-        self::$userKey = $id;
+        $cookie = self::auth($id, $isReg);
         
         $loginData = array(
             'session' => $cookie,
@@ -216,6 +210,22 @@ class User {
         );
         
         return $loginData;
+    }
+    static public function auth($userId, $isReg){
+        
+        $sessionId = md5(uniqid());
+        
+        $expire = time() + SESSION_TIME;
+        if($isReg) {
+            setcookie(SESSION_COOKIE, $sessionId, $expire, APP_ROOT_URL."/");
+        }
+        DB::query("DELETE FROM session WHERE expire < ".time());
+        DB::query("INSERT INTO session (`key`, expire, user_id) VALUES (:cookie, $expire, $userId)", array(':cookie'=>$sessionId));
+        
+        self::$userId = $userId;
+        self::$userKey = $userId;
+        
+        return $sessionId;
     }
     static public function logout(){
         setcookie(SESSION_COOKIE, "", -1, APP_ROOT_URL."/");

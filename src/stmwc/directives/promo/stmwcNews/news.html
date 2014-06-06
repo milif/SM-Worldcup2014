@@ -1,0 +1,19 @@
+<div class="sidebar-section">
+    <div ng-if="type == 'sportexpress'">
+        <a class="sidebar-section__logo" href="http://www.sport-express.ru/" target="_blank"><img src="assets/i/logos/sport.png" alt=""></a>
+        <div class="sidebar-section__title">ФУТБОЛ • ЧМ 2014</div>
+    </div>
+    <div ng-if="type == 'mailru'">
+        <a class="sidebar-section__logo mod_mailru" href="http://hi-tech.mail.ru/" target="_blank"><img src="assets/i/logos/hitechmail.png" alt=""></a>
+    </div>
+    <div ng-class="isLoad ? 'state_loading' : ''" class="sidebar-news__list">
+        <div ng-repeat="item in items" class="sidebar-news__item">
+            <a class="sidebar-news__item-link" target="_blank" ng-href="{{item.link}}"><span>{{item.title}}</span></a>
+            <div class="sidebar-news__item-date">{{item.time | date:'d MMMM yyyy'}}</div>
+        </div>
+    </div>
+    <div class="aside-bottom-btn">
+        <a ng-if="type=='sportexpress'" href="http://subscribe.sport-express.ru/" target="_blank" class="sidebar-news__subscribe-link">Подписаться на новости</a>
+        <a ng-if="type=='mailru'" href="http://hi-tech.mail.ru/" target="_blank" class="sidebar-news__subscribe-link">Другие новости</a>
+    </div>
+</div>

@@ -70,10 +70,10 @@
 %button-hover-yellow {
     color: #000;
     text-shadow: 0 1px 0 #ffd700;
-    @include background-image(linear-gradient(bottom, #ffde00 0%, #e3a500 6.18%, #ffce00 90.89%, #ffe400 98.66%, #ffe400 100%));
+    @include background-image(linear-gradient(bottom, #e3a500 0%, #ffe400 100%));
 }
 %button-hover-yellow-active {
-    @include background-image(linear-gradient(#ffde00 0%, #e3a500 6.18%, #ffce00 90.89%, #ffe400 98.66%, #ffe400 100%));
+    @include background-image(linear-gradient(#e3a500 0%, #ffe400 100%));
 }
 
 
@@ -100,6 +100,7 @@
 //Common-link-style-active
 %link-active {
     cursor: pointer;
+    text-decoration: underline;
     &:hover {
         color: #f66b0e;
         text-decoration: underline;

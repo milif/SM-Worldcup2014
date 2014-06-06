@@ -8,6 +8,7 @@
      * @requires stmwc.$stmwcAuth:registrate.scss
      * @requires stmwc.$stmwcAuth:sotmarket.html
      * @requires stmwc.$stmwcAuth:confirmed.html
+     * @requires stmwc.$stmwcAuth:unsubscribe.html
      * @requires stmwc.$stmwcAuth:confirm.html
      * @requires stmwc.$stmwcAuth:confirm.scss
      * @requires stmwc.$stmwcAuth:mnogo.html
@@ -57,6 +58,10 @@
                 if(contextData[0] === 'c'){
                     $rootScope.$on('loaded', function(){
                         confirmEmailInfo(parseInt(contextData[1]));
+                    });
+                } else if(contextData[0] === 'us'){
+                    $rootScope.$on('loaded', function(){
+                        unsubscribe(parseInt(contextData[1]), contextData[2]);
                     });
                 } else {
                     $stmwcAuth.session = context;
@@ -143,6 +148,19 @@
                 }, 0);
             });
             $http.get('partials/stmwc.$stmwcAuth:confirmed.html', {cache: $templateCache}).success(function(data){
+               $compile(data)($scope); 
+            });
+        }
+        function unsubscribe(state, email){
+            var $scope = $rootScope.$new();
+            $scope.state = state;
+            $scope.email = email;
+            $scope.$on('closedPopup-unsubscribe', function(){
+                setTimeout(function(){
+                    $scope.$destroy();
+                }, 0);
+            });
+            $http.get('partials/stmwc.$stmwcAuth:unsubscribe.html', {cache: $templateCache}).success(function(data){
                $compile(data)($scope); 
             });
         }

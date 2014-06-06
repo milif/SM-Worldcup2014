@@ -37,7 +37,8 @@
             <div stmwc-bets></div>
         </content>
         <sidebar>
-            <div stmwc-promo-sportexpress></div>
+            <div stmwc-news type="sportexpress"></div>
+            <div stmwc-news type="mailru"></div>
         </sidebar>
     </div>
     <div stmwc-preload></div>

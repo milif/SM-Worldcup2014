@@ -39,26 +39,42 @@
         padding: 0 14px;
         height: 46px;
         line-height: 46px;
+        position: relative;
+        overflow: hidden;
         color: #fff;
         text-shadow: 0 -1px 0 #004f0f;
         text-decoration: none;
         box-sizing: border-box;
         @extend %bg-clip;
         @include single-transition();
-        border-bottom: #e4a600 solid 0px;
+        /*border-bottom: #e4a600 solid 0px;*/
+        &:after {
+            @include single-transition();
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 5px;
+            @include background-image(linear-gradient(bottom, #e3a500 0%, #e6a800 100%));
+        }
         &:hover {
-            /*@extend %button-hover-yellow;*/
-            border-bottom-width: 5px;
             color: #fff498;
+        }
+        &:hover:after {
+            bottom: 0;
         }
         &.state_active {
             @extend %button-hover-yellow;
-            border-bottom: none;
+            /*border-bottom: none;*/
             &:active {
                 @extend %button-hover-yellow-active;
             }
             &:hover {
                 @extend %button-hover-yellow;
+            }
+            &:after {
+                display: none;
             }
         }
         /*

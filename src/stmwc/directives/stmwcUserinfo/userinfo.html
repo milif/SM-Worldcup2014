@@ -4,7 +4,7 @@
             <div class="user-info__image-h">
                 <img ng-if="auth.isAuth && user.avatar" ng-src="{{user.avatar}}" alt="{{user.name}}">
             </div>
-            <a ng-if="auth.isAuth" ng-href="." class="user-info__link" ng-click="auth.logout()">Выйти</a>
+            <span ng-if="auth.isAuth" class="user-info__link" ng-click="auth.logout()">Выйти</span>
             <span ng-if="!auth.isAuth" class="user-info__button" ng-click="auth.auth()">Войти</span>
         </div>
 

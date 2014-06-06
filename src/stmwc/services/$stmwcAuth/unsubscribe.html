@@ -1,0 +1,8 @@
+<div stmwc-popup="unsubscribe" width="500">
+    <content>
+        <div class="popup__title">Отписка от писем</div>
+        <span ng-if="state == 0">Адрес <b>{{email}}</b> отписан от всех рассылок.</span>
+        <span ng-if="state == 1">Ошибка при отписке.</span>
+        <span ng-if="state == 2">Адрес <b>{{email}}</b> уже отписан от всех рассылок.</span>
+    </content>
+</div>

@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                     'directive:stmwcPreload',
                     'directive:stmwcBets',
                     'directive:stmwcUserinfo',
-                    'directive:stmwcPromoSportexpress',
+                    'directive:stmwcNews',
                     '$stmwcAuth'
                 ],
                 includeAsset: true

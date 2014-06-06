@@ -93,7 +93,7 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
             top = Math.floor((screenHeight-height)/2),
             left = Math.floor((screenWidth-width)/2);
 
-        window.open(url, "share", "left="+left+",top="+top+",width="+width+",height="+height+",resizable=no,scrollbars=yes,status=yes");
+        window.open(url, "_blank", "left="+left+",top="+top+",width="+width+",height="+height+",resizable=no,scrollbars=yes,status=yes");
     }
     
 }])
