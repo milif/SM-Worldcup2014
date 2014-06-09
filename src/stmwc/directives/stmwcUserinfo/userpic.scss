@@ -1,0 +1,12 @@
+.userpic {
+    overflow: hidden;
+    width: 62px;
+    height: 62px;
+    display: block;
+    @extend %sprite;
+    @include sp(userpic);
+    &-img {
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -13,7 +13,7 @@ if($data['action'] == 'update') {
     ));
 } else if($data['action'] == 'bet'){
     echo json_encode(array(
-        'success' => Bets::canBet() ? Bets::bet($data['id'], $data['value']) : false,
+        'success' => ($data['value'][0] === NULL && $data['value'][1] === NULL) || Bets::canBet() ? Bets::bet($data['id'], $data['value']) : false,
         'canBet' => Bets::canBet()
     ));
 }

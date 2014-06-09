@@ -34,17 +34,7 @@
     }
 }
 .user-info__image-h {
-    overflow: hidden;
-    width: 62px;
-    height: 62px;
-    display: block;
     margin-bottom: 10px;
-    @extend %sprite;
-    @include sp(userpic);
-}
-.user-info__image-h img{
-    width: 100%;
-    height: 100%;
 }
 .user-info__link {
     color: #999;

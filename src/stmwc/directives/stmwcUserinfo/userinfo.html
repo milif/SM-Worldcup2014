@@ -1,9 +1,7 @@
 <div anchor="bets"  class="user-progress">
     <div class="user-info">
         <div class="user-info__image">
-            <div class="user-info__image-h">
-                <img ng-if="auth.isAuth && user.avatar" ng-src="{{user.avatar}}" alt="{{user.name}}">
-            </div>
+            <div class="user-info__image-h" stmwc-userpic="user.avatar" username="user.name"></div>
             <span ng-if="auth.isAuth" class="user-info__link" ng-click="auth.logout()">Выйти</span>
             <span ng-if="!auth.isAuth" class="user-info__button" ng-click="auth.auth()">Войти</span>
         </div>

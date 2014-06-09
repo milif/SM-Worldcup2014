@@ -7,7 +7,9 @@
  * @requires stmwc.directive:stmwcUserinfo:userinfo.scss
  * @requires stmwc.directive:stmwcUserinfo:userscore.scss
  * @requires stmwc.directive:stmwcUserinfo:userscore.html
-* @requires stmwc.directive:stmwcUserinfo:userinfo.html
+ * @requires stmwc.directive:stmwcUserinfo:userinfo.html
+ * @requires stmwc.directive:stmwcUserinfo:userpic.html
+ * @requires stmwc.directive:stmwcUserinfo:userpic.scss
  *
  * @requires stmwc.Bets
  * @requires stmwc.directive:stmwcTooltip
@@ -58,4 +60,14 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             }
         }]
     };
+});
+angular.module('stmwc').directive('stmwcUserpic', function(){
+    return {
+        replace: true,
+        templateUrl: 'partials/stmwc.directive:stmwcUserinfo:userpic.html',
+        controller: ['$attrs', '$scope', function($attrs, $scope){
+            $scope.avatar = $scope.$eval($attrs.stmwcUserpic);
+            $scope.username = $scope.$eval($attrs.username);
+        }]
+    }
 });

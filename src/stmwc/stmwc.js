@@ -10,7 +10,10 @@
  * @requires angular/i18n/angular-locale_ru.js
  * @requires angularui/ui-utils.js
  *
+ * @requires angularui/ui-utils.js
+ *
  * @requires stmwc:bootstrap.scss
+ * @requires stmwc:usershare.html
  * 
  * @ngdoc overview
  * @name stmwc
@@ -35,6 +38,21 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         });
         
         $rootScope.sendMnogo = $stmwcAuth.sendMnogo;
+        
+        if($stmwcEnv.share) {
+            $rootScope.$on('loaded', function(){
+                var $scope = $rootScope.$new();
+                $scope.user = $stmwcEnv.usershare;
+                $scope.$on('closedPopup-usershare', function(){
+                    setTimeout(function(){
+                        $scope.$destroy();
+                    }, 0);
+                });
+                $http.get('partials/stmwc:usershare.html', {cache: $templateCache}).success(function(data){
+                   $compile(data)($scope); 
+                });
+            });
+        }
         
         // Cache
         var cache = $cacheFactory('stmwc');

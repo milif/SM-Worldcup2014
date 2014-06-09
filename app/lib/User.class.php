@@ -56,9 +56,10 @@ class User {
         $userData = Cache::get($key);
         if($userData !== false) return $userData;
         
-        $rs = DB::query("SELECT name, avatar, email, phone, gender, dob, ref_key, mnogoru_card FROM `user` WHERE id = ".$userId);
+        $rs = DB::query("SELECT uri, name, avatar, email, phone, gender, dob, ref_key, mnogoru_card FROM `user` WHERE id = ".$userId);
         $userData = array(
             'refKey' => $rs[0]['ref_key'],
+            'share' => md5($rs[0]['uri']),
             'avatar' => $rs[0]['avatar'],
             'name' => $rs[0]['name'],
             'email' => $rs[0]['email'],

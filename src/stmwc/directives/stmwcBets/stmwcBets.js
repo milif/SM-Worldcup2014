@@ -73,9 +73,12 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 onBet(bet);
             }
             $scope.cancel = function(bet){
-                Bets.bet(bet.id, null, null, function(canBet){
-                    delete bet.value[0];
-                    delete bet.value[1];
+                Bets.bet(bet.id, null, null, function(canBet, success){
+                    if(canBet){
+                        delete bet.value[0];
+                        delete bet.value[1];   
+                    }
+                    $scope.canBet = canBet;
                     updateState(bet);
                 });
             }
