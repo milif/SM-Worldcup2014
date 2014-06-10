@@ -285,7 +285,7 @@ class User {
             ':userKey' => $userKey
         ));
         $rs = DB::query("SELECT COUNT(*) cc FROM user WHERE score < ".(int)$rs[0]['score']);
-        $place = User::getTotal() - (int)$rs[0]['cc'];
+        $place = max(1, User::getTotal() - (int)$rs[0]['cc']);
         Cache::set($key, $place, 1200);
         return $place;
     }
