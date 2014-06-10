@@ -64,20 +64,21 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 sections.splice(0, 0, prevSection);
             }
             $scope.onBet = function(bet){
-                
                 if($stmwcAuth.requireAuth()) return;
                 
                 var value = bet.value;
+                if(bet.__value[0]+'' == value[0]+'' && bet.__value[1]+'' == value[1]+'') return;
                 bet.__value = [value[0] || bet.__value[0], value[1] || bet.__value[1]];
+                
                 if(!value[0] || !value[1]) return;
                 
                 onBet(bet);
             }
             $scope.cancel = function(bet){
                 Bets.bet(bet.id, null, null, function(canBet, success){
-                    if(canBet){
+                    if(success){
                         delete bet.value[0];
-                        delete bet.value[1];   
+                        delete bet.value[1];
                     }
                     $scope.canBet = canBet;
                     updateState(bet);
@@ -85,8 +86,6 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
             var onBet = $debounce(500, function(bet){
                 var value = bet.value;
-                value[0] = parseInt(value[0]);
-                value[1] = parseInt(value[1]);
                 Bets.bet(bet.id, value[0], value[1], function(canBet){
                     $scope.canBet = canBet;
                     updateState(bet);
@@ -226,13 +225,14 @@ angular.module('stmwc').directive('stmwcBets', function(){
                             break;
                     }   
                 } else if(bet.time > time && bet.value[0] >= 0 && bet.value[1] >= 0){
+                    bet.isUpdated = bet.state == 'bet';
                     bet.state = 'bet';
                 } else if(bet.time <= time && bet.value[0] >= 0 && bet.value[1] >= 0){
                     bet.state = 'lock';
                 } else if(bet.time > time && bet.time - 7200000 <= time && !(bet.value[0] >= 0 && bet.value[1] >= 0)) {
                     bet.state = 'warn';
                 } else {
-                    bet.state = null;
+                    bet.isUpdated = bet.state = null;
                 }
             }
             function countSection(section){

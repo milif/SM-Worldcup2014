@@ -42,9 +42,6 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 setTimeout(function(){
                     inScroll = false;
                     inMenuScroll = false;
-                    if(bodyEl.hasClass('m_masked')){
-                        return;
-                    }
                     onUrlUpdate();
                     $scope.$digest();
                 }, 250);        

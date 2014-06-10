@@ -68,7 +68,7 @@
                             </div>
                             <div class="bets__item-table-td">
                                 <div ng-if="!bet.state || bet.state == 'warn'" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку. <span ng-click="luckyBet(bet)" class="a-pseudo">На удачу</span></div>
-                                <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка сделана<br><span ng-click="cancel(bet)" class="a-pseudo bets-active--fade">Отменить</span></div>
+                                <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка <span ng-if="!bet.isUpdated">сделана</span><span ng-if="bet.isUpdated">обновлена</span><br><span ng-click="cancel(bet)" class="a-pseudo bets-active--fade">Отменить</span></div>
                                 <div ng-if="bet.state == 'lock'" class="bets-active"><span class="ico-bets ico-bets--bet-lock"></span>Ставка принята</div>
                                 <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
                                 <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали победителя <span class="labelst">+{{bet.score}} Б</span></div>
