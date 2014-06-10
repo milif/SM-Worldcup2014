@@ -42,6 +42,9 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 setTimeout(function(){
                     inScroll = false;
                     inMenuScroll = false;
+                    if(bodyEl.hasClass('m_masked')){
+                        return;
+                    }
                     onUrlUpdate();
                     $scope.$digest();
                 }, 250);        
@@ -55,6 +58,9 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             });
             
             windowEl.scroll(function(){
+                if(bodyEl.hasClass('m_masked')){
+                    return;
+                }
                 onScrollUpdate();
                 if(scrollLeft == windowEl.scrollLeft() || bodyEl.hasClass('m_masked')) return;
                 scrollLeft = windowEl.scrollLeft();

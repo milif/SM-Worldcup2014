@@ -1,6 +1,9 @@
 @charset "UTF-8";
 @import "compass";
 
+body {
+    display: none;
+}
 
 @import "scss/library/_fonts.scss";
 @import "scss/library/_mediaquery.scss";

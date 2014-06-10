@@ -26,9 +26,10 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcShare:share.html',
         replace: true,
-        controller: ['$scope', '$stmwcAuth', function($scope, $stmwcAuth){
+        controller: ['$scope', '$stmwcAuth', '$attrs', function($scope, $stmwcAuth, $attrs){
             
             var counters = $scope.counters = Share.get();
+            var isShareBets = 'shareBets' in $attrs;
             
             $scope.click = function(type){
                 click(type);
@@ -81,7 +82,14 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
                 });
             }
             function getUrl(){
-                 return SHARE.url + ($stmwcAuth.isAuth ? '?r=' + $stmwcAuth.data.refKey : '');
+                var params = [];
+                if($stmwcAuth.isAuth){
+                    params.push('r=' + $stmwcAuth.data.refKey);
+                } 
+                if(isShareBets && $stmwcAuth.isAuth) {
+                    params.push('share=' + $stmwcAuth.data.share);
+                }
+                return SHARE.url + (params.length > 0 ? '?'+params.join('&') : '');
             }
         }]
     };

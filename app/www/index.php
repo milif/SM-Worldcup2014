@@ -1,6 +1,33 @@
 <?php
+
+    require_once __DIR__.'/../lib/init.php';
+
     require_once __DIR__.'/../lib/User.class.php';
     require_once __DIR__.'/../lib/Bets.class.php';
+
+    $usershare = null;
+
+    if(isset($_GET['share'])){
+        $rs = DB::query("SELECT id, `uri`, `score`, `avatar`, `name` FROM user WHERE ref_key = :key;", array(
+            ':key' => $_GET['r']
+        ));
+        if(count($rs) && md5($rs[0]['uri']) == $_GET['share']) {
+            $userId = $rs[0]['id'];
+            $usershare = array(
+                'name' => $rs[0]['name'], 
+                'score' => (int)$rs[0]['score'],
+                'avatar' => $rs[0]['avatar'],
+                'place' => array(
+                    'user' => User::getPlace($userId),
+                    'total' => User::getTotal()
+                ),
+                'bets' => Bets::getUserResults($userId)
+            );
+        } else {
+            header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));
+            exit;
+        }
+    }
 
     $ENV = array(
         'requireAuth' => isset($_COOKIE[SESSION_COOKIE.'_authorization']),
@@ -13,8 +40,17 @@
             'total' => User::getTotal()
         )
     );
+    if($usershare){
+        $ENV['usershare'] = $usershare;
+    }
+    
 
-    require_once __DIR__.'/../lib/init.php';
+
+    ob_start();
+    require __DIR__.'/../tpl/head.php';
+    $head = ob_get_contents();
+    ob_end_clean();
+    
 ?><!doctype html>
 <html ng-app="stmwc" lang="ru">
 <head>
@@ -48,5 +84,6 @@
         </div>
 
     </div>
+    <div ng-if="betsShared" stmwc-bets-shared="betsShared"></div>
 </body>
 </html>

@@ -97,6 +97,34 @@
 
 /* bets */
 .bets {
+    &__share {
+        background: #f0f0f0;
+        display: inline-block;
+        padding: 0 12px;
+        line-height: 32px;
+        height: 32px;
+        border-radius: 4px;
+        &-name {
+            font-size: 18px;
+            margin: 0 7px;
+            color:#323232;
+            display: inline-block;
+            line-height: normal;
+            vertical-align: middle;
+        }
+        &-sep {
+            display: inline-block;
+            @extend %sprite;
+            @include szp(boll);
+            vertical-align: middle;
+            margin: 0 2px;
+            position: relative;
+            top: -1px;
+        }
+        &-flag {
+            vertical-align: middle;
+        }
+    }
     &__item {
         margin-top: 20px;
         @extend %common-shadow;
@@ -123,7 +151,16 @@
             border-color: #ace7b0;
         }
     }
-
+    &__item-scoring {
+        @extend %inline;
+        font-size: 30px;
+        &-value {
+            margin: 0 15px;
+            &.mod_fade {
+               color: #c3c3c3; 
+            }
+        }
+    }
     &__item-table {
         display: table;
         width: 100%;
@@ -296,8 +333,8 @@
 
 }
 
-.true-score {
-    padding-top: 6px;
+.true-score,  {
+    padding-top: 10px;
     font-size: 13px;
     line-height: 100%;
     .bets__item--true & {

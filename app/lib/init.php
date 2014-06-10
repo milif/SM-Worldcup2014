@@ -4,8 +4,10 @@ require_once __DIR__.'/../config.php';
 
 if(isset($_GET['r'])){
     setcookie(SESSION_COOKIE.'_ref', $_GET['r'].'.'.basename(dirname($_SERVER['REQUEST_URI'])), 0, APP_ROOT_URL.'/api/');
-    header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));
-    exit;
+    if(!isset($_GET['share'])){
+        header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));
+        exit;
+    }
 }
 if(isset($_GET['authorization'])){
     setcookie(SESSION_COOKIE.'_authorization', '1', 0, APP_ROOT_URL.'/');
@@ -30,8 +32,3 @@ if(!IS_PRODUCTION){
         Cache::clear();
     }
 }
-
-ob_start();
-require __DIR__.'/../tpl/head.php';
-$head = ob_get_contents();
-ob_end_clean();

@@ -29,6 +29,8 @@
         background-color: #fff;
         border-radius: 6px 6px 0 0;
         padding: 20px;
+        position: relative;
+        z-index: 1;
     }
     &__content:last-child {
         border-radius: 6px;
@@ -79,6 +81,7 @@
         display: block;
         text-indent: -9999px;
         cursor: pointer;
+        z-index: 2;
         &:hover {
             opacity: .9;
         }

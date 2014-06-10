@@ -275,13 +275,14 @@ class User {
             setcookie(SESSION_COOKIE.'_stmuid', self::$userKey, 0, APP_ROOT_URL."/");
         }
     } 
-    static public function getPlace(){
-        $key = 'userPlace'.User::getKey();
+    static public function getPlace($userKey = null){
+        if(is_null($userKey)) $userKey = User::getKey();
+        $key = 'userPlace'.$userKey;
         $place = Cache::get($key);
         if($place !== false) return $place;
         
         $rs = DB::query('SELECT SUM(score) score FROM user_bets WHERE user_key = :userKey;', array(
-            ':userKey' => User::getKey()
+            ':userKey' => $userKey
         ));
         $rs = DB::query("SELECT COUNT(*) cc FROM user WHERE score < ".(int)$rs[0]['score']);
         $place = User::getTotal() - (int)$rs[0]['cc'];

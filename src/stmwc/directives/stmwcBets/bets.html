@@ -72,7 +72,7 @@
                                 <div ng-if="bet.state == 'lock'" class="bets-active"><span class="ico-bets ico-bets--bet-lock"></span>Ставка принята</div>
                                 <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
                                 <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали победителя <span class="labelst">+{{bet.score}} Б</span></div>
-                                <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Вы угадали <br>счет <span class="labelst">+{{bet.score}} Б</span></div>
+                                <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Вы угадали счет <span class="labelst">+{{bet.score}} Б</span></div>
                             </div>
                         </div>
                     </div>
@@ -87,19 +87,13 @@
         <span ng-if="sections.indexOf(nextSection) < 0"><span ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи</span> <span class="aside-bottom-btn__count">{{countMore}}</span></span>
         <span ng-if="sections.indexOf(nextSection) >= 0"><span ng-if="menuTime != 0" ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}}</span><span ng-if="menuTime == 0" ng-click="hideMore()" class="aside-bottom-btn__link">Ближайшие матчи</span> <span class="aside-bottom-btn__count">{{countCurrent}}</span></span>
     </div>
-    <div ng-if="showShare" stmwc-popup="sharebet">
+    <div ng-if="share" stmwc-popup="sharebet">
         <content>
             <div class="popup__title">Расскажите друзьям о своих ставках</div>
-            <div class="bets__share">
-                <span ng-class="'flags--' + share.bet.data[0][0]" class="flags" class="bets__share-flag"></span>
-                <span class="bets__share-name">{{share.bet.data[0][1]}}</span>
-                <span class="bets__share-sep"></span>
-                <span ng-class="'flags--' +  share.bet.data[1][0]" class="flags" class="bets__share-flag"></span>
-                <span class="bets__share-name">{{share.bet.data[1][1]}}</span>
-            </div>
+            <div class="bets__share"><span ng-class="'flags--' + share.bet.data[0][0]" class="flags bets__share-flag"></span><span class="bets__share-name">{{share.bet.data[0][1]}}</span><span class="bets__share-sep"></span><span class="bets__share-name">{{share.bet.data[1][1]}}</span><span ng-class="'flags--' +  share.bet.data[1][0]" class="flags bets__share-flag"></span></div>
         </content>
         <footer>
-            <div stmwc-share sharebets></div>
+            <div stmwc-share share-bets></div>
         </footer>
     </div>
 </div>

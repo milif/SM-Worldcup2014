@@ -33,6 +33,7 @@ module.exports = function(grunt) {
                     'directive:stmwcSale',
                     'directive:stmwcPreload',
                     'directive:stmwcBets',
+                    'directive:stmwcBetsShared',
                     'directive:stmwcUserinfo',
                     'directive:stmwcNews',
                     '$stmwcAuth'
@@ -48,7 +49,8 @@ module.exports = function(grunt) {
         includeTemplates: [
             '*',
             '!*stmwcAuth*',
-            '!*userscore.html'
+            '!*userscore.html',
+            '!*betsshared.html'
         ],
         separateCss: true
     },

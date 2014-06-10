@@ -43,10 +43,10 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             var progressCss = $scope.progressCss = {};
             $scope.$watch(function(){
                 $scope.score = Bets.getScore() || 0;
-                if($scope.score < 1000) {
-                    progressCss.width = Math.round($scope.score / 1000 * 25) + '%';
-                } else if($scope.score <= 1500){
-                    progressCss.width = Math.round(25 + ($scope.score - 1000) / 500 * 25) + '%';
+                if($scope.score < 200) {
+                    progressCss.width = Math.round($scope.score / 200 * 25) + '%';
+                } else if($scope.score <= 500){
+                    progressCss.width = Math.round(25 + ($scope.score - 200) / 300 * 25) + '%';
                 } else {
                     progressCss.width = Math.round(50 + (place.total - place.user + 1) / place.total * 50) + '%';
                 }

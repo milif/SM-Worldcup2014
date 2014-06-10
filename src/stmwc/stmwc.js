@@ -10,10 +10,7 @@
  * @requires angular/i18n/angular-locale_ru.js
  * @requires angularui/ui-utils.js
  *
- * @requires angularui/ui-utils.js
- *
  * @requires stmwc:bootstrap.scss
- * @requires stmwc:usershare.html
  * 
  * @ngdoc overview
  * @name stmwc
@@ -29,7 +26,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         $locationProvider.hashPrefix('#');
         $anchorScrollProvider.disableAutoScrolling();
     }])
-    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory){
+    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$templateCache', '$compile', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $templateCache, $compile){
         
         $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
         
@@ -39,21 +36,19 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         
         $rootScope.sendMnogo = $stmwcAuth.sendMnogo;
         
-        if($stmwcEnv.share) {
+        if($stmwcEnv.usershare){
             $rootScope.$on('loaded', function(){
-                var $scope = $rootScope.$new();
-                $scope.user = $stmwcEnv.usershare;
-                $scope.$on('closedPopup-usershare', function(){
-                    setTimeout(function(){
-                        $scope.$destroy();
-                    }, 0);
-                });
-                $http.get('partials/stmwc:usershare.html', {cache: $templateCache}).success(function(data){
-                   $compile(data)($scope); 
-                });
+                $rootScope.betsShared = $stmwcEnv.usershare;
+            });
+            $rootScope.$on('closedPopup-betsshared', function(){
+                setTimeout(function(){
+                    delete $rootScope.betsShared;
+                    $location.url('/');
+                    $rootScope.$digest();
+                }, 0);
             });
         }
-        
+   
         // Cache
         var cache = $cacheFactory('stmwc');
         $http.defaults.cache = cache;

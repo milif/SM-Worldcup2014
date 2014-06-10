@@ -73,4 +73,29 @@ class Bets {
         }
         return $userBets;
     }
+    static public function getUserResults($userKey = null){
+        if(is_null($userKey)) $userKey = User::getKey();
+        
+        $key = 'betsUserResults'.$userKey;
+        $userBets = Cache::get($key);
+        if($userBets !== false) return $userBets;
+        
+        $rs = DB::query("SELECT `value`, a.`result` as betresult, `score`, `data`, b.`result`, b.`time`  FROM `user_bets` a LEFT JOIN `bets` b ON b.id = a.bet_id WHERE `user_key` = :userKey ORDER BY a.updated_at DESC;", array(
+            ':userKey' => $userKey
+        ));
+        $userBets = array();
+        foreach($rs as $row){
+            $userBets[] = array(
+                'data' => json_decode($row['data'], true),
+                'time' => strtotime($row['time']." Europe/Moscow") * 1000,
+                'score' => $row['score'],
+                'value' => json_decode($row['value'], true),
+                'result' => json_decode($row['result'], true),
+                'userResult' => !is_null($row['betresult']) ? (int)$row['betresult'] : NULL
+            );
+        }
+        
+        Cache::set($key, $userBets, 300);
+        return $userBets;
+    }
 }

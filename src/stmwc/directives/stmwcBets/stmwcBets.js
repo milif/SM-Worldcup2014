@@ -33,6 +33,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var dates = $scope.dates = [];
             var menuTime = $scope.menuTime = 0;
             var time = new Date().getTime();
+            var lastBet;
             
             $scope.requireAuth = $stmwcAuth.requireAuth(true);
             
@@ -89,6 +90,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 Bets.bet(bet.id, value[0], value[1], function(canBet){
                     $scope.canBet = canBet;
                     updateState(bet);
+                    if($stmwcAuth.isAuth) onShare(bet);
                 });
                 betsForAuth++;
                 
@@ -96,6 +98,15 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     betsForAuth = 0;
                     $stmwcAuth.auth();
                 }
+            });
+            var onShare = $debounce(5000, function(bet){
+                if($scope.share) return;
+                $scope.share = {
+                    bet: bet
+                };
+            });
+            $scope.$on('closedPopup-sharebet', function(){
+                delete $scope.share;
             });
             $scope.onBlurInput = function(bet){
                 bet.value[0] = bet.__value[0];
@@ -253,6 +264,71 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
         }]
     };
+});
+/**
+ * @ngdoc directive
+ * @name stmwc.directive:stmwcBetsShared
+ * @function
+ *
+ * @requires stmwc.directive:stmwcBetsShared:betsshared.scss
+ * @requires stmwc.directive:stmwcBetsShared:betsshared.html
+ *
+ * @requires stmwc.filter:howmany
+ * @requires stmwc.directive:stmwcPopup
+ *
+ * @description
+ * Попап шаринга ставок
+ *
+ * @element ANY
+ *
+ */
+angular.module('stmwc').directive('stmwcBetsShared', function(){
+    var $ = angular.element;
+    return {
+        templateUrl: 'partials/stmwc.directive:stmwcBetsShared:betsshared.html',
+        controller: ['$scope', '$attrs', function($scope, $attrs){
+            var user = $scope.user = $scope.$eval($attrs.stmwcBetsShared);
+            var bets = user.bets;
+            bets.wins = 0;
+            bets.score = 0;
+            var bet;
+            for(var i=0;i<bets.length;i++){
+                bet = bets[i];
+                if(bet.userResult !== null) {
+                    switch(bet.userResult) {
+                        case 0:
+                            bet.state = 'false';
+                            break;
+                        case 1:
+                            bet.state = 'true';
+                            break;
+                        case 2:
+                            bet.state = 'wine';
+                            break;
+                    }   
+                }
+                if(bet.userResult == 1){
+                    bets.wins++
+                } else if(bet.userResult == 2){
+                    bets.score++;
+                }
+            }
+            if(user.score < 200) {
+                user.stage = 'start';
+            } else if(user.score < 500){
+                user.stage = 'mnogo';
+            } else if(user.place.user != 1){
+                user.stage = 'headphones';
+            } else {
+                user.stage = 'iphone';
+            }
+            $scope.time = new Date().getTime();
+            $scope.betsCss = {
+                maxHeight: Math.max(200, $(window).height() - 150)
+            }
+            
+        }]
+    }
 });
 angular.module('stmwc').animation('.animate-bet-section', function(){
     return {

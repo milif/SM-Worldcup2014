@@ -1,0 +1,116 @@
+.usershare {
+    width: 720px;
+    &--bets {
+        position: relative;
+        margin: 0px -20px -20px -20px;
+        padding: 0 20px;
+        overflow-y: auto;
+        &-l {
+            position: relative;
+            &:before {
+                position: absolute;
+                content: '';
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 20px;
+                z-index: 1; 
+                @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%));
+            }
+            &:after {
+                position: absolute;
+                content: '';
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20px;
+                z-index: 1; 
+                @include background-image(linear-gradient(bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%));
+            }
+        }
+        &-h {
+            padding: 20px 0;
+        }
+    }
+    &--head {
+        text-align: left;
+        position: relative;
+        margin: -20px -20px 0px -20px;
+        padding: 20px;
+        background: #f3f3f3;
+        border-radius: 6px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        & > * {
+            display: table-cell!important;
+        }
+        &-info {
+            padding-left: 20px;
+            width: 380px;
+        }
+        &-name {
+            font-size: 16px;
+        }
+        &-score {
+            font-weight: bold;
+        }
+        &-place {
+            font-size: 13px;
+            color: #999999;
+        }
+        &-bets {
+            font-size: 13px;
+            vertical-align: middle;
+        }
+        &-betstotal {
+            color: #999999;
+        }
+        &-betsscore {
+            color: #008a1c;
+        }
+        &-betswins {
+            color: #caa300;
+        }
+        &-ico {
+            width: 60px;
+            vertical-align: middle;
+            &-h {
+                height: 60px;
+            }
+            &-h.mod_start {
+                @extend %sprite;
+                @include sp(ico-start-big);
+            }
+            &-h.mod_mnogo {
+                @extend %sprite;
+                @include sp(ico-mnogo-big);
+            }
+            &-h.mod_headphones {
+                @extend %sprite;
+                @include sp(ico-headphones-big);
+            }
+            &-h.mod_iphone {
+                @extend %sprite;
+                @include sp(ico-iphone-big);
+            }
+        }
+        &-userpic {
+            width: 62px;
+            &-h {
+                position: relative;
+                &:after {
+                    @extend %sprite;
+                    @include sp(mask-user-grey);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 62px;
+                    height: 62px;
+                    display: block;
+                    content: '';
+                }
+            } 
+        }  
+    }
+}

@@ -1,0 +1,58 @@
+<div stmwc-popup="betsshared">
+    <content class="usershare">
+        <div class="usershare--head">
+            <div class="usershare--head-userpic">
+                <div class="usershare--head-userpic-h" stmwc-userpic="user.avatar" username="user.name"></div>
+            </div>
+            <div class="usershare--head-info">
+                <div class="usershare--head-name">{{user.name}}</div>
+                <div class="usershare--head-score">{{user.score | number:0}} Б</div>
+                <div class="usershare--head-place">{{user.place.user | number:0}} место из {{user.place.total | number:0}}</div>
+            </div>
+            <div class="usershare--head-bets">
+                <div class="usershare--head-betstotal">Всего <b>{{user.bets.length}}</b> {{user.bets.length | howmany:'ставка':'ставки':'ставок'}}</div>
+                <div ng-if="user.bets.wins > 0" class="usershare--head-betswins"><b>{{user.bets.wins}}</b> {{user.bets.wins | howmany:'раз':'раза':'раз'}} угадан победитель</div>
+                <div ng-if="user.bets.score > 0" class="usershare--head-betsscore"><b>{{user.bets.score}}</b> {{user.bets.score | howmany:'раз':'раза':'раз'}} угадан счет</div>
+            </div>
+            <div class="usershare--head-ico">
+                <div ng-class="'mod_' + user.stage" class="usershare--head-ico-h"></div>
+            </div>
+        </div>
+        <div class="usershare--bets-l">
+            <div class="usershare--bets" ng-style="betsCss">
+                <div class="usershare--bets-h">
+                    <div ng-class="bet.state ? 'bets__item--' + bet.state : ''" ng-repeat="bet in user.bets" class="bets__item">
+                        <div class="bets__item-table">
+                            <div class="bets__item-table-td">
+                                <div ng-if="bet.time < time && bet.result" class="bets__item-note bets__item-note--fade">Матч состоялся<br>{{bet.time | date:'d MMMM в HH:mm'}}</div>
+                                <div ng-if="bet.time < time && !bet.result" class="bets__item-note bets__item-note--fade">Матч идет</div>
+                                <div ng-if="bet.time > time" class="bets__item-note bets__item-note--fade">Матч состоится<br>{{bet.time | date:'d MMMM в HH:mm'}}</div>
+                            </div>
+                            <div class="bets__item-table-td">
+                                <div class="bets__item-country bets__item-country--left">
+                                    <div>{{bet.data[0][1]}}</div>
+                                    <span class="bets__item-country-flag">
+                                        <span ng-class="'flags--' + bet.data[0][0]" class="flags"></span>
+                                    </span>
+                                </div>
+                                <div class="bets__item-scoring"><span ng-class="!bet.result ? 'mod_fade' : ''" class="bets__item-scoring-value">{{bet.result[0] || '?'}}</span><span class="bets__item-scoring-sep">:</span><span ng-class="!bet.result ? 'mod_fade' : ''"  class="bets__item-scoring-value">{{bet.result[1] || '?' }}</span></div>
+                                <div class="bets__item-country bets__item-country--right">
+                                    <div>{{bet.data[1][1]}}</div>
+                                    <span class="bets__item-country-flag">
+                                        <span ng-class="'flags--' + bet.data[1][0]" class="flags"></span>
+                                    </span>
+                                </div>
+                                <div class="true-score">Прогноз пользователя:<br>{{bet.value[0]}} : {{bet.value[1]}}</div>
+                            </div>
+                            <div class="bets__item-table-td">
+                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Угадан победитель <span class="labelst">+{{bet.score}} Б</span></div>
+                                <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Угадан счет <span class="labelst">+{{bet.score}} Б</span></div>
+                                <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Не угадано</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content>
+</div>
