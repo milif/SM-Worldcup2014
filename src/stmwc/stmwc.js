@@ -26,7 +26,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         $locationProvider.hashPrefix('#');
         $anchorScrollProvider.disableAutoScrolling();
     }])
-    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$templateCache', '$compile', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $templateCache, $compile){
+    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$stmwcGtm', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $stmwcGtm){
         
         $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
         
@@ -59,8 +59,44 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
                 cache.put(key, api[key]);
             }
         }
+        
+        // GTM
+        var gtmCfg =  $stmwcEnv.gtm;
+        if(gtmCfg) $stmwcGtm.init(gtmCfg.id, gtmCfg.data);
     }])
     .value('$stmwcEnv', {})
+        /**
+         * @ngdoc service
+         * @name stm.$stmGtm
+         * @description
+         *
+         * Google tag manager
+         *
+         */       
+    .factory('$stmwcGtm', ['$window', function($window){
+        var $stmwcGtm = {
+            init: init,
+            push: push
+        };
+        
+        var l = '_GTMdataLayer';
+        var $ = angular.element;
+        var layer;
+        
+        return $stmwcGtm;
+        
+        function init(id, data){
+            layer = $window[l] = data || [];
+            layer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+            var f = document.getElementsByTagName('script')[0],j=document.createElement('script');
+            j.async=true;
+            j.src='//www.googletagmanager.com/gtm.js?id='+id+'&l='+l;
+            f.parentNode.insertBefore(j,f);
+        }
+        function push(param){
+            layer.push(param);
+        }
+    }])
     .factory('$debounce', ['$timeout', function ($timeout) {
 
          return function (wait, fn) {

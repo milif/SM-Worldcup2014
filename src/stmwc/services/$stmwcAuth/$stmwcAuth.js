@@ -23,7 +23,7 @@
      * 
      */
         
-    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout){
+    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm){
         
         var $$ = angular;
         var $ = angular.element;
@@ -147,6 +147,20 @@
                     $scope.$destroy();
                 }, 0);
             });
+            
+            if(state == 0 && $stmwcAuth.isAuth){
+                var data = $stmwcAuth.data;
+                $stmwcGtm.push({
+                    event: 'WorldCup2014',
+                    eventAction: 'confirmation',
+                    userId: data.refKey,
+                    partner: {
+                        id: data.partnerRef,
+                        data: data.partnerSubRef
+                    }
+                });   
+            }
+            
             $http.get('partials/stmwc.$stmwcAuth:confirmed.html', {cache: $templateCache}).success(function(data){
                $compile(data)($scope); 
             });

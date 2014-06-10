@@ -27,7 +27,7 @@ if(IS_PRODUCTION){
     $ENV['gtm'] = array(
         'id'=> GTM_ID,
         'data' => array(array_merge( array(
-             'pageType' => 'WC2014'            
+             'pageType' => 'promo'            
         ), isset($GTM_DATA) ? $GTM_DATA : array()))
     );
 }
