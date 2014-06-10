@@ -1,0 +1,145 @@
+/* user score */
+/*==========================================================*/
+
+$packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
+
+.users-score {
+}
+
+.users-score-top {
+    position: relative;
+    height: 66px;
+    &__title {
+        font-size: 25px;
+        text-align: center;
+    }
+}
+
+.button-users-score {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 160px;
+    @extend %btn;
+    @extend %btn--green;
+    @extend %btn--size-normal;
+    border-radius: 3px;
+}
+
+
+
+/* user prize */
+/*==========================================================*/
+.l-users-score__prize {
+    width: 60px;
+    @extend %border-box;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid #009a1f;
+}
+
+.users-score__prize {
+    @include sbg($packSecond);
+    position: relative;
+    top: -3px;
+    @extend %inline-middle;
+    &--ipad {
+        @include szp(ipad, $packSecond);
+    }
+    &--iphone {
+        @include szp(iphone, $packSecond);
+    }
+    &--discount {
+        @include szp(discount, $packSecond);
+    }
+    &--flag {
+        @include szp(flag, $packSecond);
+    }
+}
+
+/* users-score-table */
+/*==========================================================*/
+.users-score-table {
+    width: 100%;
+    td{
+        vertical-align: middle;
+        border-top: 1px solid #eee;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    td:last-child {
+        width: 1%;
+        padding-right: 0;
+    }
+    td:nth-child(1) {
+        width: 1%;
+    }
+    td:nth-child(2) {
+        width: 1%;
+    }
+    td:nth-child(3) {
+        width: 260px;
+    }
+    &__userpic {
+        width: 63px;
+        height: 63px;
+    }
+}
+.users-score-table__num {
+    font-size: 13px;
+    color: #999;
+}
+.users-score-table__bet {
+    font-size: 13px;
+    color: #999;
+}
+.users-score-table__true {
+    font-size: 13px;
+    color: #caa300;
+}
+.users-score-table__count {
+    font-size: 13px;
+    color: #008a1c;
+}
+
+.users-score-table__username{
+}
+
+.users-score-table__userpic {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    overflow: hidden;
+    display: inline-block;
+    &:after {
+        @extend %sprite;
+        @include sp(mask-user);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 62px;
+        height: 62px;
+        display: block;
+        content: '';
+    }
+}
+.users-score-table__balls {
+    font-weight: bold;
+}
+.all-user-count {
+    display: block;
+    font-size: 23px;
+    color: #999;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 16px;
+}
+
+.your-item {
+    color: #008a1c;
+    font-size: 11px;
+    white-space: nowrap;
+}
