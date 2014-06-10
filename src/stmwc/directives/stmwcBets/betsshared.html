@@ -35,14 +35,14 @@
                                         <span ng-class="'flags--' + bet.data[0][0]" class="flags"></span>
                                     </span>
                                 </div>
-                                <div class="bets__item-scoring"><span ng-class="!bet.result ? 'mod_fade' : ''" class="bets__item-scoring-value">{{bet.result[0] || '?'}}</span><span class="bets__item-scoring-sep">:</span><span ng-class="!bet.result ? 'mod_fade' : ''"  class="bets__item-scoring-value">{{bet.result[1] || '?' }}</span></div>
+                                <div class="bets__item-scoring"><span class="bets__item-scoring-value">{{bet.value[0]}}</span><span class="bets__item-scoring-sep">:</span><span class="bets__item-scoring-value">{{bet.value[1]}}</span></div>
                                 <div class="bets__item-country bets__item-country--right">
                                     <div>{{bet.data[1][1]}}</div>
                                     <span class="bets__item-country-flag">
                                         <span ng-class="'flags--' + bet.data[1][0]" class="flags"></span>
                                     </span>
                                 </div>
-                                <div class="true-score">Прогноз пользователя:<br>{{bet.value[0]}} : {{bet.value[1]}}</div>
+                                <div ng-if="bet.result" class="true-score">Результат матча:<br>{{bet.result[0]}} : {{bet.result[1]}}</div>
                             </div>
                             <div class="bets__item-table-td">
                                 <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Угадан победитель <span class="labelst">+{{bet.score}} Б</span></div>
