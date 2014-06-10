@@ -5,8 +5,6 @@
  * @function
  *
  * @requires stmwc.directive:stmwcUserinfo:userinfo.scss
- * @requires stmwc.directive:stmwcUserinfo:userscore.scss
- * @requires stmwc.directive:stmwcUserinfo:userscore.html
  * @requires stmwc.directive:stmwcUserinfo:userinfo.html
  * @requires stmwc.directive:stmwcUserinfo:userpic.html
  * @requires stmwc.directive:stmwcUserinfo:userpic.scss
@@ -34,11 +32,8 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             var place = $scope.place = $stmwcEnv.place;
             
             $scope.showTop = function(){
-                $scope.showTop20 = true;
+                $scope.$emit('showTop');
             }
-            $scope.$on('closedPopup-top20', function(){
-                $scope.showTop20 = false;    
-            });
             
             var progressCss = $scope.progressCss = {};
             $scope.$watch(function(){

@@ -48,6 +48,16 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
                 }, 0);
             });
         }
+        
+        $rootScope.$on('closedPopup-top', function(){
+            setTimeout(function(){
+                $rootScope.showTop20 = false;
+                $rootScope.$digest();
+            }, 0);
+        });
+        $rootScope.$on('showTop', function(){
+            $rootScope.showTop20 = true;
+        });
    
         // Cache
         var cache = $cacheFactory('stmwc');

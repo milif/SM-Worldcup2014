@@ -36,6 +36,7 @@ module.exports = function(grunt) {
                     'directive:stmwcBetsShared',
                     'directive:stmwcUserinfo',
                     'directive:stmwcNews',
+                    'directive:stmwcPopupTop',
                     '$stmwcAuth'
                 ],
                 includeAsset: true
@@ -49,7 +50,7 @@ module.exports = function(grunt) {
         includeTemplates: [
             '*',
             '!*stmwcAuth*',
-            '!*userscore.html',
+            '!*top.html',
             '!*betsshared.html'
         ],
         separateCss: true

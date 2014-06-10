@@ -91,7 +91,9 @@ class User {
             ));        
             return self::CONFIRM_ERROR_HAS;
         }
-        DB::query("UPDATE `user` SET `is_confirmed` = 1, `openid_verified_email` = {$rs[0]['email']} WHERE `id` = ".$rs[0]['id']);
+        DB::query("UPDATE `user` SET `is_confirmed` = 1, `openid_verified_email` = :email WHERE `id` = ".$rs[0]['id'], array(
+            ':email' => $rs[0]['email']
+        ));
         Log::add('confirm_email', array(
             'user' => $rs[0]
         ));
