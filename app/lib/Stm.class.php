@@ -26,12 +26,15 @@ class Stm {
         if($data['errcode'] !== 0) return false;
         $data = $data['result'];
         return array(
-            'uri' => "stm:".$data['id'],
-            'email' => $data['email'],
-            'avatar' => NULL,
-            'dob' => isset($data['birthday']) && $data['birthday'] ? $data['birthday'] : NULL,
-            'name' => $data['full_name'],
-            'gender' => NULL
+            'data' => array(
+                'uri' => "stm:".$data['id'],
+                'email' => $data['email'],
+                'avatar' => NULL,
+                'dob' => isset($data['birthday']) && $data['birthday'] ? $data['birthday'] : NULL,
+                'name' => $data['full_name'],
+                'gender' => NULL
+            ),
+            'redirect' => APP_ROOT_URL
         );
     }
     static private function __post($params){
