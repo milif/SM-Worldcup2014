@@ -34,7 +34,7 @@ class Stm {
                 'name' => $data['full_name'],
                 'gender' => NULL
             ),
-            'redirect' => APP_ROOT_URL
+            'redirect' => APP_ROOT_URL."/"
         );
     }
     static private function __post($params){
