@@ -12,6 +12,50 @@ class User {
     const UNSUBSCRIBE_ERROR_HAS = 2;
     static private $userId = null;
     static private $userKey = null;
+    static public function getTopList(){
+        $cacheKey = 'top';
+        $res = Cache::get($cacheKey);
+        if($res !== false) return $res;
+        
+        $users = array();
+        $rs = DB::query("SELECT id, name, avatar, score, ref_key FROM user ORDER BY score desc LIMIT 0, 20;");
+        foreach($rs as $i => $row){
+            $users[$row['id']] = array(
+                'name' => $row['name'],
+                'avatar' => $row['avatar'],
+                'score' => (int)$row['score'],
+                'refKey' => $row['ref_key'],
+            );
+        }
+        $rs = DB::query("SELECT COUNT(*) cc, user_key, result FROM user_bets WHERE user_key IN ('".implode("','", array_keys($users))."')  GROUP BY user_key, result");
+        foreach($rs as $row){
+            if(is_null($row['result'])) {
+                $key = 'bet';
+            } else {
+                switch ((int)$row['result']) {
+                    case 0:
+                        $key = 'false';
+                        break;
+                    case 1:
+                        $key = 'wine';
+                        break;
+                    case 2:
+                        $key = 'true';
+                        break;
+                }
+            }
+            $users[$row['user_key']]['bets'][$key] = (int)$row['cc'];
+        }
+        
+        $res = array();
+        foreach($users as $user){
+            $res[] = $user;
+        }
+        
+        Cache::set($cacheKey, $res, 1200);
+        
+        return $res;
+    }
     static public function getFriendsCount(){
         if(!User::isAuth()) return 0;
         $key = 'friends.'.User::getKey();

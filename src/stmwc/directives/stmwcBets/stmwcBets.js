@@ -313,15 +313,7 @@ angular.module('stmwc').directive('stmwcBetsShared', function(){
                     bets.score++;
                 }
             }
-            if(user.score < 200) {
-                user.stage = 'start';
-            } else if(user.score < 500){
-                user.stage = 'mnogo';
-            } else if(user.place.user != 1){
-                user.stage = 'headphones';
-            } else {
-                user.stage = 'iphone';
-            }
+            user.stage = $scope.getStage(user.score, user.place.user);
             $scope.time = new Date().getTime();
             $scope.betsCss = {
                 maxHeight: Math.max(200, $(window).height() - 150)

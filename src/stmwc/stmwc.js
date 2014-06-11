@@ -49,6 +49,8 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
             });
         }
         
+        $rootScope.getStage = getStage;
+        
         $rootScope.$on('closedPopup-top', function(){
             setTimeout(function(){
                 $rootScope.showTop20 = false;
@@ -73,6 +75,19 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         // GTM
         var gtmCfg =  $stmwcEnv.gtm;
         if(gtmCfg) $stmwcGtm.init(gtmCfg.id, gtmCfg.data);
+        
+        function getStage(score, place){
+            if(score < 200) {
+                return 'start';
+            } else if(score < 500){
+                return 'mnogo';
+            } else if(place != 1){
+                return 'headphones';
+            } else {
+                return 'iphone';
+            }
+        }
+        
     }])
     .value('$stmwcEnv', {})
         /**

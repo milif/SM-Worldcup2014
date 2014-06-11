@@ -13,6 +13,8 @@ require_once __DIR__.'/../../lib/User.class.php';
 $res = false;
 if(isset($_GET['logout']) && $_GET['logout']){
     $res = User::logout();
+} else if($data['action'] == 'top'){
+    $res = User::getTopList();
 } else if($data['action'] == 'get'){
     $res = User::getData();
 } else if($data['action'] == 'reg'){

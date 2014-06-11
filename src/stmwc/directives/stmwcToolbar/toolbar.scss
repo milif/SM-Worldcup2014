@@ -45,6 +45,7 @@
         text-shadow: 0 -1px 0 #004f0f;
         text-decoration: none;
         box-sizing: border-box;
+        cursor: pointer;
         @extend %bg-clip;
         @include single-transition();
         /*border-bottom: #e4a600 solid 0px;*/

@@ -75,25 +75,6 @@
         &-ico {
             width: 60px;
             vertical-align: middle;
-            &-h {
-                height: 60px;
-            }
-            &-h.mod_start {
-                @extend %sprite;
-                @include sp(ico-start-big);
-            }
-            &-h.mod_mnogo {
-                @extend %sprite;
-                @include sp(ico-mnogo-big);
-            }
-            &-h.mod_headphones {
-                @extend %sprite;
-                @include sp(ico-headphones-big);
-            }
-            &-h.mod_iphone {
-                @extend %sprite;
-                @include sp(ico-iphone-big);
-            }
         }
         &-userpic {
             width: 62px;

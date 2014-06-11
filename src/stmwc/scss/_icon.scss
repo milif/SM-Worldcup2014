@@ -11,3 +11,25 @@
         @include szp(star);
     }
 }
+.stage-ico {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    &.mod_start {
+        @extend %sprite;
+        @include sp(ico-start-big);
+    }
+    &.mod_mnogo {
+        @extend %sprite;
+        @include sp(ico-mnogo-big);
+    }
+    &.mod_headphones {
+        @extend %sprite;
+        @include sp(ico-headphones-big);
+    }
+    &.mod_iphone {
+        @extend %sprite;
+        @include sp(ico-iphone-big);
+    }
+}

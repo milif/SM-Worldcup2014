@@ -23,7 +23,7 @@
      * 
      */
         
-    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm){
+    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', '$filter', '$cookies', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm, $filter, $cookies){
         
         var $$ = angular;
         var $ = angular.element;
@@ -79,7 +79,8 @@
                 requireAuth: requireAuth,
                 logout: logout,
                 sendMnogo: sendMnogo,
-                confirmEmail: confirmEmail
+                confirmEmail: confirmEmail,
+                getName: getName
             });
             
             if($stmwcAuth.isAuth && requireConfirm) {
@@ -91,6 +92,13 @@
                     localStorage.setItem(key, curTime + 86400000);
                 }
             }
+        }
+        function getName(){
+            return $stmwcAuth.isAuth ? $stmwcAuth.data.name : "Игрок № " + $filter('number')(getUserNumber(), 0);
+        }
+        function getUserNumber(){
+            var n = parseInt($cookies.WC2014_stmuid, 16);
+            return n - Math.floor(n / 1000000000) * 1000000000;
         }
         function requireAuth(noCallAuth){
             if (!$stmwcAuth.isAuth && isRequireAuth){

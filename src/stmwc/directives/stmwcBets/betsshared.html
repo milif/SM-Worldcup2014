@@ -15,7 +15,7 @@
                 <div ng-if="user.bets.score > 0" class="usershare--head-betsscore"><b>{{user.bets.score}}</b> {{user.bets.score | howmany:'раз':'раза':'раз'}} угадан счет</div>
             </div>
             <div class="usershare--head-ico">
-                <div ng-class="'mod_' + user.stage" class="usershare--head-ico-h"></div>
+                <span ng-class="'mod_' + user.stage" class="stage-ico"></span>
             </div>
         </div>
         <div class="usershare--bets-l">

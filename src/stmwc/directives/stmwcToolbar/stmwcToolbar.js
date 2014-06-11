@@ -31,6 +31,10 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
             var scrollLeft;
             var anchorEls;
             
+            $scope.showTop = function(){
+                $scope.$emit('showTop');
+            }
+            
             $scope.$on('$locationChangeSuccess', function(){
                 $scope.hash = $location.hash();
                 //console.log('Hash:' + $scope.hash)

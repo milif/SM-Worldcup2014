@@ -29,6 +29,8 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             $scope.user = $stmwcAuth.data;
             $scope.bets = Bets;
             $scope.score = 0;
+            $scope.name = $stmwcAuth.getName();
+
             var place = $scope.place = $stmwcEnv.place;
             
             $scope.showTop = function(){
@@ -46,13 +48,6 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
                     progressCss.width = Math.round(50 + (place.total - place.user + 1) / place.total * 50) + '%';
                 }
             });
-            if(!$stmwcAuth.isAuth){
-                $scope.name = "Игрок № " + $filter('number')(getUserNumber(), 0);
-            }
-            function getUserNumber(){
-                var n = parseInt($cookies.WC2014_stmuid, 16);
-                return n - Math.floor(n / 1000000000) * 1000000000;
-            }
         }]
     };
 });

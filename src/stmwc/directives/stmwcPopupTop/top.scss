@@ -8,7 +8,7 @@ $packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
 
 .users-score-top {
     position: relative;
-    height: 66px;
+    margin-bottom: 20px;
     &__title {
         font-size: 25px;
         text-align: center;
@@ -69,6 +69,7 @@ $packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
         padding-right: 20px;
         padding-top: 10px;
         padding-bottom: 10px;
+        text-align: left;
     }
     td:last-child {
         width: 1%;
@@ -81,11 +82,14 @@ $packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
         width: 1%;
     }
     td:nth-child(3) {
-        width: 260px;
+        width: 330px;
+    }
+    td:nth-child(4) {
     }
     &__userpic {
         width: 63px;
         height: 63px;
+        vertical-align: middle;
     }
 }
 .users-score-table__num {
@@ -114,6 +118,12 @@ $packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
     height: 62px;
     overflow: hidden;
     display: inline-block;
+    @extend %sprite;
+    @include sp(userpic);
+    &-h {
+        width: 100%;
+        height: 100%;
+    }
     &:after {
         @extend %sprite;
         @include sp(mask-user);
@@ -134,12 +144,13 @@ $packSecond: sprite-map("prize/*.png", $spacing: 2px, $layout: smart);
     font-size: 23px;
     color: #999;
     text-align: center;
-    padding-top: 40px;
-    padding-bottom: 16px;
+    padding: 20px 0;
 }
 
 .your-item {
     color: #008a1c;
     font-size: 11px;
     white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
 }

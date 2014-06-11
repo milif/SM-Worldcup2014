@@ -23,9 +23,37 @@
         Bets.update = update;
         Bets.bet = bet;
         Bets.getScore = getScore;
+        Bets.getUserBets = getUserBets;
         
         return Bets;
         
+        function getUserBets(){
+            var bet, type;
+            var bets = {};
+            for(var i=0;i<__bets.length;i++){
+                bet = __bets[i];
+                if('0' in bet.value) {
+                    if(bet.userResult == 0) {
+                        type = 'bet';
+                    } else {
+                        switch(bet.userResult) {
+                            case 0:
+                                type = 'false';
+                                break;
+                            case 2:
+                                type = 'true';
+                                break;
+                            case 1:
+                                type = 'wine';
+                                break;
+                        }    
+                    }
+                    bets[type] = bets[type] || 0; 
+                    bets[type]++;
+                }
+            }
+            return bets;
+        }
         function bet(id, left, right, clbFn){
             var res = Bets.save({
                 action: 'bet',
