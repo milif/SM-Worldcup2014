@@ -24,6 +24,7 @@ class Stm {
     }
     static private function __userData($data){
         if($data['errcode'] !== 0) return false;
+        $data = $data['result'];
         return array(
             'uri' => "stm:".$data['id'],
             'email' => $data['email'],
