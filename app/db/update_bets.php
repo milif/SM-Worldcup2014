@@ -70,7 +70,7 @@ fclose($handle);
 
 //  Обновляем результаты игроков
 
-$bets = DB::query("SELECT id, result FROM bets WHERE result IS NOT NULL;");
+$bets = DB::query("SELECT id, `result` FROM bets WHERE `result` IS NOT NULL;");
 foreach($bets as $bet){
     $betResult = json_decode($bet['result'], true);
     $userBets = DB::query("SELECT id, value, user_key FROM user_bets WHERE bet_id = {$bet['id']} AND result IS NULL LIMIT 2500;");
@@ -93,7 +93,7 @@ foreach($bets as $bet){
         }
         DB::update("UPDATE user_bets SET result = $userResult, score = $score WHERE id = {$userBet['id']};");
         if($score > 0) {
-            DB::update("UPDATE user SET score = score + $score WHERE user_key = :userKey;", array(
+            DB::update("UPDATE user SET score = score + $score WHERE id = :userKey;", array(
                 ':userKey' => $userBet['user_key']
             ));
         }

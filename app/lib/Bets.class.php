@@ -34,6 +34,8 @@ class Bets {
                 ':betId' => $betId,
                 ':userKey' => User::getKey()
             ));
+            $value[0] = (int)$value[0];
+            $value[1] = (int)$value[1];
             if(count($rs)){
                 DB::update("UPDATE user_bets SET value = :value WHERE id = ".$rs[0]['id'], array(
                     ':value' => json_encode($value)
