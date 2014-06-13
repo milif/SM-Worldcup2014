@@ -187,10 +187,12 @@ class User {
             setcookie(SESSION_COOKIE, $_COOKIE[SESSION_COOKIE], time() + SESSION_TIME, APP_ROOT_URL."/");
             // Регистрация пройдена. Переносим ставки сделанные за анонимом пользователю
             if(isset($_COOKIE[SESSION_COOKIE.'_stmuid'])){
-                DB::update("UPDATE user_bets SET user_key = :userKey WHERE user_key = :uniqKey ;", array(
+                DB::update("UPDATE user_bets SET user_key = :userKey, user_id = {User::getKey()} WHERE user_key = :uniqKey ;", array(
                     ':userKey' => User::getKey(),
                     ':uniqKey' => $_COOKIE[SESSION_COOKIE.'_stmuid']
                 ));
+                DB::update("UPDATE user, (SELECT SUM(score) score FROM user_bets WHERE user_key = {User::getKey()}) a  SET user.score = a.score WHERE user.id = {User::getKey()}");
+                
             }
         }
         

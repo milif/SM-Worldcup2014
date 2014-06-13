@@ -41,10 +41,11 @@ class Bets {
                     ':value' => json_encode($value)
                 ));
             } else {
-                DB::update("INSERT INTO user_bets (bet_id, user_key, value) VALUES (:betId, :userKey, :value)", array(
+                DB::update("INSERT INTO user_bets (bet_id, user_key, value, user_id) VALUES (:betId, :userKey, :value, :userId)", array(
                     ':betId' => $betId,
                     ':userKey' => User::getKey(),
-                    ':value' => json_encode($value)
+                    ':value' => json_encode($value),
+                    ':userId' => User::isAuth() ? User::getKey() : NULL
                 ));   
             }   
         } else {
