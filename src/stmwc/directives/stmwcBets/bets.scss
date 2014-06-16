@@ -29,6 +29,16 @@
     @extend %btn--gray;
     @extend %btn--size-normal;
     border-radius: 3px;
+    &.mod_share:before {
+        content:'';
+        display: inline-block;
+        vertical-align: middle;
+        top: -1px;
+        margin-right: 8px;
+        position: relative;
+        @extend %sprite;
+        @include szp(ico-share);
+    }
 }
 
 /* bet-data-select */

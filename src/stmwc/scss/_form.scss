@@ -203,6 +203,10 @@
         @extend %inline;
         font-size: 0;
     }
+    &--hint {
+        color: #999999;
+        font-size: 11px;
+    }
 }
 
 .form-row-table {
@@ -264,6 +268,9 @@
 }
 .g-form .input-scoring:focus {
     @include placeholder-color(#fff);
+    &[readonly] {
+        @include placeholder-color(#e4e4e4);
+    }
 }
 .g-form .input-scoring.ng-valid:focus,
 .g-form .ng-valid:focus {

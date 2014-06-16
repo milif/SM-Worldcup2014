@@ -30,24 +30,21 @@ class Bets {
         if(!count($rs) || strtotime($rs[0]['time']." Europe/Moscow") < time()) return false;
 
         if($value[0] !== NULL && $value[1] !== NULL) {
-            $rs = DB::query("SELECT id FROM user_bets WHERE bet_id = :betId AND user_key = :userKey", array(
-                ':betId' => $betId,
-                ':userKey' => User::getKey()
-            ));
+            
             $value[0] = (int)$value[0];
             $value[1] = (int)$value[1];
-            if(count($rs)){
-                DB::update("UPDATE user_bets SET value = :value WHERE id = ".$rs[0]['id'], array(
-                    ':value' => json_encode($value)
-                ));
-            } else {
-                DB::update("INSERT INTO user_bets (bet_id, user_key, value, user_id) VALUES (:betId, :userKey, :value, :userId)", array(
-                    ':betId' => $betId,
-                    ':userKey' => User::getKey(),
-                    ':value' => json_encode($value),
-                    ':userId' => User::isAuth() ? User::getKey() : NULL
-                ));   
-            }   
+            
+            DB::update("
+                START TRANSACTION;
+                DELETE FROM user_bets WHERE bet_id = :betId AND user_key = :userKey;
+                INSERT INTO user_bets (bet_id, user_key, value, user_id) VALUES (:betId, :userKey, :value, :userId);
+                COMMIT;", array(
+                ':betId' => $betId,
+                ':userKey' => User::getKey(),
+                ':value' => json_encode($value),
+                ':userId' => User::isAuth() ? User::getKey() : NULL
+            ));
+             
         } else {
             DB::update("DELETE FROM user_bets WHERE bet_id = :betId AND user_key = :userKey", array(
                 ':betId' => $betId,

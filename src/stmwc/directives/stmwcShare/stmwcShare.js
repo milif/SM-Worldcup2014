@@ -30,6 +30,11 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
             
             var counters = $scope.counters = Share.get();
             var isShareBets = 'shareBets' in $attrs;
+            var textShare = SHARE.description;
+            
+            $attrs.$observe('shareText', function(text){
+                textShare = text || textShare;
+            });
             
             $scope.click = function(type){
                 click(type);
@@ -56,9 +61,9 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
                 shareWindow("http://vk.com/share.php?url="
                                 +encodeURIComponent(getUrl())
                                 +(SHARE.title ?
-                                "&description="+encodeURIComponent(SHARE.description)+"&title="+encodeURIComponent(SHARE.title)
+                                "&description="+encodeURIComponent(textShare)+"&title="+encodeURIComponent(SHARE.title)
                                 :
-                                "&title="+encodeURIComponent(SHARE.description)
+                                "&title="+encodeURIComponent(textShare)
                                 )
                                 +"&image="+encodeURIComponent(SHARE.image), 720, 550);
             }
@@ -66,13 +71,13 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
                 shareWindow("http://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(getUrl()));
             }
             function clickTW(){
-                shareWindow("https://twitter.com/intent/tweet?status=" + encodeURIComponent(SHARE.description + ' ' + getUrl()) + "&url="+encodeURIComponent(getUrl()));
+                shareWindow("https://twitter.com/intent/tweet?status=" + encodeURIComponent(textShare + ' ' + getUrl()) + "&url="+encodeURIComponent(getUrl()));
             }
             function clickGP(){
-                shareWindow("https://plus.google.com/share?url="+encodeURIComponent(getUrl())+"&t="+encodeURIComponent(SHARE.description));
+                shareWindow("https://plus.google.com/share?url="+encodeURIComponent(getUrl())+"&t="+encodeURIComponent(textShare));
             }
             function clickOK(){
-                shareWindow("http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl="+encodeURIComponent(getUrl())+"&st.comments="+encodeURIComponent(SHARE.description));
+                shareWindow("http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl="+encodeURIComponent(getUrl())+"&st.comments="+encodeURIComponent(textShare));
             } 
             function click(type){
                 var response = Share.add(SHARE.url.replace($('base').attr('href'), '/').replace(/\w+:\/\/[^\/]+/, ''), type, function(){

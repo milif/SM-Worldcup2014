@@ -1,7 +1,7 @@
 <div class="bet">
     <div class="bet-table-top">
         <div class="bet-table-top__item">
-            <span ng-if="prevSection.length > 0 && sections.indexOf(prevSection) < 0" ng-click="showPrev()" class="button-bet-top">Прошедшие матчи</span>
+            <span ng-click="shareBet()" class="button-bet-top mod_share">Поделиться</span>
         </div>
         <div class="bet-table-top__item">
             <div class="bet-data-select">
@@ -41,6 +41,7 @@
                             <div ng-if="bet.time <= time" class="bets__item-table-td">
                                 <div ng-if="!bet.result" data-error-flash class="bets__item-note bets__item-note--fade">Матч уже идет</div>
                                 <div ng-if="bet.result" data-error-flash class="bets__item-note bets__item-note--fade">Матч состоялся в {{bet.time | date:'HH:mm'}}</div>
+                                <span ng-if="bet.value[0] != null && bet.value[1] != null" ng-click="shareBet(bet)" class="a-pseudo bets__item-note bets__item-note--fade">Поделиться с друзьями</span>
                             </div>
                             <div class="bets__item-table-td">
                                 <div class="bets__item-country bets__item-country--left">
@@ -67,8 +68,8 @@
                                 <div ng-if="bet.result" class="true-score">{{bet.result[0]}} : {{bet.result[1]}}</div>
                             </div>
                             <div class="bets__item-table-td">
-                                <div ng-if="!bet.state || bet.state == 'warn'" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку. <span ng-click="luckyBet(bet)" class="a-pseudo">На удачу</span></div>
-                                <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка <span ng-if="!bet.isUpdated">сделана</span><span ng-if="bet.isUpdated">обновлена</span><br><span ng-click="cancel(bet)" class="a-pseudo bets-active--fade">Отменить</span></div>
+                                <div ng-if="(!bet.state || bet.state == 'warn') && bet.time > time" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку. <span ng-click="luckyBet(bet)" class="a-pseudo">На удачу</span></div>
+                                <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка <span ng-if="!bet.isUpdated">сделана</span><span ng-if="bet.isUpdated">обновлена</span><br><span ng-click="shareBet(bet)" class="a-pseudo bets-active--fade">Поделиться с друзьями</span></div>
                                 <div ng-if="bet.state == 'lock'" class="bets-active"><span class="ico-bets ico-bets--bet-lock"></span>Ставка принята</div>
                                 <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
                                 <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали победителя <span class="labelst">+{{bet.score}} Б</span></div>
@@ -93,7 +94,7 @@
             <div class="bets__share"><span ng-class="'flags--' + share.bet.data[0][0]" class="flags bets__share-flag"></span><span class="bets__share-name">{{share.bet.data[0][1]}}</span><span class="bets__share-sep"></span><span class="bets__share-name">{{share.bet.data[1][1]}}</span><span ng-class="'flags--' +  share.bet.data[1][0]" class="flags bets__share-flag"></span></div>
         </content>
         <footer>
-            <div stmwc-share share-bets></div>
+            <div stmwc-share share-bets share-text="Моя ставка на матч {{share.bet.data[0][1]}} - {{share.bet.data[1][1]}} {{share.bet.value[0]}}:{{share.bet.value[1]}}. Делай свои!"></div>
         </footer>
     </div>
 </div>

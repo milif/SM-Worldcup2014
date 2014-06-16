@@ -74,6 +74,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 
                 onBet(bet);
             }
+            /*
             $scope.cancel = function(bet){
                 Bets.bet(bet.id, null, null, function(canBet, success){
                     if(success){
@@ -84,12 +85,15 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     updateState(bet);
                 });
             }
+            */
             var onBet = $debounce(500, function(bet){
                 var value = bet.value;
                 Bets.bet(bet.id, value[0], value[1], function(canBet){
                     $scope.canBet = canBet;
                     updateState(bet);
-                    if($stmwcAuth.isAuth) onShare(bet);
+                    if($stmwcAuth.isAuth) {
+                        onShare(bet);
+                    }
                 });
                 betsForAuth++;
                 
@@ -98,12 +102,10 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     $stmwcAuth.auth();
                 }
             });
-            var onShare = $debounce(5000, function(bet){
-                if($scope.share) return;
-                $scope.share = {
-                    bet: bet
-                };
-            });
+            var onShare = $debounce(5000, shareBet);
+            
+            $scope.shareBet = shareBet;
+            
             $scope.$on('closedPopup-sharebet', function(){
                 delete $scope.share;
             });
@@ -147,6 +149,22 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 sections.push(currentSection);
                 onUpdateBets();
                 $scope.$broadcast('hideTooltip-selectdate');
+            }
+            function shareBet(bet){
+                if($scope.share) return;
+                
+                if(!bet){
+                    var betsToShare = [];
+                    for(var i=0;i<bets.length;i++){
+                        if(bets[i].value[0] == null || !bets[i].value[1] == null) continue;
+                        betsToShare.push(bets[i]);
+                    }
+                    bet = betsToShare[Math.round(Math.random() * betsToShare.length)];
+                }
+                
+                $scope.share = {
+                    bet: bet
+                };
             }
             function doBet(bet, value){
                 Bets.bet(bet.id, value[0], value[1], function(canBet, success){

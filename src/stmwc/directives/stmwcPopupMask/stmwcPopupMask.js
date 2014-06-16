@@ -52,6 +52,7 @@ angular.module('stmwc').directive('stmwcPopupMask', ['$animate', function($anima
                         .addClass('m_masked')
                         .find('>:first')
                             .css('top', -scrollTop).end();
+                    windowEl.scrollTop(0);
                 }
             });
         }]
