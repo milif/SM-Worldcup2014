@@ -18,7 +18,8 @@ $API = array_merge(array(
 $ENV = array_merge(array(
     'auth' => User::getData(),
     'api' => $API,
-    'isProduction' => IS_PRODUCTION
+    'isProduction' => IS_PRODUCTION,
+    'cookieName' => SESSION_COOKIE
 ), isset($ENV) ? $ENV : array());
 if(User::isRegistrated() && !User::isConfirmation()){
     $ENV['requireConfirm'] = true;

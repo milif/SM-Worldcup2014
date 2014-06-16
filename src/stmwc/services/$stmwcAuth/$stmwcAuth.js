@@ -23,7 +23,7 @@
      * 
      */
         
-    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', '$filter', '$cookies', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm, $filter, $cookies){
+    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', '$filter', '$cookies', '$stmwcEnv', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm, $filter, $cookies, $stmwcEnv){
         
         var $$ = angular;
         var $ = angular.element;
@@ -97,7 +97,7 @@
             return $stmwcAuth.isAuth ? $stmwcAuth.data.name : "Игрок № " + $filter('number')(getUserNumber(), 0);
         }
         function getUserNumber(){
-            var n = parseInt($cookies.WC2014_stmuid, 16);
+            var n = parseInt($cookies[$stmwcEnv.cookieName + '_stmuid'], 16);
             return n - Math.floor(n / 1000000000) * 1000000000;
         }
         function requireAuth(noCallAuth){
