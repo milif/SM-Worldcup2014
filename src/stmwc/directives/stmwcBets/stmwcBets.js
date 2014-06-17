@@ -237,7 +237,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var dateBetsSet = {};
             
             function updateState(bet){
-                if(bet.userResult) {
+                if(bet.userResult !== null) {
                     switch(bet.userResult) {
                         case 0:
                             bet.state = 'false';
