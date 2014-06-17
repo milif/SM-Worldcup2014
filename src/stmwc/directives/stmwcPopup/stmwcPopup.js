@@ -29,7 +29,7 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
                                     '<div ng-style="css" class="popup">' +
                                         '<span ng-click="hide()" class="popup__close">Закрыть</span>' +
                                         '<div class="popup__content '+(content.attr('class') || '')+'">' + content.html() + '</div>' +
-                                        (footer.length > 0 ? '<div class="popup__footer '+footer.attr('class')+'">' + footer.html() + '</div>' : '') +
+                                        (footer.length > 0 ? '<div ' + applyAttrs(footer, {class: " popup__footer"}) + '>' + footer.html() + '</div>' : '') +
                                     '</div>' +
                                 '</div>' +
                         '</div>' +
@@ -73,4 +73,17 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
             }
         }]
     };
+    
+    function applyAttrs(el, attrs){
+        var res = ""; 
+        $.each(el.get(0).attributes, function() {
+            if(!this.specified) return;
+            res += ' ' + this.name + '="' + (attrs[this.name] ? attrs[this.name] + ' ' : '') + this.value + '"';
+            delete attrs[this.name];
+        });
+        for(var p in attrs){
+            res = ' ' + p + '="' + attrs[p] + '"';
+        }
+        return res;
+    }
 }]);

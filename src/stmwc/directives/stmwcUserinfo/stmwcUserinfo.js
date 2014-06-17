@@ -33,6 +33,23 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
 
             var place = $scope.place = $stmwcEnv.place;
             
+            $scope.showBetsPopup = function(){
+                var bets = Bets.getBets();
+                var shareBets = [];
+                for(var i=0;i<bets.length;i++){
+                    if(bets[i].value[0] == null || bets[i].value[1] == null) continue;
+                    shareBets.push($.extend({}, bets[i]));
+                }
+                $scope.$emit('showBets', {
+                    name: $scope.name,
+                    score: $scope.score,
+                    avatar: $scope.user.avatar,
+                    place: place,
+                    bets: shareBets,
+                    refKey: $scope.user ? $scope.user.refKey : null,
+                    showShare: true
+                });
+            }
             $scope.showTop = function(){
                 $scope.$emit('showTop');
             }

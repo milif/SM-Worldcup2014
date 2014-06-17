@@ -31,6 +31,8 @@
         color: #000;
     }
     &__item-note {
+        display: inline-block;
+        /*padding: 10px;*/
         font-size: 16px;
     }
     &__item-note-d {
@@ -53,15 +55,15 @@
 //    }
     &__item-im {
         position: absolute;
-        bottom: 36px;
+        bottom: 56px;
         &.mod_iphone {
-            margin-left: 56px;
+            margin-left: -65px;
         }
         &.mod_phones {
-            margin-left: -31px;
+            margin-left: 5px;
         }
         &.mod_mnogo {
-            margin-left: -10px;
+            margin-left: 24px;
         }
     }
 }

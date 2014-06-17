@@ -35,6 +35,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var time = new Date().getTime();
             var lastBet;
             
+            $scope.hasToShare = false;
+            
             $scope.requireAuth = $stmwcAuth.requireAuth(true);
             
             updateBets();
@@ -144,7 +146,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
             $scope.selectDate = function(date){
                 if($stmwcAuth.requireAuth()) return;
-                $scope.menuTime = menuTime = date ? getDayTime(date.bets[0].time) : 0;
+                $scope.menuTime = menuTime = date == -1 ? -1 : date ? getDayTime(date.bets[0].time) : 0;
                 sections.length = 0;
                 sections.push(currentSection);
                 onUpdateBets();
@@ -159,7 +161,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                         if(bets[i].value[0] == null || !bets[i].value[1] == null) continue;
                         betsToShare.push(bets[i]);
                     }
-                    bet = betsToShare[Math.round(Math.random() * betsToShare.length)];
+                    bet = betsToShare[Math.round(Math.random() * (betsToShare.length - 1))];
                 }
                 
                 $scope.share = {
@@ -192,13 +194,18 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     updateState(bet);
                     bet.date = $filter('date')(bet.time, 'd MMMM');
                     if(bet.time < currentDayTime) {
-                        addToSection(prevSection, bet);
-                    } else if((menuTime == 0 && (countSection(currentSection) < 15 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime)){
+                        addToSection(menuTime == -1 ? currentSection : prevSection, bet);
+                    } else if(
+                        menuTime != -1 
+                        &&
+                        ((menuTime == 0 && (countSection(currentSection) < 15 || currentSection[currentSection.length-1].date == bet.date)) || (bet.time < menuTime + 86400000 && bet.time >= menuTime))
+                    ){
                         addToSection(currentSection, bet);
                     } else {
                         addToSection(nextSection, bet);
                     }
                 }
+                
                 if(currentSection.length == 0){
                     if(nextSection.length > 0){
                         currentSection.push(nextSection.splice(0,1)[0]);
@@ -252,6 +259,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 } else {
                     bet.isUpdated = bet.state = null;
                 }
+                $scope.hasToShare = $scope.hasToShare || (bet.value[0] != null && bet.value[1] != null);
             }
             function countSection(section){
                 var count = 0;
@@ -304,9 +312,10 @@ angular.module('stmwc').directive('stmwcBetsShared', function(){
     var $ = angular.element;
     return {
         templateUrl: 'partials/stmwc.directive:stmwcBetsShared:betsshared.html',
-        controller: ['$scope', '$attrs', function($scope, $attrs){
+        controller: ['$scope', '$attrs', '$stmwcAuth', function($scope, $attrs, $stmwcAuth){
             var user = $scope.user = $scope.$eval($attrs.stmwcBetsShared);
             var bets = user.bets;
+            
             bets.wins = 0;
             bets.score = 0;
             var bet;
@@ -323,7 +332,9 @@ angular.module('stmwc').directive('stmwcBetsShared', function(){
                         case 2:
                             bet.state = 'wine';
                             break;
-                    }   
+                    } 
+                } else {
+                    bet.state = null;
                 }
                 if(bet.userResult == 1){
                     bets.wins++
@@ -334,7 +345,7 @@ angular.module('stmwc').directive('stmwcBetsShared', function(){
             user.stage = $scope.getStage(user.score, user.place.user);
             $scope.time = new Date().getTime();
             $scope.betsCss = {
-                maxHeight: Math.max(200, $(window).height() - 150)
+                maxHeight: Math.max(300, $(window).height() - 250)
             }
             
         }]

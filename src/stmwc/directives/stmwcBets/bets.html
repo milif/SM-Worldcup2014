@@ -1,12 +1,15 @@
 <div class="bet">
     <div class="bet-table-top">
         <div class="bet-table-top__item">
-            <span ng-click="shareBet()" class="button-bet-top mod_share">Поделиться</span>
+            <span ng-if="hasToShare" ng-click="shareBet()" class="button-bet-top mod_share">Поделиться</span>
         </div>
-        <div class="bet-table-top__item">
+        <div tooltips class="bet-table-top__item">
             <div class="bet-data-select">
-                Ставки на матчи <span ng-if="dates.length > 1" ng-click="callRequireAuth()" class="bet-data-select-button">{{menuTime == 0 ? 'ближайшие' :currentSection[0].date}}<span ng-if="!requireAuth" stmwc-tooltip="selectdate">
+                Ставки на матчи <span ng-if="dates.length > 1" ng-click="callRequireAuth()" class="bet-data-select-button">{{menuTime == 0 ? 'ближайшие' : menuTime == -1 ? 'прошедшие' : currentSection[0].date}}<span ng-if="!requireAuth" stmwc-tooltip="selectdate">
                     <div class="tooltip-bet-list">
+                        <span ng-if="prevSection.length > 0 || menuTime == -1" ng-click="selectDate(-1)" ng-class="menuTime == -1 ? 'state_active' : '' " class="tooltip-bet-item">
+                            <span class="tooltip-bet-item-data">прошедшие</span>
+                        </span>
                         <span ng-click="selectDate()" ng-class="menuTime == 0 ? 'state_active' : '' " class="tooltip-bet-item">
                             <span class="tooltip-bet-item-data">ближайшие</span>
                         </span>
@@ -84,7 +87,7 @@
     </div>
     <!-- // bet-data-list -->
 
-    <div ng-if="nextSection.length > 0" class="aside-bottom-btn">
+    <div ng-if="nextSection.length > 0 && menuTime != -1" class="aside-bottom-btn">
         <span ng-if="sections.indexOf(nextSection) < 0"><span ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи</span> <span class="aside-bottom-btn__count">{{countMore}}</span></span>
         <span ng-if="sections.indexOf(nextSection) >= 0"><span ng-if="menuTime != 0" ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}}</span><span ng-if="menuTime == 0" ng-click="hideMore()" class="aside-bottom-btn__link">Ближайшие матчи</span> <span class="aside-bottom-btn__count">{{countCurrent}}</span></span>
     </div>

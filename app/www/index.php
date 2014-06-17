@@ -8,7 +8,7 @@
     $usershare = null;
 
     if(isset($_GET['share'])){
-        $rs = DB::query("SELECT id, `uri`, `score`, `avatar`, `name` FROM user WHERE ref_key = :key;", array(
+        $rs = DB::query("SELECT id, `uri`, `score`, `avatar`, `name`, `ref_key` FROM user WHERE ref_key = :key;", array(
             ':key' => $_GET['r']
         ));
         if(count($rs) && md5($rs[0]['uri']) == $_GET['share']) {
@@ -21,7 +21,9 @@
                     'user' => User::getPlace($userId),
                     'total' => User::getTotal()
                 ),
-                'bets' => Bets::getUserResults($userId)
+                'bets' => Bets::getUserResults($userId),
+                'refKey' => $rs[0]['ref_key'],
+                
             );
         } else {
             header("Location: ".strtok($_SERVER["REQUEST_URI"],'?'));

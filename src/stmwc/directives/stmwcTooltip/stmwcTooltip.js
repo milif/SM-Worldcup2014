@@ -81,7 +81,7 @@ angular.module('stmwc').directive('stmwcTooltip', function(){
                 }
                 
                 if(isTop){
-                    css.bottom = -cntOffset.top + offsetParentEl.outerHeight() - offset.top;
+                    css.bottom = cntOffset.top + offsetParentEl.outerHeight() - offset.top;
                 } else {
                     css.top = -cntOffset.top + offset.top + el.outerHeight();
                 }

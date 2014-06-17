@@ -24,6 +24,7 @@
         Bets.bet = bet;
         Bets.getScore = getScore;
         Bets.getUserBets = getUserBets;
+        Bets.getBets = getBets;
         
         return Bets;
         
@@ -66,6 +67,9 @@
         }
         function getScore(){
             return __bets.score;
+        }
+        function getBets(){
+            return __bets;
         }
         function update(clbFn){
             var bets

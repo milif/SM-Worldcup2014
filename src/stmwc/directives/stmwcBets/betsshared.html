@@ -21,6 +21,7 @@
         <div class="usershare--bets-l">
             <div class="usershare--bets" ng-style="betsCss">
                 <div class="usershare--bets-h">
+                    <div ng-if="user.bets.length == 0" class="usershare--bets-no">Нет ставок</div>
                     <div ng-class="bet.state ? 'bets__item--' + bet.state : ''" ng-repeat="bet in user.bets" class="bets__item">
                         <div class="bets__item-table">
                             <div class="bets__item-table-td">
@@ -55,4 +56,10 @@
             </div>
         </div>
     </content>
+    <footer ng-if="user.showShare && user.bets.length > 0" class="popup__footer--green">
+        <div class="usershare__footer">
+            <div class="usershare__footer-title">Расскажите друзьям о своих ставках</div>
+            <div stmwc-share share-bets></div>
+        </div>
+    </footer>
 </div>

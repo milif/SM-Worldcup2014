@@ -23,7 +23,7 @@
      * 
      */
         
-    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', '$filter', '$cookies', '$stmwcEnv', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm, $filter, $cookies, $stmwcEnv){
+    angular.module('stmwc').factory('$stmwcAuth', ['$location', '$rootScope', '$compile', '$templateCache', '$http', '$q', '$timeout', '$stmwcGtm', '$filter', '$cookies', function($location, $rootScope, $compile, $templateCache, $http, $q, $timeout, $stmwcGtm, $filter, $cookies){
         
         var $$ = angular;
         var $ = angular.element;
@@ -36,13 +36,21 @@
         var inAuth = false;
         var isRequireAuth = false;
         
+        var cookieName;
+        
         var $stmwcAuth = {
             init: init
         };
         
         return $stmwcAuth;
         
-        function init(data, requireConfirm, isReqAuth){
+        function init(config){
+            var data = config.auth;
+            var requireConfirm = config.requireConfirm;
+            var isReqAuth = config.requireAuth;
+            
+            cookieName = config.cookieName;
+            
             if($location.hash().indexOf('!') === 0 || $location.url().indexOf('/!') === 0){
                 var context;
                 if($location.hash().indexOf('!') === 0) {
@@ -97,7 +105,7 @@
             return $stmwcAuth.isAuth ? $stmwcAuth.data.name : "Игрок № " + $filter('number')(getUserNumber(), 0);
         }
         function getUserNumber(){
-            var n = parseInt($cookies[$stmwcEnv.cookieName + '_stmuid'], 16);
+            var n = parseInt($cookies[cookieName + '_stmuid'], 16);
             return n - Math.floor(n / 1000000000) * 1000000000;
         }
         function requireAuth(noCallAuth){

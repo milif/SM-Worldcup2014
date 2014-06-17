@@ -37,6 +37,10 @@ angular.module('stmwc').directive('stmwcShare', ['Share', function(Share){
             });
             
             $scope.click = function(type){
+                if(isShareBets && !$stmwcAuth.isAuth) {
+                    $stmwcAuth.auth();
+                    return;
+                }
                 click(type);
                 switch(type){
                     case 'vk': 

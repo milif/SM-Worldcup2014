@@ -7,7 +7,7 @@
         </div>
 
         <div class="user-info-note">
-            <div class="user-info__name">{{name}}</div>
+            <div class="user-info__name" ng-click="showBetsPopup()">{{name}}</div>
             <div class="user-info__score">{{score | number:0}} Б</div>
             <div class="user-info-note__rait">
                 <div class="user-info-note__rait-set">{{place.user | number:0}} место из {{place.total | number:0}}</div>
@@ -35,7 +35,7 @@
                         <div class="user-progress-info__hint">Набрать <b>500 Б</b></div>
                     </div>
                     <div class="user-progress-info-table__item">
-                        <div ng-class="score > 500 && place.user == 1 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--iphone"></div>
+                        <div ng-class="score > 500 && place.user <= 3 ? 'state_active' : ''" class="user-progress-info__icon user-progress-info__icon--iphone"></div>
                         <div class="user-progress-info__title mod_info"><span class="user-progress-info__title-link">iPhone<span stmwc-tooltip="iphoneinfo" align="right" width="220">Угадайте больше всего Победителей Матча и получите iPhone 5s</span></span></div>
                         <div class="user-progress-info__hint">Лучший результат</div>
                     </div>

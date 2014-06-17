@@ -28,7 +28,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
     }])
     .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$stmwcGtm', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $stmwcGtm){
         
-        $stmwcAuth.init($stmwcEnv.auth, $stmwcEnv.requireConfirm, $stmwcEnv.requireAuth);
+        $stmwcAuth.init($stmwcEnv);
         
         $rootScope.$watch(function(){
             $rootScope.requireMnogoCard = $stmwcAuth.isAuth && !$stmwcAuth.data.hasMnogo;
@@ -39,15 +39,22 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         if($stmwcEnv.usershare){
             $rootScope.$on('loaded', function(){
                 $rootScope.betsShared = $stmwcEnv.usershare;
-            });
-            $rootScope.$on('closedPopup-betsshared', function(){
-                setTimeout(function(){
-                    delete $rootScope.betsShared;
-                    $location.url('/');
-                    $rootScope.$digest();
-                }, 0);
+                var off = $rootScope.$on('closedPopup-betsshared', function(){
+                    off();
+                    setTimeout(function(){
+                        delete $rootScope.betsShared;
+                        $location.url('/');
+                        $rootScope.$digest();
+                    }, 0);
+                });
             });
         }
+        $rootScope.$on('closedPopup-betsshared', function(){
+            $rootScope.betsShared = null;
+        });
+        $rootScope.$on('showBets', function(e, userbets){
+            $rootScope.betsShared = userbets;
+        });
         
         $rootScope.getStage = getStage;
         
@@ -81,7 +88,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
                 return 'start';
             } else if(score < 500){
                 return 'mnogo';
-            } else if(place != 1){
+            } else if(place > 3){
                 return 'headphones';
             } else {
                 return 'iphone';

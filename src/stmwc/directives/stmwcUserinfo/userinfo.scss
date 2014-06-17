@@ -57,6 +57,12 @@
     line-height: 18px;
     max-height: 36px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 224px;
+    color: #008800;
+    white-space: nowrap;
+    display: inline-block;
+    @extend %link-pseudo;
 }
 .user-info__score {
     font-size: 16px;

@@ -31,6 +31,12 @@
         &-h {
             padding: 20px 0;
         }
+        &-no {
+            height: 40px;
+            font-size: 20px;
+            line-height: 40px;
+            color: #999;
+        }
     }
     &--head {
         text-align: left;
@@ -44,6 +50,7 @@
         width: 100%;
         & > * {
             display: table-cell!important;
+            vertical-align: middle;
         }
         &-info {
             padding-left: 20px;
@@ -80,6 +87,7 @@
             width: 62px;
             &-h {
                 position: relative;
+                display: block;
                 &:after {
                     @extend %sprite;
                     @include sp(mask-user-grey);
@@ -93,5 +101,13 @@
                 }
             } 
         }  
+    }
+    &__footer {
+        text-align: center;
+        &-title {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
     }
 }
