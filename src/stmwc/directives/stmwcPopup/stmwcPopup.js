@@ -40,8 +40,7 @@ angular.module('stmwc').directive('stmwcPopup', [function(){
             var globalKeyEvents = {
                 'keydown': function(e){
                     if(e.which == 27 && popups[popups.length - 1] == $scope){
-                        hide();
-                        $scope.$digest();
+                        $scope.$apply(hide);
                     }
                 }
             }
