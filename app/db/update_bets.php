@@ -73,28 +73,31 @@ fclose($handle);
 $bets = DB::query("SELECT id, `result` FROM bets WHERE `result` IS NOT NULL;");
 foreach($bets as $bet){
     $betResult = json_decode($bet['result'], true);
-    $userBets = DB::query("SELECT id, value, user_key, user_id FROM user_bets WHERE bet_id = {$bet['id']} AND result IS NULL LIMIT 2500;");
-    foreach($userBets as $userBet){
-        $userBetResult = json_decode($userBet['value'], true);
-        $userResult = 0;
-        $score = 0;
-        if ($userBetResult[0] == $betResult[0] && $userBetResult[1] == $betResult[1]){
-            $userResult = 2;
-            $score = 500;
-        } else if(
-            ($userBetResult[0] > $userBetResult[1] && $betResult[0] > $betResult[1])
-                ||
-            ($userBetResult[0] < $userBetResult[1] && $betResult[0] < $betResult[1]) 
-                ||
-            ($userBetResult[0] == $userBetResult[1] && $betResult[0] == $betResult[1])
-        ) {
-            $userResult = 1;
-            $score = 100;
-        }
-        DB::update("UPDATE user_bets SET result = $userResult, score = $score WHERE id = {$userBet['id']};");
-        if($score > 0 && $userBet['user_id']) {
-            DB::update("UPDATE user SET score = score + $score WHERE id = ".$userBet['user_id']);
-        }
+    while(true){
+        $userBets = DB::query("SELECT id, value, user_key, user_id FROM user_bets WHERE bet_id = {$bet['id']} AND result IS NULL LIMIT 2500;");
+        if(!count($userBets)) break;
+        foreach($userBets as $userBet){
+            $userBetResult = json_decode($userBet['value'], true);
+            $userResult = 0;
+            $score = 0;
+            if ($userBetResult[0] == $betResult[0] && $userBetResult[1] == $betResult[1]){
+                $userResult = 2;
+                $score = 500;
+            } else if(
+                ($userBetResult[0] > $userBetResult[1] && $betResult[0] > $betResult[1])
+                    ||
+                ($userBetResult[0] < $userBetResult[1] && $betResult[0] < $betResult[1]) 
+                    ||
+                ($userBetResult[0] == $userBetResult[1] && $betResult[0] == $betResult[1])
+            ) {
+                $userResult = 1;
+                $score = 100;
+            }
+            DB::update("UPDATE user_bets SET result = $userResult, score = $score WHERE id = {$userBet['id']};");
+            if($score > 0 && $userBet['user_id']) {
+                DB::update("UPDATE user SET score = score + $score WHERE id = ".$userBet['user_id']);
+            }
+        }        
     }
 }
 
