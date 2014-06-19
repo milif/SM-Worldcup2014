@@ -403,7 +403,7 @@
             return encodeURIComponent(openidURL) + '&state=' + getState(type);
         }
         function getState(type){
-            return encodeURIComponent(type + '::' + window.location.href.replace(/#.*?$/,''));
+            return encodeURIComponent(type + '::' + window.location.href.replace(/(\?.*?$)|(#.*?$)/,''));
         }
 
     }])
