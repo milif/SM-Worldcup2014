@@ -75,7 +75,7 @@
                                 <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка <span ng-if="!bet.isUpdated">сделана</span><span ng-if="bet.isUpdated">обновлена</span><br><span ng-click="shareBet(bet)" class="a-pseudo bets-active--fade">Поделиться с друзьями</span></div>
                                 <div ng-if="bet.state == 'lock'" class="bets-active"><span class="ico-bets ico-bets--bet-lock"></span>Ставка принята</div>
                                 <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
-                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали победителя <span class="labelst">+{{bet.score}} Б</span></div>
+                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали <span ng-if="bet.result[0] != bet.result[1]">победителя</span><span ng-if="bet.result[0] == bet.result[1]">ничью</span> <span class="labelst">+{{bet.score}} Б</span></div>
                                 <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Вы угадали счет <span class="labelst">+{{bet.score}} Б</span></div>
                             </div>
                         </div>

@@ -46,7 +46,7 @@
                                 <div ng-if="bet.result" class="true-score">Результат матча:<br>{{bet.result[0]}} : {{bet.result[1]}}</div>
                             </div>
                             <div class="bets__item-table-td">
-                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Угадан победитель <span class="labelst">+{{bet.score}} Б</span></div>
+                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span><span ng-if="bet.result[0] != bet.result[1]">Угадан победитель</span><span ng-if="bet.result[0] == bet.result[1]">Угадана ничья</span> <span class="labelst">+{{bet.score}} Б</span></div>
                                 <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Угадан счет <span class="labelst">+{{bet.score}} Б</span></div>
                                 <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Не угадано</div>
                             </div>
