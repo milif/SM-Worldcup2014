@@ -82,10 +82,11 @@ class OpenID {
         $accessData = json_decode(self::__getSSLPage('https://accounts.google.com/o/oauth2/token', $params), true);
         if(!is_array($accessData) || !isset($accessData['access_token'])) return false;
         $userData = json_decode(self::__getSSLPage('https://www.googleapis.com/plus/v1/people/me?access_token='.$accessData['access_token']), true);
-        if(!is_array($userData) || !isset($userData['url'])) return false;
+
+        if(!is_array($userData) || !isset($userData['id'])) return false;
 
         $data = array(
-            'uri' => $userData['url'],
+            'uri' => 'google::id::'.$userData['id'],
             'email' => is_array($userData['emails']) && count($userData['emails']) ? $userData['emails'][0]['value'] : NULL,
             'avatar' => isset($userData['image']) ? str_replace('sz=50', 'sz=100', $userData['image']['url']) : NULL,
             'dob' => isset($userData['birthday']) ? $userData['birthday'] : NULL,
