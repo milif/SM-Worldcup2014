@@ -40,6 +40,17 @@ module.exports = function(grunt) {
                     '$stmwcAuth'
                 ],
                 includeAsset: true
+            },
+            {  
+                name: 'stmwcClose', // Package name 
+                module: 'stmwcClose', // Module name
+                include: [        // Include module components:
+                    'stmwc.directive:stmwcPreload'
+                ],
+                disable: [
+                    'stmwc:bootstrap.scss'
+                ],
+                includeAsset: true
             }
         ],
         lib: ['src/**/*.+(js|html)'],

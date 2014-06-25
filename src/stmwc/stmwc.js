@@ -28,13 +28,15 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
     }])
     .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$stmwcGtm', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $stmwcGtm){
         
-        $stmwcAuth.init($stmwcEnv);
+        if($stmwcAuth) {
+            $stmwcAuth.init($stmwcEnv);
         
-        $rootScope.$watch(function(){
-            $rootScope.requireMnogoCard = $stmwcAuth.isAuth && !$stmwcAuth.data.hasMnogo;
-        });
-        
-        $rootScope.sendMnogo = $stmwcAuth.sendMnogo;
+            $rootScope.$watch(function(){
+                $rootScope.requireMnogoCard = $stmwcAuth.isAuth && !$stmwcAuth.data.hasMnogo;
+            });
+            
+            $rootScope.sendMnogo = $stmwcAuth.sendMnogo;   
+        }
         
         if($stmwcEnv.usershare){
             $rootScope.$on('loaded', function(){
