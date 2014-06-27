@@ -34,7 +34,7 @@
             for(var i=0;i<__bets.length;i++){
                 bet = __bets[i];
                 if('0' in bet.value) {
-                    if(bet.userResult == 0) {
+                    if(bet.userResult == null) {
                         type = 'bet';
                     } else {
                         switch(bet.userResult) {
