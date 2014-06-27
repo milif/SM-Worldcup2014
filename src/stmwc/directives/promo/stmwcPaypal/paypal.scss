@@ -1,0 +1,100 @@
+/* paypal */
+.paypal {
+    position: fixed;
+    width: 540px;
+    height: 390px;
+    padding-right: 40px;
+    top: 50%;
+    margin-top: -193px!important;
+    z-index: 1010;
+    border: #e1e1e1 1px solid;
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
+    background: #fff;
+    font-size: 13px;
+    color: #777777;
+    padding: 25px 65px 25px 25px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.35);
+    left: -500px;
+    @include single-transition();
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 60px;
+        @extend %sprite;
+        @include szp(paypal-bg);
+    }
+    &.state_active {
+        left: 0;
+    }
+    &--orderinfo {
+        @extend %sprite;
+        @include szp(paypal-orderinfo);
+    }
+    &-link {
+        @extend %link-active;
+        color: #0c8dc4;
+        &-pseudo {
+            @extend %link-pseudo;
+            color: #0c8dc4;
+        }
+    }
+    &--title {
+        font-size: 20px;
+        color: #131313;
+        margin-bottom: 10px;
+    }
+    &--button {
+        margin-top: 20px;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 16px;
+        color: #fff;
+        background: #019cde;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 6px;
+    }
+    & p {
+        line-height: 1.5em;
+    }
+    & ul {
+        padding-left: 20px;
+        margin: 15px 0;
+        line-height: 1.7em;
+    }
+    &--folder {
+        position: absolute;
+        padding-top: 100px;
+        right: 0;
+        width: 40px;
+        top: 0;
+        bottom: 0;
+        border-left: #e1e1e1 1px solid;
+        border-radius: 0px 9px 9px 0px;
+        cursor: pointer;
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100px;
+            bottom: 0;
+            border-radius: 0px 0px 9px 0px;
+            background: #019cde url(../../assets/i/paypal-text.png) 50% 50% no-repeat;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 1;
+            height: 100px;
+            border-radius: 0px 9px 0px 0px;
+            background: #fff url(../../assets/i/paypal.png) 50% 50% no-repeat;
+        }
+    }
+}

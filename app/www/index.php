@@ -86,6 +86,7 @@
         </div>
 
     </div>
+    <div stmwc-paypal></div>
     <div ng-if="betsShared" stmwc-bets-shared="betsShared"></div>
     <div ng-if="showTop20" stmwc-popup-top></div>
 </body>

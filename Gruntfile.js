@@ -36,6 +36,7 @@ module.exports = function(grunt) {
                     'directive:stmwcBetsShared',
                     'directive:stmwcUserinfo',
                     'directive:stmwcNews',
+                    'directive:stmwcPaypal',
                     'directive:stmwcPopupTop',
                     '$stmwcAuth'
                 ],
