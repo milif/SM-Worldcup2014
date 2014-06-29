@@ -4,9 +4,12 @@
             <div class="popup__title">Вам начислено</div>
             <div class="code--buble">+{{score | number:0}}Б</div>
         </div>
-        <div ng-if="result == 2" class="popup__title">Промокод уже использован</div>
+        <div ng-if="result === 2">
+            <div class="popup__title">Промокод использован</div>
+            <div class="popup__note">Вы получили {{score | number:0}} баллов</div>
+        </div>
         <div ng-if="result === 1">
-            <div class="popup__title">Неверная ссылка</div>
+            <div class="popup__title">Cсылка устарела</div>
             <div class="popup__note">Либо код предназначен другому пользователю</div>
         </div>
     </content>

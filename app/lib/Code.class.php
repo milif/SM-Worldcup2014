@@ -11,10 +11,12 @@ class Code {
     static public function usecode($code, &$score){
         $rs = DB::query("SELECT user_id, score, expire_date FROM code WHERE `code` = :code ", array(":code" => $code));
         if(!count($rs)) return self::ERROR_CODE;
-        if($rs[0]['user_id']) return self::ERROR_USED;
+        
         if(strtotime($rs[0]['expire_date']) < time()) return self::ERROR_CODE;
         
         $score = (int)$rs[0]['score'];
+        
+        if($rs[0]['user_id'] == User::getKey()) return self::ERROR_USED;
         
         if(!User::isAuth()) {
             return self::ERROR_NOTAUTH;
