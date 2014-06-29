@@ -38,7 +38,7 @@ angular.module('stmwc').directive('stmwcPopupTop', [function(){
                     var hasSelf = false;
                     var selfItem = {
                         avatar: $stmwcAuth.isAuth ? $stmwcAuth.data.avatar : null,
-                        score: Bets.getScore(),
+                        score: $scope.getScore(),
                         name: $stmwcAuth.getName(),
                         bets: Bets.getUserBets(),
                         place: $stmwcEnv.place.user,

@@ -1,5 +1,5 @@
 <?php
-
+    define('NO_DB', true);
     require_once __DIR__.'/../../lib/init.php';
 
     ob_start();

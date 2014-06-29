@@ -26,7 +26,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         $locationProvider.hashPrefix('#');
         $anchorScrollProvider.disableAutoScrolling();
     }])
-    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$stmwcGtm', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $stmwcGtm){
+    .run(['$stmwcAuth', '$timeout', '$location', '$rootScope', '$stmwcEnv', '$http', '$cacheFactory', '$stmwcGtm', 'Bets', function($stmwcAuth, $timeout, $location, $rootScope, $stmwcEnv, $http, $cacheFactory, $stmwcGtm, Bets){
         
         if($stmwcAuth) {
             $stmwcAuth.init($stmwcEnv);
@@ -51,6 +51,20 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
                 });
             });
         }
+        if($stmwcEnv.code){
+            $rootScope.$on('loaded', function(){
+                $rootScope.code = $stmwcEnv.code;
+                var off = $rootScope.$on('closedPopup-code', function(){
+                    off();
+                    setTimeout(function(){
+                        delete $rootScope.code;
+                        $location.url('/');
+                        $rootScope.$digest();
+                    }, 0);
+                });
+            });
+        }
+        
         $rootScope.$on('closedPopup-betsshared', function(){
             $rootScope.betsShared = null;
         });
@@ -59,6 +73,7 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         });
         
         $rootScope.getStage = getStage;
+        $rootScope.getScore = getScore;
         
         $rootScope.$on('closedPopup-top', function(){
             setTimeout(function(){
@@ -85,6 +100,11 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         var gtmCfg =  $stmwcEnv.gtm;
         if(gtmCfg) $stmwcGtm.init(gtmCfg.id, gtmCfg.data);
         
+        function getScore(){
+            var score = ($stmwcAuth.isAuth ? $stmwcAuth.data.promoScore : 0) || 0;
+            score += Bets.getScore() || 0;
+            return score;
+        }
         function getStage(score, place){
             if(score < 200) {
                 return 'start';

@@ -1,6 +1,7 @@
 <div stmwc-popup="auth" width="500px">
     <content>
-        <div class="popup__title">Авторизуйтесь, чтобы сохранить результаты</div>
+        <div ng-if="!title" class="popup__title">Авторизуйтесь, чтобы сохранить результаты</div>
+        <div ng-if="title" class="popup__title" ng-bind-html="title"></div>
         <div class="popup__note">Мы очень стараемся, чтобы все ваши результаты остались с вами,<br>но гарантировать их полную сохранность возможно только после авторизации.</div>
     </content>
     <footer>

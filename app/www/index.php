@@ -42,6 +42,16 @@
             'total' => User::getTotal()
         )
     );
+    
+    if(isset($_GET['code'])){
+        require_once __DIR__.'/../lib/Code.class.php';
+        $usecode = Code::usecode($_GET['code'], $score);
+        $ENV['code'] = array(
+            'errcode' => $usecode,
+            'score' => $score
+        );
+    }
+    
     if($usershare){
         $ENV['usershare'] = $usershare;
     }
@@ -88,6 +98,7 @@
     </div>
     <div stmwc-paypal></div>
     <div ng-if="betsShared" stmwc-bets-shared="betsShared"></div>
+    <div ng-if="code" stmwc-popup-code="code"></div>
     <div ng-if="showTop20" stmwc-popup-top></div>
 </body>
 </html>

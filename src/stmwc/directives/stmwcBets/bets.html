@@ -5,7 +5,7 @@
         </div>
         <div tooltips class="bet-table-top__item">
             <div class="bet-data-select">
-                Ставки на матчи <span ng-if="dates.length > 1" ng-click="callRequireAuth()" class="bet-data-select-button">{{menuTime == 0 ? 'ближайшие' : menuTime == -1 ? 'прошедшие' : currentSection[0].date}}<span ng-if="!requireAuth" stmwc-tooltip="selectdate">
+                Ставки на матчи <span ng-if="dates.length > 0" ng-click="callRequireAuth()" class="bet-data-select-button">{{menuTime == 0 ? 'ближайшие' : menuTime == -1 ? 'прошедшие' : currentSection[0].date}}<span ng-if="!requireAuth" stmwc-tooltip="selectdate">
                     <div class="tooltip-bet-list">
                         <span ng-if="prevSection.length > 0 || menuTime == -1" ng-click="selectDate(-1)" ng-class="menuTime == -1 ? 'state_active' : '' " class="tooltip-bet-item">
                             <span class="tooltip-bet-item-data">прошедшие</span>

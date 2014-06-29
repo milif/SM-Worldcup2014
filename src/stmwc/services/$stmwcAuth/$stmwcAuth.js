@@ -361,7 +361,7 @@
                 $scope.state = "email";
             }
         }
-        function auth(clbFn){
+        function auth(cfg){
             if(inAuth) return;
             inAuth = true;
             var $scope = $rootScope.$new();
@@ -370,6 +370,7 @@
             $scope.authSM = authSM;
             $scope.authTW = authTW;
             $scope.authG = authG;
+            $scope.title = cfg ? cfg.title : null;
             $scope.$on('closedPopup-auth', function(){
                 inAuth = false;
                 setTimeout(function(){
@@ -403,7 +404,7 @@
             return encodeURIComponent(openidURL) + '&state=' + getState(type);
         }
         function getState(type){
-            return encodeURIComponent(type + '::' + window.location.href.replace(/(\?.*?$)|(#.*?$)/,''));
+            return encodeURIComponent(type + '::' + window.location.href.replace(/(#.*?$)/,''));
         }
 
     }])

@@ -189,6 +189,11 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 $scope.countCurrent = 0;
                 $scope.canBet = bets.canBet;
                 dates.length = 0;
+                
+                if(dates.length == 0){
+                    menuTime = $scope.menuTime = -1;   
+                }
+                
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
                     updateState(bet);
@@ -206,11 +211,17 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     }
                 }
                 
-                if(currentSection.length == 0){
-                    if(nextSection.length > 0){
-                        currentSection.push(nextSection.splice(0,1)[0]);
-                    } else if(prevSection.length > 0){
-                        currentSection.push(prevSection.pop());
+                
+                if(dates.length == 0){
+                    menuTime = $scope.menuTime = -1;
+                    sections.splice(0, 0, prevSection);
+                } else {
+                    if(currentSection.length == 0){
+                        if(nextSection.length > 0){
+                            currentSection.push(nextSection.splice(0,1)[0]);
+                        } else if(prevSection.length > 0){
+                            currentSection.push(prevSection.pop());
+                        }
                     }
                 }
                 
@@ -232,6 +243,7 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 
                 $scope.countCurrent = countSection(currentSection);
                 $scope.countMore = countSection(nextSection);
+                
             }
             
             var dateBetsSet = {};

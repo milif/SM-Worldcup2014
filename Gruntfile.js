@@ -38,6 +38,7 @@ module.exports = function(grunt) {
                     'directive:stmwcNews',
                     'directive:stmwcPaypal',
                     'directive:stmwcPopupTop',
+                    'directive:stmwcPopupCode',
                     '$stmwcAuth'
                 ],
                 includeAsset: true

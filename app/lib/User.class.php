@@ -100,7 +100,7 @@ class User {
         $userData = Cache::get($key);
         if($userData !== false) return $userData;
         
-        $rs = DB::query("SELECT uri, name, avatar, email, phone, gender, dob, ref_key, mnogoru_card, partner_ref, partner_subref FROM `user` WHERE id = ".$userId);
+        $rs = DB::query("SELECT uri, name, avatar, email, phone, gender, dob, ref_key, mnogoru_card, partner_ref, partner_subref, promo_score FROM `user` WHERE id = ".$userId);
         $userData = array(
             'refKey' => $rs[0]['ref_key'],
             'share' => md5($rs[0]['uri']),
@@ -109,6 +109,7 @@ class User {
             'email' => $rs[0]['email'],
             'phone' => $rs[0]['phone'],
             'gender' => $rs[0]['gender'],
+            'promoScore' => (int)$rs[0]['promo_score'],
             'dob' => $rs[0]['dob'] ? date('dmY', strtotime($rs[0]['dob'])) : '',
             'isReg' => self::isRegistrated($userId),
             'hasMnogo' => !!$rs[0]['mnogoru_card'],
