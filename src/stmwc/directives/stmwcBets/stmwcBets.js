@@ -190,10 +190,6 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 $scope.canBet = bets.canBet;
                 dates.length = 0;
                 
-                if(dates.length == 0){
-                    menuTime = $scope.menuTime = -1;   
-                }
-                
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
                     updateState(bet);
