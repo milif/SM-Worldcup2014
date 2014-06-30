@@ -211,20 +211,6 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     }
                 }
                 
-                
-                if(dates.length == 0){
-                    menuTime = $scope.menuTime = -1;
-                    sections.splice(0, 0, prevSection);
-                } else {
-                    if(currentSection.length == 0){
-                        if(nextSection.length > 0){
-                            currentSection.push(nextSection.splice(0,1)[0]);
-                        } else if(prevSection.length > 0){
-                            currentSection.push(prevSection.pop());
-                        }
-                    }
-                }
-                
                 var dateBet, descrs, descr;
                 for(var date in dateBetsSet){
                     dateBet = dateBetsSet[date];
@@ -238,6 +224,19 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     
                     if(time < dateBet.bets[0].time && dates.length < 10){
                         dates.push(dateBet);
+                    }
+                }
+                
+                if(dates.length == 0){
+                    menuTime = $scope.menuTime = -1;
+                    sections.splice(0, 0, prevSection);
+                } else {
+                    if(currentSection.length == 0){
+                        if(nextSection.length > 0){
+                            currentSection.push(nextSection.splice(0,1)[0]);
+                        } else if(prevSection.length > 0){
+                            currentSection.push(prevSection.pop());
+                        }
                     }
                 }
                 
