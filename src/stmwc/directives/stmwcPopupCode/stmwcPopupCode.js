@@ -27,6 +27,7 @@ angular.module('stmwc').directive('stmwcPopupCode', [function(){
             $scope.close = function(){
                 $scope.$broadcast('closePopup-code');
             }
+            
             if(code.errcode == 3) {
                 $stmwcAuth.auth({
                     title: 'Авторизуйтесь, чтобы получить<br>бонус ' + code.score + ' баллов'

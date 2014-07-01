@@ -37,7 +37,6 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
             
             $rootScope.sendMnogo = $stmwcAuth.sendMnogo;   
         }
-        
         if($stmwcEnv.usershare){
             $rootScope.$on('loaded', function(){
                 $rootScope.betsShared = $stmwcEnv.usershare;

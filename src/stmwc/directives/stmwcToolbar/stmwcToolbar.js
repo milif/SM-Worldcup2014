@@ -40,6 +40,7 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 //console.log('Hash:' + $scope.hash)
                 onUrlUpdate();
             });
+            
             $scope.$on('loaded', function(){
                 anchorEls = $('body,[anchor]');
                 $scope.hash = $location.hash();
@@ -100,6 +101,7 @@ angular.module('stmwc').directive('stmwcToolbar', function(){
                 if(inScroll) return;
                 var hash = $location.hash();
                 var el = $(hash == '' ? 'body' : '[anchor='+hash+']');
+                if(el.length == 0) return;
                 var scrollTop = Math.max(0, el.offset().top - 65);
                 //console.log(hash, scrollTop, inMenuScroll, inScroll)
                 if(el.length > 0 && scrollTop != windowEl.scrollTop()) { 

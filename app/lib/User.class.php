@@ -331,7 +331,7 @@ class User {
             return (int)$rs[0]['score'];
         } else {
             $rs = DB::query("SELECT SUM(score) score FROM user_bets WHERE user_key = ".User::getKey());
-            return (int)$rs[0]['score'];
+            return count($rs) ? (int)$rs[0]['score'] : 0;
         }
     }
     static public function getPlace($userKey = null){
