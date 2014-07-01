@@ -27,7 +27,7 @@ class Code {
             $score = null;
             return self::ERROR_CODE;
         }
-        DB::update("UPDATE user SET score = score + $score, promo_score = promo_score + $score WHERE id = ".User::getKey());
+        DB::update("UPDATE user SET score = score + $score WHERE id = ".User::getKey());
         DB::update("UPDATE code SET user_id = ".User::getKey().", used_at = NOW() WHERE code = :code ", array(
             ':code' => $code
         ));

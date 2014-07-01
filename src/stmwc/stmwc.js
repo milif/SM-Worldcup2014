@@ -73,7 +73,6 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         });
         
         $rootScope.getStage = getStage;
-        $rootScope.getScore = getScore;
         
         $rootScope.$on('closedPopup-top', function(){
             setTimeout(function(){
@@ -100,11 +99,6 @@ angular.module('stmwc', ['ngAnimate', 'ngResource', 'ngLocale', 'ngCookies', 'ui
         var gtmCfg =  $stmwcEnv.gtm;
         if(gtmCfg) $stmwcGtm.init(gtmCfg.id, gtmCfg.data);
         
-        function getScore(){
-            var score = ($stmwcAuth.isAuth ? $stmwcAuth.data.promoScore : 0) || 0;
-            score += Bets.getScore() || 0;
-            return score;
-        }
         function getStage(score, place){
             if(score < 200) {
                 return 'start';

@@ -24,11 +24,11 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
     return {
         templateUrl: 'partials/stmwc.directive:stmwcUserinfo:userinfo.html',
         replace: true,
+        scope: true,
         controller: ['$scope', 'Bets', '$stmwcAuth', '$filter', '$cookies', '$stmwcEnv', function($scope, Bets, $stmwcAuth, $filter, $cookies, $stmwcEnv){
             $scope.auth = $stmwcAuth;
             $scope.user = $stmwcAuth.data;
             $scope.bets = Bets;
-            $scope.score = 0;
             $scope.name = $stmwcAuth.getName();
 
             var place = $scope.place = $stmwcEnv.place;
@@ -56,7 +56,6 @@ angular.module('stmwc').directive('stmwcUserinfo', function(){
             
             var progressCss = $scope.progressCss = {};
             $scope.$watch(function(){
-                $scope.score = $scope.getScore();
                 if($scope.score < 200) {
                     progressCss.width = Math.round($scope.score / 200 * 25) + '%';
                 } else if($scope.score <= 500){
@@ -72,6 +71,7 @@ angular.module('stmwc').directive('stmwcUserpic', function(){
     return {
         replace: true,
         templateUrl: 'partials/stmwc.directive:stmwcUserinfo:userpic.html',
+        scope: true,
         controller: ['$attrs', '$scope', function($attrs, $scope){
             $scope.avatar = $scope.$eval($attrs.stmwcUserpic);
             $scope.username = $scope.$eval($attrs.username);

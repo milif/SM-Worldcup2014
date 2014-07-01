@@ -35,7 +35,8 @@
         'requireAuth' => isset($_COOKIE[SESSION_COOKIE.'_authorization']),
         'bets' => array(
             'bets' => Bets::get(),
-            'canBet' => Bets::canBet()
+            'canBet' => Bets::canBet(),
+            'score' => User::getScore()
         ),
         'place' => array(
             'user' => User::getPlace(),
