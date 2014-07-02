@@ -30,7 +30,16 @@
             exit;
         }
     }
-
+    
+    if(isset($_GET['code'])){
+        require_once __DIR__.'/../lib/Code.class.php';
+        $usecode = Code::usecode($_GET['code'], $score);
+        $ENV['code'] = array(
+            'errcode' => $usecode,
+            'score' => $score
+        );
+    }
+    
     $ENV = array(
         'requireAuth' => isset($_COOKIE[SESSION_COOKIE.'_authorization']),
         'bets' => array(
@@ -43,15 +52,6 @@
             'total' => User::getTotal()
         )
     );
-    
-    if(isset($_GET['code'])){
-        require_once __DIR__.'/../lib/Code.class.php';
-        $usecode = Code::usecode($_GET['code'], $score);
-        $ENV['code'] = array(
-            'errcode' => $usecode,
-            'score' => $score
-        );
-    }
     
     if($usershare){
         $ENV['usershare'] = $usershare;
