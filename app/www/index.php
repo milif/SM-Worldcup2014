@@ -34,7 +34,7 @@
     if(isset($_GET['code'])){
         require_once __DIR__.'/../lib/Code.class.php';
         $usecode = Code::usecode($_GET['code'], $score);
-        $ENV['code'] = array(
+        $code = array(
             'errcode' => $usecode,
             'score' => $score
         );
@@ -53,11 +53,13 @@
         )
     );
     
+    if($code) {
+      $ENV['code'] = $code;
+    }
+    
     if($usershare){
         $ENV['usershare'] = $usershare;
     }
-    
-
 
     ob_start();
     require __DIR__.'/../tpl/head.php';
