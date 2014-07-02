@@ -9,10 +9,10 @@ class Code {
     const ERROR_USED = 2;
     const ERROR_NOTAUTH = 3;
     static public function usecode($code, &$score){
-        $rs = DB::query("SELECT used_at, score, expire_date FROM code WHERE `code` = :code ", array(":code" => $code));
+        $rs = DB::query("SELECT used_at, user_id, score, expire_date FROM code WHERE `code` = :code ", array(":code" => $code));
         if(!count($rs)) return self::ERROR_CODE;
         
-        if(strtotime($rs[0]['expire_date']) < time()) return self::ERROR_CODE;
+        if(strtotime($rs[0]['expire_date']) < time() || $rs[0]['user_id'] != User::getKey()) return self::ERROR_CODE;
         
         $score = (int)$rs[0]['score'];
         
