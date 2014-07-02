@@ -19,7 +19,7 @@ foreach($rs as $row){
 }
 
 $doc = new DOMDocument();
-$doc->load('http://football.sport-express.ru/export/nandu.ru/upload_competitions.php?season=2014&championship=4');
+$doc->load('http://football.sport-express.ru/export/sotmarket.ru/upload_competitions.php?season=2014&championship=4');
 $items = $doc->getElementsByTagName ('match');
 foreach($items as $itemNode){
     $attrs = $itemNode->attributes;
@@ -31,6 +31,10 @@ foreach($items as $itemNode){
     $penalty2 = $attrs->getNamedItem('penalty2');
     $penalty1 = $penalty1 ? (int)$penalty1->textContent : null;
     $penalty2 = $penalty2 ? (int)$penalty2->textContent : null;
+    if($penalty1 === 0 && $penalty2 === 0) {
+        $penalty1 = null;
+        $penalty2 = null;
+    }
     
     if(!$name1 || !$name2) continue;
     
