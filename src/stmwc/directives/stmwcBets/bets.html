@@ -68,7 +68,7 @@
                                         <span ng-class="'flags--' + bet.data[1][0]" class="flags"></span>
                                     </span>
                                 </div>
-                                <div ng-if="bet.result" class="true-score">{{bet.result[0]}} : {{bet.result[1]}}</div>
+                                <div ng-if="bet.result" class="true-score">{{bet.result[0]}}<span ng-if="bet.penalty">({{bet.penalty[0]}})</span> : {{bet.result[1]}}<span ng-if="bet.penalty">({{bet.penalty[1]}})</span></div>
                             </div>
                             <div class="bets__item-table-td">
                                 <div ng-if="(!bet.state || bet.state == 'warn') && bet.time > time" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку. <span ng-click="luckyBet(bet)" class="a-pseudo">На удачу</span></div>

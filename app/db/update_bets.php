@@ -27,16 +27,31 @@ foreach($items as $itemNode){
     $name1 = $attrs->getNamedItem('command1_name')->textContent;
     $name2 = $attrs->getNamedItem('command2_name')->textContent;
     
+    $penalty1 = $attrs->getNamedItem('penalty1');
+    $penalty2 = $attrs->getNamedItem('penalty2');
+    $penalty1 = $penalty1 ? (int)$penalty1->textContent : null;
+    $penalty2 = $penalty2 ? (int)$penalty2->textContent : null;
+    
     if(!$name1 || !$name2) continue;
     
     $isPlayed = $attrs->getNamedItem('played')->textContent !== "0";
     
     $id = (int)$attrs->getNamedItem('id')->textContent;
     
+    $result = null;
+    if($isPlayed){
+        $result =  array(
+            'score' => array((int)$attrs->getNamedItem('result1')->textContent, (int)$attrs->getNamedItem('result2')->textContent)
+        );
+        if($penalty1 !== null){
+            $result['penalty'] = array($penalty1, $penalty2); 
+        }
+    }
+    
     $params = array(
         ':time' => $attrs->getNamedItem('timestamp')->textContent,
         ':descr' => $attrs->getNamedItem('tour_name')->textContent,
-        ':result' => $isPlayed ? '['.$attrs->getNamedItem('result1')->textContent.','.$attrs->getNamedItem('result2')->textContent.']' : null,
+        ':result' => $result ? json_encode($result) : null,
         ':data' => '[["'.$country[getCountryKey($name1)].'","'.$name1.'"],["'.$country[getCountryKey($name2)].'","'.$name2.'"]]'
     );
     
@@ -73,6 +88,11 @@ fclose($handle);
 $bets = DB::query("SELECT id, `result` FROM bets WHERE `result` IS NOT NULL;");
 foreach($bets as $bet){
     $betResult = json_decode($bet['result'], true);
+    $resultScore = $betResult['score'];
+    if(isset($betResult['penalty'])){
+        $resultScore[0] += $betResult['penalty'][0];
+        $resultScore[1] += $betResult['penalty'][1];
+    }
     while(true){
         $userBets = DB::query("SELECT id, value, user_key, user_id FROM user_bets WHERE bet_id = {$bet['id']} AND result IS NULL LIMIT 2500;");
         if(!count($userBets)) break;
@@ -80,15 +100,15 @@ foreach($bets as $bet){
             $userBetResult = json_decode($userBet['value'], true);
             $userResult = 0;
             $score = 0;
-            if ($userBetResult[0] == $betResult[0] && $userBetResult[1] == $betResult[1]){
+            if ($userBetResult[0] == $resultScore[0] && $userBetResult[1] == $resultScore[1]){
                 $userResult = 2;
                 $score = 500;
             } else if(
-                ($userBetResult[0] > $userBetResult[1] && $betResult[0] > $betResult[1])
+                ($userBetResult[0] > $userBetResult[1] && $resultScore[0] > $resultScore[1])
                     ||
-                ($userBetResult[0] < $userBetResult[1] && $betResult[0] < $betResult[1]) 
+                ($userBetResult[0] < $userBetResult[1] && $resultScore[0] < $resultScore[1]) 
                     ||
-                ($userBetResult[0] == $userBetResult[1] && $betResult[0] == $betResult[1])
+                ($userBetResult[0] == $userBetResult[1] && $resultScore[0] == $resultScore[1])
             ) {
                 $userResult = 1;
                 $score = 100;

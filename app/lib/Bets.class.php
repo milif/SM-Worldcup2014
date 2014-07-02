@@ -10,12 +10,14 @@ class Bets {
         $rs = DB::query("SELECT * FROM bets ORDER BY `time`, `descr`");
         foreach($rs as $row){
             $userBet = isset($userBets[$row['id']]) ? $userBets[$row['id']] : NULL;
+            $result = json_decode($row['result'], true);
             $bets[] = array(
                 'id' => $row['id'],
                 'time' => strtotime($row['time']." Europe/Moscow") * 1000,
                 'descr' => $row['descr'],
                 'data' => json_decode($row['data'], true),
-                'result' => json_decode($row['result'], true),
+                'result' => $result['score'],
+                'penalty' => isset($result['penalty']) ? $result['penalty'] : null,
                 'userResult' => $userBet && !is_null($userBet['result'])? (int)$userBet['result'] : NULL,
                 'value' => $userBet ? json_decode($userBet['value'], true) : NULL,
                 'score' => $userBet ? (int)$userBet['score'] : NULL
@@ -84,13 +86,15 @@ class Bets {
             ':userKey' => $userKey
         ));
         $userBets = array();
+        $result = json_decode($row['result'], true);
         foreach($rs as $row){
             $userBets[] = array(
                 'data' => json_decode($row['data'], true),
                 'time' => strtotime($row['time']." Europe/Moscow") * 1000,
                 'score' => $row['score'],
                 'value' => json_decode($row['value'], true),
-                'result' => json_decode($row['result'], true),
+                'result' => $result['score'],
+                'penalty' => isset($result['penalty']) ? $result['penalty'] : null,
                 'userResult' => !is_null($row['betresult']) ? (int)$row['betresult'] : NULL
             );
         }
