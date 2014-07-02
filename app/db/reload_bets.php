@@ -4,7 +4,7 @@ require_once __DIR__.'/../lib/DB.class.php';
 
 // Обновляем данные матчей
 DB::update("UPDATE user SET score = 0;");
-DB::update("UPDATE user_bets SET score = null, result = 0;");
+DB::update("UPDATE user_bets SET score = 0, result = null;");
 
 require __DIR__.'/update_bets.php';
 
