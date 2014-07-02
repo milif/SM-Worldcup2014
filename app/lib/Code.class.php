@@ -9,14 +9,14 @@ class Code {
     const ERROR_USED = 2;
     const ERROR_NOTAUTH = 3;
     static public function usecode($code, &$score){
-        $rs = DB::query("SELECT user_id, score, expire_date FROM code WHERE `code` = :code ", array(":code" => $code));
+        $rs = DB::query("SELECT used_at, score, expire_date FROM code WHERE `code` = :code ", array(":code" => $code));
         if(!count($rs)) return self::ERROR_CODE;
         
         if(strtotime($rs[0]['expire_date']) < time()) return self::ERROR_CODE;
         
         $score = (int)$rs[0]['score'];
         
-        if($rs[0]['user_id'] == User::getKey()) return self::ERROR_USED;
+        if($rs[0]['used_at'] !== null) return self::ERROR_USED;
         
         if(!User::isAuth()) {
             return self::ERROR_NOTAUTH;
@@ -28,7 +28,7 @@ class Code {
             return self::ERROR_CODE;
         }
         DB::update("UPDATE user SET score = score + $score WHERE id = ".User::getKey());
-        DB::update("UPDATE code SET user_id = ".User::getKey().", used_at = NOW() WHERE code = :code ", array(
+        DB::update("UPDATE code SET used_at = NOW() WHERE code = :code ", array(
             ':code' => $code
         ));
         
