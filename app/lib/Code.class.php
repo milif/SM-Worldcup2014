@@ -16,7 +16,7 @@ class Code {
         
         $score = (int)$rs[0]['score'];
         
-        if($rs[0]['user_id'] != User::getKey() && $rs[0]['used_at'] !== null) return self::ERROR_USED;
+        if($rs[0]['user_id'] == User::getKey() && $rs[0]['used_at'] !== null) return self::ERROR_USED;
         
         if(!User::isAuth()) {
             return self::ERROR_NOTAUTH;
