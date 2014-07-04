@@ -6,6 +6,7 @@
  *
  * @requires stmwc.directive:stmwcBets:bets.scss
  * @requires stmwc.directive:stmwcBets:bets.html
+ * @requires stmwc.directive:stmwcBetsSection
  *
  * @requires stmwc.Bets
  * @requires stmwc.directive:stmwcTooltip
@@ -28,7 +29,9 @@ angular.module('stmwc').directive('stmwcBets', function(){
             var currentSection = $scope.currentSection = [];
             var prevSection = $scope.prevSection = [];
             var nextSection = $scope.nextSection = [];
+            var prevprevSection = $scope.prevprevSection = [];
             var sections = $scope.sections = [currentSection];
+            var prevSections = $scope.prevSections = [prevSection];
             var betsForAuth = 0;
             var dates = $scope.dates = [];
             var menuTime = $scope.menuTime = 0;
@@ -64,6 +67,16 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 if($stmwcAuth.requireAuth()) return;
                 if(sections.indexOf(prevSection) >= 0) return;
                 sections.splice(0, 0, prevSection);
+            }
+            $scope.showPrevMore = function(){
+                if($stmwcAuth.requireAuth()) return;
+                prevSections.push(prevprevSection);
+            }
+            $scope.hidePrevMore = function(){
+                if($stmwcAuth.requireAuth()) return;
+                var ind = prevSections.indexOf(prevprevSection);
+                if(ind < 0) return;
+                prevSections.splice(ind, 1);
             }
             $scope.onBet = function(bet){
                 if($stmwcAuth.requireAuth()) return;
@@ -157,11 +170,17 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 
                 if(!bet){
                     var betsToShare = [];
+                    var actualBets = [];
                     for(var i=0;i<bets.length;i++){
                         if(bets[i].value[0] == null || !bets[i].value[1] == null) continue;
+                        if(bets[i].time > $scope.time) actualBets.push(bets[i]);
                         betsToShare.push(bets[i]);
                     }
-                    bet = betsToShare[Math.round(Math.random() * (betsToShare.length - 1))];
+                    if(actualBets.length > 0){
+                        bet = actualBets[Math.round(Math.random() * (actualBets.length - 1))]; 
+                    } else {
+                        bet = betsToShare[Math.round(Math.random() * (betsToShare.length - 1))];
+                    }
                 }
                 
                 $scope.share = {
@@ -185,17 +204,24 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 currentSection.length = 0;
                 prevSection.length = 0;
                 nextSection.length = 0;
+                prevprevSection.length = 0;
                 $scope.countMore = 0;
                 $scope.countCurrent = 0;
                 $scope.canBet = bets.canBet;
                 dates.length = 0;
+                
+                var prevArr = [];
                 
                 for(var i=0;i<bets.length;i++){
                     bet = bets[i];
                     updateState(bet);
                     bet.date = $filter('date')(bet.time, 'd MMMM');
                     if(bet.time < currentDayTime) {
-                        addToSection(menuTime == -1 ? currentSection : prevSection, bet);
+                        if(menuTime == -1){
+                            addToSection(currentSection, bet);
+                        } else {
+                            prevArr.push(bet);
+                        }
                     } else if(
                         menuTime != -1 
                         &&
@@ -205,6 +231,12 @@ angular.module('stmwc').directive('stmwcBets', function(){
                     } else {
                         addToSection(nextSection, bet);
                     }
+                }
+                
+                prevArr.reverse();
+                for(var i=0; i<prevArr.length; i++){
+                    bet = prevArr[i];
+                    addToSection(countSection(prevSection) < 5 || prevSection[prevSection.length-1].date == bet.date ? prevSection : prevprevSection, bet);
                 }
                 
                 var dateBet, descrs, descr;
@@ -238,6 +270,8 @@ angular.module('stmwc').directive('stmwcBets', function(){
                 
                 $scope.countCurrent = countSection(currentSection);
                 $scope.countMore = countSection(nextSection);
+                $scope.countPrev = countSection(prevSection);
+                $scope.countPrevMore = countSection(prevprevSection);
                 
             }
             
@@ -297,6 +331,29 @@ angular.module('stmwc').directive('stmwcBets', function(){
             }
         }]
     };
+});
+/**
+ * @ngdoc directive
+ * @name stmwc.directive:stmwcBetsSection
+ * @function
+ *
+ * @requires stmwc.directive:stmwcBetsSection:betssection.html
+ *
+ * @description
+ * Блок ставок
+ *
+ * @element ANY
+ *
+ */
+angular.module('stmwc').directive('stmwcBetsSection', function(){
+    return {
+        scope: true,
+        templateUrl: 'partials/stmwc.directive:stmwcBetsSection:betssection.html',
+        replace: true,
+        controller: ['$scope', '$attrs', function($scope, $attrs){
+            $scope.section = $scope.$eval($attrs.stmwcBetsSection);
+        }]
+    }
 });
 /**
  * @ngdoc directive

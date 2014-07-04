@@ -7,9 +7,11 @@
             <div class="bet-data-select">
                 Ставки на матчи <span ng-if="dates.length > 0" ng-click="callRequireAuth()" class="bet-data-select-button">{{menuTime == 0 ? 'ближайшие' : menuTime == -1 ? 'прошедшие' : currentSection[0].date}}<span ng-if="!requireAuth" stmwc-tooltip="selectdate">
                     <div class="tooltip-bet-list">
+                        <!--
                         <span ng-if="prevSection.length > 0 || menuTime == -1" ng-click="selectDate(-1)" ng-class="menuTime == -1 ? 'state_active' : '' " class="tooltip-bet-item">
                             <span class="tooltip-bet-item-data">прошедшие</span>
                         </span>
+                        -->    
                         <span ng-click="selectDate()" ng-class="menuTime == 0 ? 'state_active' : '' " class="tooltip-bet-item">
                             <span class="tooltip-bet-item-data">ближайшие</span>
                         </span>
@@ -31,65 +33,17 @@
 
     <!-- bet-data-list -->
     <div class="bet-data">
-        <div ng-repeat="section in sections" class="bet-data__item_h animate-bet-section">
-            <div ng-repeat="dateBets in section" class="bet-data__item">
-                <div class="bet-data__item-data">{{dateBets.date}}  <span class="bet-data__item-data-position">{{dateBets.descr}}</span></div>
-                <div class="bets">
-                    <div data-bet ng-class="bet.state ? 'bets__item--' + bet.state : ''" ng-repeat="bet in dateBets.bets" class="bets__item">
-                        <div class="bets__item-table">
-                            <div ng-if="bet.time > time" class="bets__item-table-td">
-                                <div class="bets__item-note bets__item-note">До матча осталось:</div>
-                                <div ng-class="bet.state == 'warn' ? 'state_active' : ''" class="bets__item-note bets__item-note--time">{{bet.time | timeto:time}}</div>
-                            </div>
-                            <div ng-if="bet.time <= time" class="bets__item-table-td">
-                                <div ng-if="!bet.result" data-error-flash class="bets__item-note bets__item-note--fade">Матч уже идет</div>
-                                <div ng-if="bet.result" data-error-flash class="bets__item-note bets__item-note--fade">Матч состоялся в {{bet.time | date:'HH:mm'}}</div>
-                                <span ng-if="bet.value[0] != null && bet.value[1] != null" ng-click="shareBet(bet)" class="a-pseudo bets__item-note bets__item-note--fade">Поделиться с друзьями</span>
-                            </div>
-                            <div class="bets__item-table-td">
-                                <div class="bets__item-country bets__item-country--left">
-                                    <div>{{bet.data[0][1]}}</div>
-                                    <span class="bets__item-country-flag">
-                                        <span ng-class="'flags--' + bet.data[0][0]" class="flags"></span>
-                                    </span>
-                                </div>
-                                <form class="form-scoring g-form">
-                                    <fieldset>
-                                        <div class="form-row form-row--small">
-                                            <input ng-readonly="bet.time <= time || !canBet || requireAuth" ng-focus="onFocusInput($event, bet)" ng-blur="onBlurInput(bet)" ng-model="bet.value[0]" type="text" required ng-pattern="/^\d{1,2}$/" ng-change="onBet(bet, $event)" class="input-scoring" placeholder="?" maxlength="2" >
-                                            <div class="input-separator">:</div>
-                                            <input ng-readonly="bet.time <= time || !canBet || requireAuth" ng-focus="onFocusInput($event, bet)" ng-blur="onBlurInput(bet)" ng-model="bet.value[1]" required ng-pattern="/^\d{1,2}$/" ng-change="onBet(bet, $event)" type="text" class="input-scoring" placeholder="?" maxlength="2">
-                                        </div>
-                                    </fieldset>
-                                </form>
-                                <div class="bets__item-country bets__item-country--right">
-                                    <div>{{bet.data[1][1]}}</div>
-                                    <span class="bets__item-country-flag">
-                                        <span ng-class="'flags--' + bet.data[1][0]" class="flags"></span>
-                                    </span>
-                                </div>
-                                <div ng-if="bet.result" class="true-score">{{bet.result[0]}}<span ng-if="bet.penalty">({{bet.penalty[0]}})</span> : {{bet.result[1]}}<span ng-if="bet.penalty">({{bet.penalty[1]}})</span></div>
-                            </div>
-                            <div class="bets__item-table-td">
-                                <div ng-if="(!bet.state || bet.state == 'warn') && bet.time > time" class="bets-active bets-active--fade"><span class="ico-bets ico-bets--bet"></span>Сделайте вашу ставку. <span ng-click="luckyBet(bet)" class="a-pseudo">На удачу</span></div>
-                                <div ng-if="bet.state == 'bet'" class="bets-active"><span class="ico-bets ico-bets--bet-active"></span>Ставка <span ng-if="!bet.isUpdated">сделана</span><span ng-if="bet.isUpdated">обновлена</span><br><span ng-click="shareBet(bet)" class="a-pseudo bets-active--fade">Поделиться с друзьями</span></div>
-                                <div ng-if="bet.state == 'lock'" class="bets-active"><span class="ico-bets ico-bets--bet-lock"></span>Ставка принята</div>
-                                <div ng-if="bet.state == 'false'"  class="bets-active"><span class="ico-bets ico-bets--wrong"></span>Вы не угадали</div>
-                                <div ng-if="bet.state == 'true'" class="bets-active"><span class="ico-bets ico-bets--win"></span>Вы угадали <span ng-if="bet.result[0] != bet.result[1]">победителя</span><span ng-if="bet.result[0] == bet.result[1]">ничью</span> <span class="labelst">+{{bet.score}} Б</span></div>
-                                <div ng-if="bet.state == 'wine'" class="bets-active"><span class="ico-bets ico-bets--win2"></span>Вы угадали счет <span class="labelst">+{{bet.score}} Б</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div stmwc-bets-section="currentSection" ></div>
+        <div class="bet-data--prev">
+            <div class="bet-data--prev-title"><span>Прошедшие матчи</span></div>
+            <div ng-repeat="section in prevSections" stmwc-bets-section="section"></div>
         </div>
     </div>
     <!-- // bet-data-list -->
 
-    <div ng-if="nextSection.length > 0 && menuTime != -1" class="aside-bottom-btn">
-        <span ng-if="sections.indexOf(nextSection) < 0"><span ng-click="showMore()" class="aside-bottom-btn__link">Все доступные матчи</span> <span class="aside-bottom-btn__count">{{countMore}}</span></span>
-        <span ng-if="sections.indexOf(nextSection) >= 0"><span ng-if="menuTime != 0" ng-click="hideMore()" class="aside-bottom-btn__link">Матчи на {{currentSection[0].date}}</span><span ng-if="menuTime == 0" ng-click="hideMore()" class="aside-bottom-btn__link">Ближайшие матчи</span> <span class="aside-bottom-btn__count">{{countCurrent}}</span></span>
+    <div class="aside-bottom-btn">
+        <span ng-if="prevSections.indexOf(prevprevSection) < 0"><span ng-click="showPrevMore()" class="aside-bottom-btn__link">Показать прошедшие матчи</span> <span class="aside-bottom-btn__count">{{countPrevMore}}</span></span>
+        <span ng-if="prevSections.indexOf(prevprevSection) >= 0"><span ng-click="hidePrevMore()" class="aside-bottom-btn__link">Показать недавние матчи</span></span>
     </div>
     <div ng-if="share" stmwc-popup="sharebet">
         <content>

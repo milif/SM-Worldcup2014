@@ -296,6 +296,25 @@
 /* bet-data */
 .bet-data {
     margin-top: -40px;
+    &--prev {
+        margin-top: 60px;
+        &-title{
+            text-align: center;
+            border-top: 2px solid rgba(0,0,0,0.05);
+            margin: 0 -20px;
+            position: relative;
+            top: 20px;
+            & span {
+                position: relative;
+                top: -0.75em;
+                background: #fff;
+                padding: 0 5px 0 10px;
+                text-transform: uppercase;
+                letter-spacing: 5px;
+                color: #a2a2a2;    
+            }
+        }
+    }
     &__item {
         margin-top: 40px;
     }

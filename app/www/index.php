@@ -6,7 +6,8 @@
     require_once __DIR__.'/../lib/Bets.class.php';
 
     $usershare = null;
-
+    $code = null;
+    
     if(isset($_GET['share'])){
         $rs = DB::query("SELECT id, `uri`, `score`, `avatar`, `name`, `ref_key` FROM user WHERE ref_key = :key;", array(
             ':key' => $_GET['r']
