@@ -28,7 +28,7 @@
                         </div>
                     </td>
                     <td ng-if="!item.separator">
-                        <div class="users-score-table__bet">Всего <b>{{item.bets.count}}</b> ставок</div>
+                        <div class="users-score-table__bet">Всего <b>{{item.bets.count}}</b> {{item.bets.count | howmany:'ставка':'ставки':'ставок'}}</div>
                         <div ng-if="!item.bets['wine']" class="users-score-table__bet">Победитель не угадан ни разу</div>
                         <div ng-if="item.bets['wine']" class="users-score-table__true"><b>{{item.bets.wine}}</b> {{item.bets['wine'] | howmany:'раз':'раза':'раз'}} угадан победитель</div>
                         <div ng-if="item.bets['true']" class="users-score-table__count"><b>{{item.bets['true']}}</b> {{item.bets['true'] | howmany:'раз':'раза':'раз'}} угадан счёт</div>
