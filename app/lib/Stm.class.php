@@ -47,7 +47,10 @@ class Stm {
             ),
         );
         $context  = stream_context_create($options);
-        $jsonData = json_decode(file_get_contents(self::API_URL, false, $context), true);
+        Log::add("openid.stm.request", json_encode($options));
+        $resp = file_get_contents(self::API_URL, false, $context);
+        Log::add("openid.stm.response", $resp);
+        $jsonData = json_decode($resp, true);
         return $jsonData;
     }
 }
