@@ -25,11 +25,12 @@
             <div class="splash">
                 <a class="splash__sotmarket" href="/">Sotmarket.ru</a>
                 <div class="splash__title"></div>
+                <!--
                 <div class="splash__text">
                     <p>Сочные игры это атомистика, по определению, индуктивно подчеркивает знак, ломая рамки привычных представлений. Гегельянство индуцирует данный дедуктивный метод, хотя в официозе принято обратное.</p>
                     <p>Гетерономная этика ментально дискредитирует язык образов, открывая новые горизонты. Вещь в себе трансформирует интеллигибельный катарсис, tertium nоn datur. Заблуждение, как принято считать, трогательно наивно.</p>
                 </div>
-
+                -->
                 <div class="splash__envelop">
                     <div class="splash__envelop-h">
                         <div ng-if="state == 'send'" class="splash__envelop-subscribe">
